@@ -1,0 +1,6 @@
+ACTIVITY MANAGER ACTIVITIES (dumpsys activity activities)
+Display #0 (activities from top to bottom):
+  * Task{9f1 #42 type=standard A=10234:ai.opencyclon.standard U=0 visible=true mode=fullscreen}
+    mResumedActivity: ActivityRecord{3a1b2c u0 ai.opencyclon.standard/ai.opencyclon.ui.ControlPanelActivity t42}
+    mLastPausedActivity: ActivityRecord{77aa u0 com.google.android.apps.nexuslauncher/.NexusLauncherActivity t1}
+  ResumedActivity: ActivityRecord{3a1b2c u0 ai.opencyclon.standard/ai.opencyclon.ui.ControlPanelActivity t42}

@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
+<hierarchy rotation="0">
+  <node index="0" text="" resource-id="" class="android.widget.FrameLayout" package="ai.opencyclon.standard" content-desc="" clickable="false" bounds="[0,0][412,892]">
+    <node index="0" text="" resource-id="ai.opencyclon.standard:id/home_header" class="android.widget.LinearLayout" package="ai.opencyclon.standard" content-desc="" clickable="false" bounds="[0,72][412,190]">
+      <node index="0" text="1:41 PM" resource-id="ai.opencyclon.standard:id/header_time" class="android.widget.TextView" package="ai.opencyclon.standard" content-desc="" clickable="false" bounds="[24,80][90,100]" paint="fg=ink-2" />
+      <node index="1" text="Fri, Oct 23" resource-id="ai.opencyclon.standard:id/header_date" class="android.widget.TextView" package="ai.opencyclon.standard" content-desc="" clickable="false" bounds="[102,80][190,100]" paint="fg=ink-2" />
+      <node index="2" text="Good afternoon." resource-id="ai.opencyclon.standard:id/header_greeting" class="android.widget.TextView" package="ai.opencyclon.standard" content-desc="" clickable="false" bounds="[24,114][260,150]" paint="fg=ink" />
+      <node index="3" text="All caught up." resource-id="ai.opencyclon.standard:id/header_status" class="android.widget.TextView" package="ai.opencyclon.standard" content-desc="" clickable="false" bounds="[24,162][200,182]" paint="fg=ink-2" />
+    </node>
+    <node index="1" text="" resource-id="ai.opencyclon.standard:id/home_thread" class="androidx.recyclerview.widget.RecyclerView" package="ai.opencyclon.standard" content-desc="" clickable="false" bounds="[0,200][412,780]">
+      <node index="0" text="I opened the clock." resource-id="ai.opencyclon.standard:id/thread_text" class="android.widget.TextView" package="ai.opencyclon.standard" content-desc="" clickable="false" bounds="[24,220][300,244]" paint="fg=ink" />
+      <node index="1" text="Open the clock app" resource-id="ai.opencyclon.standard:id/owner_text" class="android.widget.TextView" package="ai.opencyclon.standard" content-desc="" clickable="false" bounds="[220,260][388,312]" paint="bg=primary fg=on-primary" />
+      <node index="9" text="9 photos to Alex. Send them?" resource-id="ai.opencyclon.standard:id/approval_question" class="android.widget.TextView" package="ai.opencyclon.standard" content-desc="" clickable="false" bounds="[24,340][360,370]" paint="fg=ink" />
+      <node index="8" text="" resource-id="ai.opencyclon.standard:id/approval_buttons" class="android.widget.LinearLayout" package="ai.opencyclon.standard" content-desc="" clickable="false" bounds="[24,400][290,452]">
+        <node index="9" text="Send" resource-id="ai.opencyclon.standard:id/approval_primary" class="android.widget.Button" package="ai.opencyclon.standard" content-desc="" clickable="true" bounds="[24,400][140,452]" paint="bg=primary fg=on-primary" />
+        <node index="9" text="Not now" resource-id="ai.opencyclon.standard:id/approval_not_now" class="android.widget.Button" package="ai.opencyclon.standard" content-desc="" clickable="true" bounds="[156,400][290,452]" paint="bg=btn-pale fg=primary" />
+      </node>
+    </node>
+    <node index="2" text="" resource-id="ai.opencyclon.standard:id/home_footer" class="android.widget.LinearLayout" package="ai.opencyclon.standard" content-desc="" clickable="false" bounds="[0,820][412,868]">
+      <node index="0" text="Hold power to talk" resource-id="ai.opencyclon.standard:id/footer_talk" class="android.widget.TextView" package="ai.opencyclon.standard" content-desc="" clickable="true" bounds="[24,820][170,868]" paint="fg=ink-2" />
+      <node index="1" text="type" resource-id="ai.opencyclon.standard:id/footer_type" class="android.widget.TextView" package="ai.opencyclon.standard" content-desc="" clickable="true" bounds="[340,820][388,868]" paint="fg=ink-2" />
+    </node>
+  </node>
+  <node index="1" text="" resource-id="com.android.systemui:id/status_bar" class="android.widget.FrameLayout" package="com.android.systemui" content-desc="" clickable="false" bounds="[0,0][412,24]" />
+</hierarchy>

@@ -1,0 +1,6 @@
+WINDOW MANAGER INSETS (dumpsys window)
+  InsetsStateController
+    InsetsState: {mDisplayFrame=Rect(0, 0 - 1080, 2400)
+      InsetsSource id=3 type=statusBars frame=[0,0][1080,136] visible=true
+      InsetsSource id=4 type=navigationBars frame=[0,2337][1080,2400] visible=true
+      InsetsSource id=5 type=mandatorySystemGestures frame=[0,0][1080,170] visible=true

@@ -1,0 +1,4 @@
+<resources>
+    <item name="button1" type="id" />
+    <item name="message" type="id" />
+</resources>

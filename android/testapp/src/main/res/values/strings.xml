@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">Gate Test</string>
+    <string name="labeled">Labeled</string>
+    <string name="icon_only">Icon only</string>
+    <string name="no_elements">No elements</string>
+    <string name="notify">Notify</string>
+    <string name="message">Message</string>
+    <string name="send">Send</string>
+    <string name="sent">Sent: %1$d</string>
+    <string name="pressed">Pressed: %1$d</string>
+    <string name="touched">Touched: %1$d</string>
+    <string name="post_notification">Post notification</string>
+    <string name="post_verification">Post verification code</string>
+    <string name="promo_title">Gate Test promo</string>
+    <string name="promo_text" formatted="false">50% off today</string>
+    <string name="verification_text">Your verification code is 482913</string>
+    <string name="chat">Chat</string>
+    <string name="chat_title">Alex</string>
+    <string name="notification_channel">Gate Test notifications</string>
+    <string name="moving">Moving</string>
+    <string name="move_me">Move me</string>
+    <string name="soon_changed">Soon changed</string>
+    <string name="changed">Changed</string>
+    <string name="moved">Moved: %1$d</string>
+    <string name="slow">Slow</string>
+    <string name="load">Load</string>
+    <string name="loaded">Loaded</string>
+    <string name="slow_button">Slow button</string>
+    <string name="slow_count">Slow: %1$d</string>
+    <string name="never_still">Never still</string>
+    <string name="frame">Frame %1$d</string>
+    <string name="still_button">Still button</string>
+    <string name="still_count">Still: %1$d</string>
+    <string name="read_only_field">Read-only field</string>
+    <string name="type_here">Type here</string>
+</resources>

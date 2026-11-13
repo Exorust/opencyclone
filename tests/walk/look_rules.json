@@ -1,0 +1,355 @@
+{
+  "_about": "Look rules for walk.sh look. Each screen has detect (resumed activity + marker nodes, used by 'look all') and rules. Rule kinds are the k_* functions in look.py. A rule's own name is 'id'; 'rid' limits it to nodes with that resource id; selectors inside 'node', 'items', 'when', 'region', 'left', 'right' use 'id' for the resource id. Sizes in dp, colours by largest channel difference. A rule with needs_state applies only in that state: with 'when' / 'when_absent' (a node selector) it is skipped when the state is not on screen; without them it runs only when the screen is named explicitly, never in 'look all'. Section numbers in 'why' are UI.md sections; sections 9, 10, 11 override earlier ones.",
+  "defaults": {
+    "margin_dp": 24,
+    "colour_tol": 12,
+    "primary_tol": 24,
+    "text_tol": 30,
+    "status_bar_dp": 24,
+    "nav_bar_dp": 24
+  },
+  "tokens": {
+    "ink": "#15173A",
+    "ink-2": "#5B5E7A",
+    "ink-3": "#8A8DA8",
+    "primary": "#4733D6",
+    "on-primary": "#FFFFFF",
+    "primary-disabled": "#CFC9F5",
+    "page": "#FFFFFF",
+    "surface": "#FFFFFF",
+    "surface-2": "#F4F4FB",
+    "btn-pale": "#ECEBFB",
+    "bubble-you": "#ECEBFB",
+    "quiet": "#F1F1F8",
+    "panel-body": "#F4F4FB",
+    "ok": "#1F9D6B",
+    "scrim": "#D9D9D9",
+    "wash-warm": "#ECEBFA",
+    "wash-cool": "#E2E4FB",
+    "wash-voice": "#F1F0FA",
+    "built-bg": "#F7F7F4"
+  },
+  "global": [
+    {"id": "g_no_emoji_bang", "kind": "no_emoji_or_bang", "banned_words": ["successfully", "please"], "why": "2.7, 6: no emoji, no exclamation marks, no please, no successfully"},
+    {"id": "g_no_caps", "kind": "text_absent", "pattern": "^[^a-z0-9]*[A-Z]{3,}[^a-z]*$", "why": "3.3: nothing is in capital letters"},
+    {"id": "g_one_primary", "kind": "count_primary", "min": 0, "max": 1, "why": "2.4 and 11 rule 5: at most one primary button on a screen"},
+    {"id": "g_text_colours", "kind": "text_colours", "tokens": ["ink", "ink-2", "ink-3", "primary"], "light_tokens": ["on-primary"], "why": "11 rule 5: text is navy or grey-blue; primary for links and the pale button; white on primary"},
+    {"id": "g_no_overlap_bars", "kind": "no_overlap_systembars", "why": "7: edge to edge, so content must keep clear of the system bars"},
+    {"id": "g_touch_target", "kind": "touch_target", "min_dp": 48, "why": "Android 48 dp target; 3.4 button height 52 dp"},
+    {"id": "g_no_lines", "kind": "no_lines", "why": "2.6: no lines, no dividers, no borders"}
+  ],
+  "groups": {
+    "home_common": [
+      {"id": "home_activity", "kind": "activity", "name": ["ControlPanelActivity", "HomeAlias"], "why": "7: the home page keeps the ControlPanelActivity class"},
+      {"id": "home_no_text_box", "kind": "no_class", "classes": ["android.widget.EditText"], "why": "2.2 and 9.7: no text box on the home page except while typing"},
+      {"id": "home_no_chrome", "kind": "no_class", "classes": ["android.widget.Toolbar", "androidx.appcompat.widget.Toolbar", "com.google.android.material.bottomnavigation.BottomNavigationView", "com.google.android.material.floatingactionbutton.FloatingActionButton", "android.widget.TabWidget"], "why": "2.1: no toolbar, no tab bar, no floating button"},
+      {"id": "home_time", "kind": "text_present", "rid": "header_time", "pattern": "^\\d{1,2}:\\d\\d", "why": "4 header: time at the top"},
+      {"id": "home_greeting", "kind": "text_present", "rid": "header_greeting", "pattern": "^Good (morning|afternoon|evening)\\.$", "why": "4 header, 5.1: greeting sentence"},
+      {"id": "home_header_order", "kind": "order", "items": [{"id": "header_time"}, {"id": "header_greeting"}, {"id": "header_status"}], "why": "4 and 10 header: time, greeting, status from top to bottom"},
+      {"id": "home_status_sentence", "kind": "sentence_rule", "node": {"id": "header_status"}, "max": 60, "full_stop": true, "why": "2.9: a status sentence has at most 60 characters and ends with a full stop"},
+      {"id": "home_footer", "kind": "footer", "left": {"id": "footer_talk"}, "right": {"id": "footer_type"}, "within_dp": 72, "why": "4 footer: left and right margins, baseline 40 dp above the bottom edge"},
+      {"id": "home_footer_talk", "kind": "text_present", "rid": "footer_talk", "pattern": "^(Hold power to talk|Tap to talk)$", "why": "4 footer and 9.1"},
+      {"id": "home_footer_type", "kind": "text_present", "rid": "footer_type", "text": "type", "why": "4 footer and 9.7: the word type at the right"},
+      {"id": "home_left_edge", "kind": "left_edge", "except_ids": ["owner_text", "owner_you", "owner_lines", "receipt_text", "footer_type", "header_date", "progress_text"], "except_inside_ids": ["notification_card", "result_card", "progress_pill", "home_pill", "home_panel", "approval_compose", "approval_buttons", "approval_thumbs", "shared_card", "home_tiles_scroll"], "except_text": ["type", "menu"], "why": "2.8: all text starts at the left margin; the owner's bubble and type are on the right"},
+      {"id": "home_wash", "kind": "wash_top", "top_frac": 0.3, "min_delta": 3, "lower_tol": 6, "why": "11 washes: a soft lavender area at the top fading to white by 40% of the height"}
+    ],
+    "voice_common": [
+      {"id": "voice_activity", "kind": "activity", "name": "ListeningActivity", "why": "5.2, 5.3: the listening and speaking screen"},
+      {"id": "voice_no_header", "kind": "text_absent", "pattern": "^\\d{1,2}:\\d\\d\\s?(AM|PM)", "why": "5.2: full screen, no header"},
+      {"id": "voice_no_greeting", "kind": "text_absent", "pattern": "^Good (morning|afternoon|evening)\\.$", "why": "5.2: no header"},
+      {"id": "voice_no_text_box", "kind": "no_class", "classes": ["android.widget.EditText"], "why": "2.2"},
+      {"id": "voice_no_primary", "kind": "count_primary", "min": 0, "max": 0, "why": "5.2: the only button is the pale Stop"},
+      {"id": "voice_left_edge", "kind": "left_edge", "only_ids": ["voice_top_line", "voice_hint", "voice_transcript"], "why": "5.2: top line, hint and transcript at the page margin"},
+      {"id": "voice_wash", "kind": "wash_top", "top_frac": 0.3, "min_delta": 2, "lower_tol": 6, "why": "11 washes: Voice, #F1F0FA at the top"},
+      {"id": "voice_order", "kind": "order", "items": [{"id": "voice_top_line"}, {"id": "voice_hint"}], "why": "10 5.2: hint line under the top line"}
+    ],
+    "start_common": [
+      {"id": "start_activity", "kind": "activity", "name": "StartActivity", "why": "first-run steps (F10), 5.12 style"},
+      {"id": "start_counter", "kind": "text_present", "rid": "start_counter", "pattern": "^Step \\d+ of \\d+$", "why": "5.12, 10: a label phrase, no full stop"},
+      {"id": "start_left_edge", "kind": "left_edge", "only_ids": ["start_counter", "start_title", "start_text"], "why": "2.8"},
+      {"id": "start_text_sentence", "kind": "sentence_rule", "node": {"id": "start_text"}, "max": 200, "full_stop": true, "why": "2.9, 6: short complete sentences"},
+      {"id": "start_page", "kind": "colour_at", "region": "left_margin", "token": "page", "why": "11: white page"},
+      {"id": "start_primary_colour", "kind": "colour_at", "region": {"id": "start_primary"}, "token": "primary", "needs_state": "a primary button is shown", "when": {"id": "start_primary"}, "why": "11 buttons: primary with white text"},
+      {"id": "start_pale_colour", "kind": "colour_at", "region": {"id": "start_pale"}, "token": "btn-pale", "needs_state": "a pale button is shown", "when": {"id": "start_pale"}, "why": "11 buttons: pale button"},
+      {"id": "start_primary_bottom", "kind": "text_present", "rid": "start_primary", "region": "bottom_band", "needs_state": "a primary button is shown", "when": {"id": "start_primary"}, "why": "11: on the start screens buttons are at the bottom"},
+      {"id": "start_pale_left", "kind": "order", "axis": "x", "items": [{"id": "start_pale"}, {"id": "start_primary"}], "needs_state": "two buttons share the row", "when": {"id": "start_pale"}, "why": "11: two buttons share the row, the pale one at the left"}
+    ],
+    "plain_common": [
+      {"id": "plain_left_edge", "kind": "left_edge", "only_ids": ["screen_title", "screen_lead"], "why": "2.8, 5.12: title and lead at the margin"},
+      {"id": "plain_page", "kind": "colour_at", "region": "left_margin", "token": "page", "why": "11: white page"},
+      {"id": "plain_lead_sentence", "kind": "sentence_rule", "node": {"id": "screen_lead"}, "max": 200, "full_stop": true, "needs_state": "a lead sentence is shown", "when": {"id": "screen_lead"}, "why": "6: complete sentences"},
+      {"id": "plain_row_colour", "kind": "colour_at", "region": {"id": "row_text"}, "token": "surface-2", "needs_state": "a text row is shown", "when": {"id": "row_text"}, "why": "5.12, 11: rows are surface-2"},
+      {"id": "plain_primary_colour", "kind": "colour_at", "region": {"id": "screen_primary"}, "token": "primary", "needs_state": "a primary button is shown", "when": {"id": "screen_primary"}, "why": "11 buttons"},
+      {"id": "plain_pale_colour", "kind": "colour_at", "region": {"id": "screen_pale"}, "token": "btn-pale", "needs_state": "a pale button is shown", "when": {"id": "screen_pale"}, "why": "11 buttons"},
+      {"id": "plain_primary_bottom", "kind": "text_present", "rid": "screen_primary", "region": "bottom_band", "needs_state": "a primary button is shown", "when": {"id": "screen_primary"}, "why": "5.12, 11: one primary button at the bottom"},
+      {"id": "plain_pale_left", "kind": "order", "axis": "x", "items": [{"id": "screen_pale"}, {"id": "screen_primary"}], "needs_state": "two buttons share the row", "when": {"id": "screen_pale"}, "why": "11: the pale one at the left"}
+    ]
+  },
+  "screens": {
+    "home_idle": {
+      "description": "Home page, nothing running, nothing waiting (5.1)",
+      "detect": {"activity": ["ControlPanelActivity", "HomeAlias"], "markers": [{"id": "header_greeting"}], "absent": [{"id": "approval_question"}, {"id": "running_pill_text"}, {"id": "running_panel_title"}, {"id": "hist_title"}, {"text": "Widgets"}]},
+      "rules": [
+        {"include": "home_common"},
+        {"id": "idle_no_primary", "kind": "count_primary", "min": 0, "max": 0, "why": "11 rule 5: nothing on the idle home page is coloured; no button"},
+        {"id": "idle_no_status_words", "kind": "text_absent", "pattern": "^(Running|Done|Failed|Cancelled|Stopped|Waiting for you)\\.?$", "why": "9.9: the home page shows no status words"}
+      ]
+    },
+    "home_approval": {
+      "description": "Home page with an approval waiting (5.6, 9.2)",
+      "detect": {"activity": ["ControlPanelActivity", "HomeAlias"], "markers": [{"id": "header_greeting"}, {"id": "approval_question"}], "absent": [{"id": "running_panel_title"}]},
+      "rules": [
+        {"include": "home_common"},
+        {"id": "appr_question", "kind": "text_present", "rid": "approval_question", "pattern": "\\?$", "why": "5.6, 9.2: the heading is a question that names the recipient"},
+        {"id": "appr_heading_below_status", "kind": "order", "items": [{"id": "header_status"}, {"id": "approval_question"}], "why": "5.6: the question under the header"},
+        {"id": "appr_not_now", "kind": "text_present", "rid": "approval_not_now", "text": "Not now", "why": "5.6, 9.2, 10: Not now is always present, sentence case"},
+        {"id": "appr_one_primary", "kind": "count_primary", "min": 1, "max": 1, "needs_state": "target readable (primary shown)", "when": {"id": "approval_primary"}, "why": "2.4, 9.2: exactly one primary button"},
+        {"id": "appr_no_primary_unreadable", "kind": "count_primary", "min": 0, "max": 0, "needs_state": "target unreadable (primary hidden)", "when_absent": {"id": "approval_primary"}, "why": "9.2: hidden when the recipient or title is unreadable"},
+        {"id": "appr_primary_colour", "kind": "colour_at", "region": {"id": "approval_primary"}, "token": "primary", "needs_state": "target readable (primary shown)", "when": {"id": "approval_primary"}, "why": "11 buttons: primary with white text"},
+        {"id": "appr_pale_colour", "kind": "colour_at", "region": {"id": "approval_not_now"}, "token": "btn-pale", "why": "11 buttons: pale button with primary text"},
+        {"id": "appr_buttons_order", "kind": "order", "axis": "x", "items": [{"id": "approval_primary"}, {"id": "approval_not_now"}], "needs_state": "target readable (primary shown)", "when": {"id": "approval_primary"}, "why": "10: the pale button is to the right of the primary on the home page"}
+      ]
+    },
+    "home_running": {
+      "description": "Home page with a running task: the pill (5.5, 9.3)",
+      "detect": {"activity": ["ControlPanelActivity", "HomeAlias"], "markers": [{"id": "header_greeting"}, {"id": "running_pill_text"}], "absent": [{"id": "approval_question"}, {"id": "running_panel_title"}]},
+      "rules": [
+        {"include": "home_common"},
+        {"id": "run_pill_text", "kind": "text_present", "rid": "running_pill_text", "pattern": "^\\d+ (running|paused)", "why": "9.3: \"1 running · WhatsApp ›\""},
+        {"id": "run_pill_below_status", "kind": "order", "items": [{"id": "header_status"}, {"id": "running_pill_text"}], "why": "5.5: the pill under the status sentence"},
+        {"id": "run_pill_surface", "kind": "colour_at", "region": {"id": "home_pill"}, "token": "surface", "why": "4, 11: pill is surface (white) with the card shadow"},
+        {"id": "run_no_primary", "kind": "count_primary", "min": 0, "max": 0, "why": "9.9: running is the pill only; no button"}
+      ]
+    },
+    "home_panel": {
+      "description": "Running panel open over the home page (5.5, 9.3, 10)",
+      "detect": {"activity": ["ControlPanelActivity", "HomeAlias"], "markers": [{"id": "running_panel_title"}]},
+      "rules": [
+        {"id": "panel_activity", "kind": "activity", "name": ["ControlPanelActivity", "HomeAlias"], "why": "5.5"},
+        {"id": "panel_title", "kind": "text_present", "text": "Running in the background", "why": "4 running panel"},
+        {"id": "panel_subtitle", "kind": "text_present", "text": "Working for you. Keep using your phone.", "why": "4 running panel"},
+        {"id": "panel_order", "kind": "order", "items": [{"id": "running_pill_text"}, {"id": "running_panel_title"}], "why": "10: the panel 14 dp under the pill"},
+        {"id": "panel_stop", "kind": "text_present", "rid": "running_panel_stop", "text": "Stop", "why": "9.3: a pale pill Stop under the preview"},
+        {"id": "panel_stop_pale", "kind": "colour_at", "region": {"id": "running_panel_stop"}, "token": "btn-pale", "why": "9.3, 11: pale pill"},
+        {"id": "panel_body", "kind": "colour_at", "region": {"id": "running_panel_body"}, "sample": "node", "token": "panel-body", "why": "11: panel-body #F4F4FB"},
+        {"id": "panel_scrim", "kind": "colour_at", "region": {"frac": [0.4, 0.93, 0.6, 0.95]}, "token": "scrim", "tol": 16, "why": "10: a grey scrim (black at 15%) covers the page"},
+        {"id": "panel_no_primary", "kind": "count_primary", "min": 0, "max": 0, "why": "2.4: the panel has no primary button"},
+        {"id": "panel_waiting_lines", "kind": "text_present", "rid": "running_panel_waiting", "pattern": "^Waiting · ", "needs_state": "tasks are waiting", "when": {"id": "running_panel_waiting"}, "why": "9.3: one small line for each waiting task"}
+      ]
+    },
+    "listening": {
+      "description": "Listening screen (5.2 with 9.1 and 10)",
+      "detect": {"activity": "ListeningActivity", "markers": [{"id": "voice_top_line", "pattern": "^Listening"}]},
+      "rules": [
+        {"include": "voice_common"},
+        {"id": "listen_top", "kind": "text_present", "rid": "voice_top_line", "text": "Listening · stops when you pause", "why": "9.1"},
+        {"id": "listen_hint", "kind": "text_present", "rid": "voice_hint", "pattern": "Nothing is sent until you stop\\.$", "why": "9.1"},
+        {"id": "listen_timer_no_hold", "kind": "text_absent", "rid": "voice_timer", "pattern": "hold", "why": "9.1: 0:01 with no hold"},
+        {"id": "listen_stop", "kind": "text_present", "rid": "voice_stop", "text": "Stop", "why": "5.2: a pale pill Stop at the left"},
+        {"id": "listen_stop_pale", "kind": "colour_at", "region": {"id": "voice_stop"}, "token": "btn-pale", "why": "5.2, 11: pale pill"},
+        {"id": "listen_transcript_low", "kind": "text_present", "rid": "voice_transcript", "region": "lower_half", "needs_state": "words heard", "when": {"id": "voice_transcript", "pattern": "\\S"}, "why": "10 5.2: the transcript sits 180 dp above the bottom edge"}
+      ]
+    },
+    "speaking": {
+      "description": "Speaking screen (5.3 with 9.1 and 10)",
+      "detect": {"activity": "ListeningActivity", "markers": [{"id": "voice_top_line", "pattern": "^Speaking"}]},
+      "rules": [
+        {"include": "voice_common"},
+        {"id": "speak_top", "kind": "text_present", "rid": "voice_top_line", "text": "Speaking · tap to interrupt", "why": "9.1"},
+        {"id": "speak_quote", "kind": "text_present", "rid": "voice_hint", "pattern": "^“.*”$", "why": "5.3, 10: the owner's last words in quotation marks"},
+        {"id": "speak_no_stop", "kind": "text_absent", "text": "Stop", "why": "10 5.3: no Stop pill"},
+        {"id": "speak_no_timer", "kind": "text_absent", "rid": "voice_timer", "pattern": "\\d:\\d\\d", "why": "10 5.3: no timer"}
+      ]
+    },
+    "history": {
+      "description": "History page, left of home (9.5, F15)",
+      "detect": {"activity": ["ControlPanelActivity", "HomeAlias"], "markers": [{"id": "hist_title"}]},
+      "rules": [
+        {"id": "hist_activity", "kind": "activity", "name": ["ControlPanelActivity", "HomeAlias"], "why": "F15: the history page is the left page of home"},
+        {"id": "hist_title", "kind": "text_present", "rid": "hist_title", "text": "History", "why": "9.5, 5.12: greeting-size title"},
+        {"id": "hist_menu", "kind": "text_present", "rid": "hist_menu", "text": "menu", "why": "F15: the word menu opens the list"},
+        {"id": "hist_left_edge", "kind": "left_edge", "except_ids": ["hist_search", "hist_menu", "hist_row_icons"], "except_text": ["menu"], "why": "2.8"},
+        {"id": "hist_page", "kind": "colour_at", "region": "left_margin", "token": "page", "why": "11: white page"},
+        {"id": "hist_empty_sentence", "kind": "sentence_rule", "node": {"id": "hist_empty"}, "max": 80, "needs_state": "no tasks yet", "when": {"id": "hist_empty"}, "why": "2.9, 6"},
+        {"id": "hist_status_words", "kind": "text_present", "pattern": "(Done|Not sent|Failed|Stopped|Running|Waiting for you)", "needs_state": "at least one task listed", "when": {"id": "hist_row_title"}, "why": "9.9: History keeps the status words"}
+      ]
+    },
+    "task_record": {
+      "description": "Record of one task, opened from History (F15)",
+      "detect": {"activity": "TaskRecordActivity"},
+      "rules": [
+        {"id": "record_activity", "kind": "activity", "name": "TaskRecordActivity", "why": "F15"},
+        {"id": "record_page", "kind": "colour_at", "region": "left_margin", "token": "page", "why": "11: white page"},
+        {"id": "record_no_text_box", "kind": "no_class", "classes": ["android.widget.EditText"], "why": "2.2"},
+        {"id": "record_status", "kind": "text_present", "pattern": "(Done|Not sent|Failed|Stopped|Running|Waiting for you)", "needs_state": "a task record (not deleted)", "when_absent": {"id": "record_gone"}, "why": "9.9: History keeps the status words"}
+      ]
+    },
+    "widgets_empty": {
+      "description": "Widgets page with no widget, right of home (F16.1)",
+      "detect": {"activity": ["ControlPanelActivity", "HomeAlias"], "markers": [{"text": "Widgets"}], "absent": [{"id": "hist_title"}]},
+      "rules": [
+        {"id": "widgets_activity", "kind": "activity", "name": ["ControlPanelActivity", "HomeAlias"], "why": "F16: the widgets page is the right page of home"},
+        {"id": "widgets_title", "kind": "text_present", "text": "Widgets", "why": "F16.1, 5.12 title"},
+        {"id": "widgets_empty_text", "kind": "text_present", "text": "Nothing here yet. Ask me for a widget.", "why": "F16.1"},
+        {"id": "widgets_sentence", "kind": "sentence_rule", "node": {"text": "Nothing here yet. Ask me for a widget."}, "max": 60, "why": "2.9"},
+        {"id": "widgets_order", "kind": "order", "items": [{"text": "Widgets"}, {"text": "Nothing here yet. Ask me for a widget."}], "why": "5.12: title, then the sentence"},
+        {"id": "widgets_left_edge", "kind": "left_edge", "why": "2.8"},
+        {"id": "widgets_no_primary", "kind": "count_primary", "min": 0, "max": 0, "why": "2.10: empty space is correct"},
+        {"id": "widgets_page", "kind": "colour_at", "region": "left_margin", "token": "page", "why": "11: white page"}
+      ]
+    },
+    "start_welcome": {
+      "description": "First-run step 1, welcome",
+      "detect": {"activity": "StartActivity", "markers": [{"id": "start_text", "pattern": "^Say what you need"}]},
+      "rules": [
+        {"include": "start_common"},
+        {"id": "welcome_text", "kind": "text_present", "rid": "start_text", "pattern": "I ask before I send, pay, or delete anything\\.$", "why": "F10 welcome; 6"}
+      ]
+    },
+    "start_connect": {
+      "description": "First-run step 2, connect once",
+      "detect": {"activity": "StartActivity", "markers": [{"id": "start_title", "text": "Connect once"}]},
+      "rules": [
+        {"include": "start_common"},
+        {"id": "connect_title", "kind": "text_present", "rid": "start_title", "text": "Connect once", "why": "F10"}
+      ]
+    },
+    "start_model": {
+      "description": "First-run step 3, choose a model",
+      "detect": {"activity": "StartActivity", "markers": [{"id": "start_title", "text": "Choose a model"}]},
+      "rules": [
+        {"include": "start_common"},
+        {"id": "model_step_title", "kind": "text_present", "rid": "start_title", "text": "Choose a model", "why": "F10"}
+      ]
+    },
+    "start_permissions": {
+      "description": "First-run step 4, let me see and act",
+      "detect": {"activity": "StartActivity", "markers": [{"id": "start_title", "text": "Let me see and act"}]},
+      "rules": [
+        {"include": "start_common"},
+        {"id": "perm_title", "kind": "text_present", "rid": "start_title", "text": "Let me see and act", "why": "F10"}
+      ]
+    },
+    "start_voice": {
+      "description": "First-run step 5, talk to me",
+      "detect": {"activity": "StartActivity", "markers": [{"id": "start_title", "text": "Talk to me"}]},
+      "rules": [
+        {"include": "start_common"},
+        {"id": "voice_step_title", "kind": "text_present", "rid": "start_title", "text": "Talk to me", "why": "F10"}
+      ]
+    },
+    "start_try": {
+      "description": "First-run step 6, try it",
+      "detect": {"activity": "StartActivity", "markers": [{"id": "start_title", "text": "Try it"}]},
+      "rules": [
+        {"include": "start_common"},
+        {"id": "try_title", "kind": "text_present", "rid": "start_title", "text": "Try it", "why": "F10"},
+        {"id": "try_long_press_hint", "kind": "text_present", "pattern": "hold the greeting", "why": "9.5: the first-run screen says once that the list exists"}
+      ]
+    },
+    "setup": {
+      "description": "Set up screen: permission rows (5.12)",
+      "detect": {"activity": "FirstRunActivity"},
+      "rules": [
+        {"id": "setup_activity", "kind": "activity", "name": "FirstRunActivity", "why": "5.12"},
+        {"id": "setup_title", "kind": "text_present", "rid": "screen_title", "text": "Set up", "why": "5.12"},
+        {"include": "plain_common"},
+        {"id": "setup_row_colour", "kind": "colour_at", "region": {"id": "row_status"}, "token": "surface-2", "needs_state": "a permission row is shown", "when": {"id": "row_status"}, "why": "5.12, 11: rows are surface-2"}
+      ]
+    },
+    "privacy": {
+      "description": "Privacy screen (5.12, F13)",
+      "detect": {"activity": "PrivacyActivity"},
+      "rules": [
+        {"id": "privacy_activity", "kind": "activity", "name": "PrivacyActivity", "why": "5.12"},
+        {"id": "privacy_title", "kind": "text_present", "rid": "screen_title", "text": "Privacy", "why": "5.12"},
+        {"id": "privacy_data", "kind": "text_present", "text": "Data sent to the model", "why": "F13.1"},
+        {"id": "privacy_blocked", "kind": "text_present", "text": "Blocked apps", "why": "F13"},
+        {"include": "plain_common"}
+      ]
+    },
+    "rules": {
+      "description": "Rules screen (5.12, F6)",
+      "detect": {"activity": "RulesActivity"},
+      "rules": [
+        {"id": "rules_activity", "kind": "activity", "name": "RulesActivity", "why": "5.12"},
+        {"id": "rules_title", "kind": "text_present", "rid": "screen_title", "text": "Rules", "why": "5.12"},
+        {"include": "plain_common"}
+      ]
+    },
+    "integrations": {
+      "description": "Integrations screen (5.12, F12)",
+      "detect": {"activity": "IntegrationsActivity"},
+      "rules": [
+        {"id": "integ_activity", "kind": "activity", "name": "IntegrationsActivity", "why": "5.12"},
+        {"id": "integ_title", "kind": "text_present", "rid": "screen_title", "text": "Integrations", "why": "5.12"},
+        {"id": "integ_sections", "kind": "order", "items": [{"text": "Connected services"}, {"text": "Add a service"}], "why": "F12"},
+        {"include": "plain_common"}
+      ]
+    },
+    "settings": {
+      "description": "Settings screen (5.12, 7)",
+      "detect": {"activity": "SettingsActivity"},
+      "rules": [
+        {"id": "settings_activity", "kind": "activity", "name": "SettingsActivity", "why": "5.12"},
+        {"id": "settings_title", "kind": "text_present", "rid": "settings_title", "why": "5.12: greeting-size title"},
+        {"id": "settings_left_edge", "kind": "left_edge", "only_ids": ["settings_title"], "why": "2.8"},
+        {"id": "settings_page", "kind": "colour_at", "region": "left_margin", "token": "page", "why": "11: white page"},
+        {"id": "settings_no_switch_outline", "kind": "no_class", "classes": ["android.widget.CheckBox"], "why": "2.6: no outlined check boxes"}
+      ]
+    },
+    "model": {
+      "description": "Model screen (5.12)",
+      "detect": {"activity": "ModelSettingsActivity"},
+      "rules": [
+        {"id": "model_activity", "kind": "activity", "name": "ModelSettingsActivity", "why": "5.12"},
+        {"id": "model_title", "kind": "text_present", "rid": "screen_title", "text": "Model", "why": "5.12"},
+        {"include": "plain_common"}
+      ]
+    },
+    "voice": {
+      "description": "Voice settings screen (5.12)",
+      "detect": {"activity": "VoiceSettingsActivity"},
+      "rules": [
+        {"id": "voice_settings_activity", "kind": "activity", "name": "VoiceSettingsActivity", "why": "5.12"},
+        {"id": "voice_title", "kind": "text_present", "rid": "screen_title", "text": "Voice", "why": "5.12"},
+        {"include": "plain_common"}
+      ]
+    },
+    "menu": {
+      "description": "The menu list opened by a long press on the greeting (9.5)",
+      "detect": {"activity": "MoreActivity"},
+      "rules": [
+        {"id": "menu_activity", "kind": "activity", "name": "MoreActivity", "why": "9.5"},
+        {"id": "menu_title", "kind": "text_present", "rid": "screen_title", "why": "5.12"},
+        {"id": "menu_order", "kind": "order", "items": [{"text": "History"}, {"text": "Rules"}, {"text": "Privacy"}, {"text": "Integrations"}, {"text": "Settings"}], "why": "9.5: History, Rules, Privacy, Integrations, Settings"},
+        {"id": "menu_no_primary", "kind": "count_primary", "min": 0, "max": 0, "why": "9.5: a plain list"},
+        {"include": "plain_common"}
+      ]
+    },
+    "received": {
+      "description": "Received-app card (5.11, 9.8)",
+      "detect": {"activity": "ReceivedAppActivity"},
+      "rules": [
+        {"id": "rec_activity", "kind": "activity", "name": "ReceivedAppActivity", "why": "9.8"},
+        {"id": "rec_label", "kind": "text_present", "text": "Shared with you", "why": "4 shared-app card"},
+        {"id": "rec_text_sentence", "kind": "sentence_rule", "node": {"id": "received_text"}, "max": 200, "why": "6"},
+        {"id": "rec_dismiss", "kind": "text_present", "rid": "received_dismiss", "pattern": "^(Not now|Close)$", "why": "4, 9.8: Not now beside Open"},
+        {"id": "rec_dismiss_pale", "kind": "colour_at", "region": {"id": "received_dismiss"}, "token": "btn-pale", "why": "11 buttons"},
+        {"id": "rec_open", "kind": "text_present", "rid": "received_open", "text": "Open", "needs_state": "the check passed", "when": {"id": "received_open"}, "why": "4, 9.8"},
+        {"id": "rec_open_primary", "kind": "colour_at", "region": {"id": "received_open"}, "token": "primary", "needs_state": "the check passed", "when": {"id": "received_open"}, "why": "11 buttons"},
+        {"id": "rec_checked", "kind": "text_present", "rid": "received_status", "pattern": "^Checked", "needs_state": "the check passed", "when": {"id": "received_open"}, "why": "9.8: Checked line under the app name"},
+        {"id": "rec_order", "kind": "order", "items": [{"id": "received_text"}, {"id": "received_row"}, {"id": "received_buttons"}], "needs_state": "the check passed", "when": {"id": "received_open"}, "why": "4: text, then the app row, then the buttons"}
+      ]
+    },
+    "built_app": {
+      "description": "A built app open in the WebView (5.9, 10, 11)",
+      "detect": {"activity": "MiniAppActivity"},
+      "skip_global": ["g_text_colours", "g_one_primary", "g_touch_target"],
+      "rules": [
+        {"id": "built_activity", "kind": "activity", "name": "MiniAppActivity", "why": "5.9"},
+        {"id": "built_background", "kind": "colour_at", "region": "left_margin", "tokens": ["built-bg", "page"], "why": "5.9 background #F7F7F4 (11 leaves it; white also allowed)"}
+      ]
+    }
+  }
+}

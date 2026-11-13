@@ -1,0 +1,7 @@
+{
+  "density": 160,
+  "size": [412, 892],
+  "activity": "ai.opencyclon.standard/ai.opencyclon.ui.ControlPanelActivity",
+  "status_bar_px": 24,
+  "nav_bar_px": 24
+}

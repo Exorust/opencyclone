@@ -1,0 +1,723 @@
+{
+  "_format": [
+    "Step scenarios (lane X2), run with walk.sh run2 <name>. Each scenario has 'description', optional 'texts' and",
+    "'tool_calls' (the mock server's scripted replies, as in scenarios.json), and 'steps', a list of objects with one",
+    "action each:",
+    "  load                 load 'texts' and 'tool_calls' now, after placeholders are known (default: at the start)",
+    "  set_model {provider, model, key}   the debug set_model command (defaults: openai, walk-model, walk)",
+    "  seed_app {name, data}  store a built app with bridge data; its id fills the placeholder <NAME>_ID (or 'as')",
+    "  seed_widget {html, name, size, sources}   store a widget without a model",
+    "  start TEXT           the home page's submit (FeedLocator.commands.submit)",
+    "  notify {package, title, text}   the notification pipeline",
+    "  confirm {item: last|draft|ID, yes}   a CONFIRM row's answer or a widget draft card tap",
+    "  page home|history|widgets       approve, reject      mark (only rows and tasks after this count)",
+    "  wait_row SPEC (timeout s), expect_row SPEC, expect_no_row SPEC, expect_rows SPEC with count",
+    "      SPEC: kind, kind_in, state, state_in, text, text_contains, action_word, title",
+    "  wait_task SPEC (timeout s), expect_tasks SPEC with count      SPEC: origin, state, state_in, goal, goal_contains",
+    "  pause SECONDS",
+    "Placeholders such as LINGO_ID or <LINGO_ID> are replaced in steps, texts and tool_calls.",
+    "  suggestions on|off   change the notification suggestions switch",
+    "  expect_requests N    assert the scripted model received exactly N requests",
+    "RUN_ID is a fresh unique value for each run; use it in notification titles and goals for repeatable proposals."
+  ],
+  "proposal_accept_home": {
+    "description": "F4.2, F5.6: a message makes a 'Do this?' row under its notification card; 'Do it' on the home page starts it. The same message after that makes a new proposal.",
+    "texts": [
+      {
+        "triage": [
+          {
+            "match": {
+              "title": "Alex RUN_ID",
+              "package": "ai.opencyclon.testapp"
+            },
+            "result": "propose",
+            "goal": "Reply to Alex RUN_ID that dinner at 7 works"
+          }
+        ]
+      },
+      {
+        "triage": [
+          {
+            "match": {
+              "title": "Alex RUN_ID",
+              "package": "ai.opencyclon.testapp"
+            },
+            "result": "propose",
+            "goal": "Reply to Alex RUN_ID that dinner at 7 works"
+          }
+        ]
+      }
+    ],
+    "tool_calls": [
+      {
+        "tool_call": {
+          "thought": "Replied to Alex RUN_ID",
+          "action_type": "finish"
+        }
+      }
+    ],
+    "steps": [
+      {
+        "start": "stop handling my notifications"
+      },
+      {
+        "wait_row": {
+          "kind": "SENTENCE"
+        },
+        "timeout": 20
+      },
+      {
+        "mark": true
+      },
+      {
+        "suggestions": "on"
+      },
+      {
+        "notify": {
+          "package": "ai.opencyclon.testapp",
+          "title": "Alex RUN_ID",
+          "text": "Are we still on for dinner at 7?"
+        }
+      },
+      {
+        "wait_row": {
+          "kind": "CONFIRM",
+          "state": "OPEN",
+          "text": "Reply to Alex RUN_ID that dinner at 7 works?",
+          "action_word": "Do it"
+        },
+        "timeout": 90
+      },
+      {
+        "expect_tasks": {
+          "origin": "notification",
+          "state": "proposed"
+        },
+        "count": 1
+      },
+      {
+        "confirm": {
+          "item": "last",
+          "yes": true
+        }
+      },
+      {
+        "wait_row": {
+          "kind": "CONFIRM",
+          "state": "ANSWERED"
+        },
+        "timeout": 20
+      },
+      {
+        "wait_task": {
+          "origin": "notification",
+          "goal": "Reply to Alex RUN_ID that dinner at 7 works",
+          "state_in": [
+            "running",
+            "done"
+          ]
+        },
+        "timeout": 60
+      },
+      {
+        "mark": true
+      },
+      {
+        "notify": {
+          "package": "ai.opencyclon.testapp",
+          "title": "Alex RUN_ID",
+          "text": "Are we still on for dinner at 7?"
+        }
+      },
+      {
+        "wait_row": {
+          "kind": "CONFIRM",
+          "state": "OPEN",
+          "text": "Reply to Alex RUN_ID that dinner at 7 works?"
+        },
+        "timeout": 90
+      },
+      {
+        "expect_tasks": {
+          "origin": "notification",
+          "state": "proposed",
+          "goal": "Reply to Alex RUN_ID that dinner at 7 works"
+        },
+        "count": 1
+      },
+      {
+        "confirm": {
+          "item": "last",
+          "yes": false
+        }
+      }
+    ]
+  },
+  "proposal_decline_home": {
+    "description": "'Not now' ends a proposal for good; the next message from the same sender makes a new one. While it is open, the same message again keeps one proposal.",
+    "texts": [
+      {
+        "triage": [
+          {
+            "match": {
+              "title": "Alex RUN_ID",
+              "package": "ai.opencyclon.testapp"
+            },
+            "result": "propose",
+            "goal": "Reply to Alex RUN_ID that dinner at 7 works"
+          }
+        ]
+      },
+      {
+        "triage": [
+          {
+            "match": {
+              "title": "Alex RUN_ID",
+              "package": "ai.opencyclon.testapp"
+            },
+            "result": "propose",
+            "goal": "Reply to Alex RUN_ID that dinner at 7 works"
+          }
+        ]
+      },
+      {
+        "triage": [
+          {
+            "match": {
+              "title": "Alex RUN_ID",
+              "package": "ai.opencyclon.testapp"
+            },
+            "result": "propose",
+            "goal": "Reply to Alex RUN_ID that 8 works better"
+          }
+        ]
+      }
+    ],
+    "steps": [
+      {
+        "start": "stop handling my notifications"
+      },
+      {
+        "wait_row": {
+          "kind": "SENTENCE"
+        },
+        "timeout": 20
+      },
+      {
+        "mark": true
+      },
+      {
+        "suggestions": "on"
+      },
+      {
+        "notify": {
+          "package": "ai.opencyclon.testapp",
+          "title": "Alex RUN_ID",
+          "text": "Are we still on for dinner at 7?"
+        }
+      },
+      {
+        "wait_row": {
+          "kind": "CONFIRM",
+          "state": "OPEN",
+          "text_contains": "dinner at 7"
+        },
+        "timeout": 90
+      },
+      {
+        "notify": {
+          "package": "ai.opencyclon.testapp",
+          "title": "Alex RUN_ID",
+          "text": "Are we still on for dinner at 7?"
+        }
+      },
+      {
+        "pause": 45
+      },
+      {
+        "expect_rows": {
+          "kind": "CONFIRM",
+          "state": "OPEN"
+        },
+        "count": 1
+      },
+      {
+        "expect_tasks": {
+          "origin": "notification",
+          "state": "proposed"
+        },
+        "count": 1
+      },
+      {
+        "confirm": {
+          "item": "last",
+          "yes": false
+        }
+      },
+      {
+        "wait_row": {
+          "kind": "CONFIRM",
+          "state": "REJECTED",
+          "text_contains": "dinner at 7"
+        },
+        "timeout": 20
+      },
+      {
+        "wait_task": {
+          "origin": "notification",
+          "goal": "Reply to Alex RUN_ID that dinner at 7 works",
+          "state": "cancelled"
+        },
+        "timeout": 20
+      },
+      {
+        "wait_row": {
+          "kind": "NOTIFICATION",
+          "state": "DONE",
+          "text_contains": "dinner at 7"
+        },
+        "timeout": 20
+      },
+      {
+        "notify": {
+          "package": "ai.opencyclon.testapp",
+          "title": "Alex RUN_ID",
+          "text": "Or 8, if that is easier?"
+        }
+      },
+      {
+        "wait_row": {
+          "kind": "CONFIRM",
+          "state": "OPEN",
+          "text_contains": "8 works better"
+        },
+        "timeout": 90
+      },
+      {
+        "expect_rows": {
+          "kind": "CONFIRM"
+        },
+        "count": 2
+      },
+      {
+        "expect_tasks": {
+          "origin": "notification",
+          "state": "proposed",
+          "goal": "Reply to Alex RUN_ID that 8 works better"
+        },
+        "count": 1
+      },
+      {
+        "confirm": {
+          "item": "last",
+          "yes": false
+        }
+      }
+    ]
+  },
+  "model_phrases": {
+    "description": "'use model \u2026' and 'which model' are answered by a sentence; no task starts.",
+    "steps": [
+      {
+        "start": "use model walk-model-2"
+      },
+      {
+        "wait_row": {
+          "kind": "SENTENCE",
+          "text": "The next task uses walk-model-2."
+        },
+        "timeout": 20
+      },
+      {
+        "start": "Which model?"
+      },
+      {
+        "wait_row": {
+          "kind": "SENTENCE",
+          "text": "I use walk-model-2."
+        },
+        "timeout": 20
+      },
+      {
+        "start": "use model walk-model"
+      },
+      {
+        "wait_row": {
+          "kind": "SENTENCE",
+          "text": "The next task uses walk-model."
+        },
+        "timeout": 20
+      },
+      {
+        "expect_tasks": {},
+        "count": 0
+      }
+    ]
+  },
+  "open_privacy": {
+    "description": "'open privacy' opens our own screen and says so; no agent task.",
+    "steps": [
+      {
+        "start": "Open privacy"
+      },
+      {
+        "wait_row": {
+          "kind": "SENTENCE",
+          "text": "Opened Privacy."
+        },
+        "timeout": 20
+      },
+      {
+        "expect_tasks": {},
+        "count": 0
+      },
+      {
+        "page": "home"
+      }
+    ]
+  },
+  "missing_model": {
+    "description": "F1.4: without a model, one sentence and a 'Set up' row; no dialog and no task.",
+    "steps": [
+      {
+        "set_model": {
+          "provider": "walk-unconfigured"
+        }
+      },
+      {
+        "start": "Open the clock app"
+      },
+      {
+        "wait_row": {
+          "kind": "SENTENCE",
+          "text": "No model is set, so I did nothing."
+        },
+        "timeout": 20
+      },
+      {
+        "wait_row": {
+          "kind": "CONFIRM",
+          "state": "OPEN",
+          "action_word": "Set up"
+        },
+        "timeout": 10
+      },
+      {
+        "expect_tasks": {},
+        "count": 0
+      },
+      {
+        "confirm": {
+          "item": "last",
+          "yes": false
+        }
+      },
+      {
+        "set_model": {}
+      }
+    ]
+  },
+  "built_app_change_named": {
+    "description": "F10.1.3 and audit #4: 'Add a note\u2026' goes to the agent right after a build; a sentence that names the app changes it.",
+    "tool_calls": [
+      {
+        "tool_call": {
+          "thought": "Nothing to do in the walk",
+          "action_type": "finish"
+        }
+      }
+    ],
+    "texts": [
+      {
+        "text": "<!doctype html><html><head><meta name=\"accent\" content=\"#4733D6\"><title>Lingo</title></head><body><h1>Lingo</h1><p>Streak: <span id=\"s\">0</span></p></body></html>"
+      }
+    ],
+    "steps": [
+      {
+        "seed_app": {
+          "name": "Lingo",
+          "data": {
+            "streak": 4
+          }
+        }
+      },
+      {
+        "mark": true
+      },
+      {
+        "start": "Add a note titled pm-test"
+      },
+      {
+        "wait_task": {
+          "origin": "user",
+          "goal": "Add a note titled pm-test"
+        },
+        "timeout": 20
+      },
+      {
+        "expect_no_row": {
+          "kind_in": [
+            "PROGRESS",
+            "RESULT"
+          ],
+          "text_contains": "Lingo"
+        }
+      },
+      {
+        "mark": true
+      },
+      {
+        "start": "Add a streak counter to the Lingo app"
+      },
+      {
+        "wait_row": {
+          "kind_in": [
+            "PROGRESS",
+            "RESULT",
+            "SENTENCE"
+          ],
+          "text_contains": "Lingo"
+        },
+        "timeout": 60
+      },
+      {
+        "expect_tasks": {
+          "goal_contains": "streak counter"
+        },
+        "count": 0
+      }
+    ]
+  },
+  "widget_build_draft": {
+    "description": "F16.2 steps 1-3: confirm the sources, build, the draft card; a tap opens the draft page.",
+    "texts": [
+      {
+        "text": "{\"name\":\"Lingo streak\",\"size\":\"small\",\"sources\":[\"app:<LINGO_ID>\",\"history\"]}"
+      },
+      {
+        "text": "<html><head><meta name=\"accent\" content=\"#4733D6\"><meta name=\"sources\" content=\"app:LINGO_ID,history\"><title>Lingo streak</title></head><body><div class=\"label\">Lingo streak</div><div class=\"big\" id=\"s\">-</div><div class=\"row\"><span class=\"label\">Tasks today</span><span class=\"value\" id=\"t\">-</span></div><script>phone.onrefresh=function(){phone.read('app:LINGO_ID').then(function(d){document.getElementById('s').textContent=d&&d.data&&d.data.streak!=null?d.data.streak:'-'});phone.read('history').then(function(h){document.getElementById('t').textContent=h?h.today:'-'});};phone.onrefresh();</script></body></html>"
+      }
+    ],
+    "steps": [
+      {
+        "seed_app": {
+          "name": "Lingo",
+          "data": {
+            "streak": 4
+          }
+        }
+      },
+      {
+        "load": true
+      },
+      {
+        "mark": true
+      },
+      {
+        "start": "Make a widget that shows my Lingo streak and how many tasks I ran today"
+      },
+      {
+        "wait_row": {
+          "kind": "CONFIRM",
+          "state": "OPEN",
+          "text_contains": "This widget will read:",
+          "action_word": "Build it"
+        },
+        "timeout": 30
+      },
+      {
+        "expect_row": {
+          "kind": "CONFIRM",
+          "text_contains": "your app Lingo"
+        }
+      },
+      {
+        "confirm": {
+          "item": "last",
+          "yes": true
+        }
+      },
+      {
+        "wait_row": {
+          "kind": "RESULT",
+          "action_word": "widget-draft",
+          "text": "Your widget draft is ready"
+        },
+        "timeout": 120
+      },
+      {
+        "confirm": {
+          "item": "draft",
+          "yes": true
+        }
+      },
+      {
+        "expect_tasks": {},
+        "count": 0
+      }
+    ]
+  },
+  "widget_refused_sources": {
+    "description": "F16.3: the widget file asks for notification text and a web address; only the two allowed sources stay.",
+    "texts": [
+      {
+        "text": "{\"name\":\"Lingo streak\",\"size\":\"small\",\"sources\":[\"app:<LINGO_ID>\",\"history\"]}"
+      },
+      {
+        "text": "<html><head><meta name=\"accent\" content=\"#4733D6\"><meta name=\"sources\" content=\"app:LINGO_ID,history,notifications,web:example.com\"><title>Lingo streak</title></head><body><div class=\"big\" id=\"s\">-</div><div class=\"value\" id=\"n\">-</div><div class=\"value\" id=\"w\">-</div><script>phone.onrefresh=function(){phone.read('app:LINGO_ID').then(function(d){document.getElementById('s').textContent=d&&d.data&&d.data.streak!=null?d.data.streak:'-'});phone.read('notifications').then(function(n){document.getElementById('n').textContent=n?'x':'-'});phone.read('web:example.com/today').then(function(w){document.getElementById('w').textContent=w?'x':'-'});};phone.onrefresh();</script></body></html>"
+      }
+    ],
+    "steps": [
+      {
+        "seed_app": {
+          "name": "Lingo",
+          "data": {
+            "streak": 4
+          }
+        }
+      },
+      {
+        "load": true
+      },
+      {
+        "mark": true
+      },
+      {
+        "start": "Make a widget that shows my Lingo streak and how many tasks I ran today"
+      },
+      {
+        "wait_row": {
+          "kind": "CONFIRM",
+          "state": "OPEN",
+          "text_contains": "This widget will read:"
+        },
+        "timeout": 30
+      },
+      {
+        "confirm": {
+          "item": "last",
+          "yes": true
+        }
+      },
+      {
+        "wait_row": {
+          "kind": "SENTENCE",
+          "text_contains": "It reads only: your app Lingo, your task history"
+        },
+        "timeout": 120
+      },
+      {
+        "wait_row": {
+          "kind": "RESULT",
+          "action_word": "widget-draft"
+        },
+        "timeout": 30
+      }
+    ]
+  },
+  "widget_three_repairs": {
+    "description": "F16.7 step 1: the model returns a broken file four times; one sentence, no card.",
+    "texts": [
+      {
+        "text": "{\"name\":\"Lingo streak\",\"size\":\"small\",\"sources\":[\"app:<LINGO_ID>\",\"history\"]}"
+      },
+      {
+        "text": "<html><body><div style=\"height:2000px\">broken</div></body></html>"
+      },
+      {
+        "text": "<html><body><div style=\"height:2000px\">broken</div></body></html>"
+      },
+      {
+        "text": "<html><body><div style=\"height:2000px\">broken</div></body></html>"
+      },
+      {
+        "text": "<html><body><div style=\"height:2000px\">broken</div></body></html>"
+      }
+    ],
+    "steps": [
+      {
+        "seed_app": {
+          "name": "Lingo",
+          "data": {
+            "streak": 4
+          }
+        }
+      },
+      {
+        "load": true
+      },
+      {
+        "mark": true
+      },
+      {
+        "start": "Make a widget that shows my Lingo streak and how many tasks I ran today"
+      },
+      {
+        "wait_row": {
+          "kind": "CONFIRM",
+          "state": "OPEN",
+          "text_contains": "This widget will read:"
+        },
+        "timeout": 30
+      },
+      {
+        "confirm": {
+          "item": "last",
+          "yes": true
+        }
+      },
+      {
+        "wait_row": {
+          "text": "I could not build that widget. I tried 3 times."
+        },
+        "timeout": 180
+      },
+      {
+        "expect_no_row": {
+          "kind": "RESULT",
+          "action_word": "widget-draft"
+        }
+      }
+    ]
+  },
+  "suggestions_off_drops_notification": {
+    "description": "With suggestions off and no window, a notification creates no thread row, task, or model request.",
+    "steps": [
+      {
+        "start": "stop handling my notifications"
+      },
+      {
+        "wait_row": {
+          "kind": "SENTENCE"
+        }
+      },
+      {
+        "suggestions": "off"
+      },
+      {
+        "mark": true
+      },
+      {
+        "notify": {
+          "package": "ai.opencyclon.testapp",
+          "title": "Walk RUN_ID",
+          "text": "Dinner tomorrow?"
+        }
+      },
+      {
+        "pause": 35
+      },
+      {
+        "expect_rows": {},
+        "count": 0
+      },
+      {
+        "expect_tasks": {},
+        "count": 0
+      },
+      {
+        "expect_requests": 0
+      }
+    ]
+  }
+}

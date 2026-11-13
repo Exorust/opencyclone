@@ -1,0 +1,1217 @@
+{
+  "_format": [
+    "One object per scenario, keyed by name. Fields:",
+    "  description  what the scenario walks.",
+    "  start        the owner's request, sent with the 'start' command (goes through AgentService.startAgent).",
+    "  notify       {package, title, text}: fed to the notification pipeline instead of a request.",
+    "  tool_calls   ordered streamed replies for the agent. Each is {tool_call: {...}} with phone_action",
+    "               arguments exactly as in llm/ToolSchema.kt (thought, action_type, x, y, app_name, question, ...).",
+    "               An optional 'target' ({text|desc|class, clickable, index}) makes the mock server fill x and y",
+    "               (0-1000) with the centre of that element in the view tree the app sent with the request.",
+    "  texts        ordered non-streamed replies (triage, app builder): {text: '...'} or",
+    "               {triage: [{match: {title, package}, result, goal}]}.",
+    "  on_hold      what the harness does when an approval waits: approve, reject, edit, or wait (stop and",
+    "               leave it to the PM). try_approve_first: send approve before on_hold and record the answer.",
+    "  answer       sent with 'answer' when the engine waits for the owner (ask_user).",
+    "  edit_text    the correction for on_hold = edit.",
+    "  end_state    the task state that ends the run (default: done, failed or cancelled).",
+    "  expect       approval (null = no hold), approve_refused, task {origin, state, result, goal},",
+    "               counters_delta {sent, pressed, touched}, question (substring), model_saw (substring of a",
+    "               request the mock received), script_used_up (true = every scripted tool call was used).",
+    "  F18 additions:",
+    "  target.number true  the mock fills 'index' with the element's number from the list (a tap by number)",
+    "               instead of x and y. A literal 'index' in tool_call taps that number as it is.",
+    "  delay_ms     on a tool-call entry: the mock waits that long before it answers (a slow model).",
+    "  expect.steps a list of step facts from the state's 'steps' (the last task); each must match one step:",
+    "               every key equal (action, by_number, number, label, feedback, success), and",
+    "               wait_ms_min / wait_ms_max bound the step's quiet-screen wait.",
+    "  counters_delta also takes moved, slow, still (the test app's F18 screens)."
+  ],
+  "send_approve": {
+    "description": "F5: open the test app chat, tap the labelled Send button; the task is held, Approve sends once. The first finish gets one more look (F18.3).",
+    "start": "Open Gate Test, open the chat with Alex and tap Send",
+    "tool_calls": [
+      {
+        "tool_call": {
+          "thought": "Open the test app",
+          "action_type": "open_app",
+          "app_name": "Gate Test"
+        }
+      },
+      {
+        "tool_call": {
+          "thought": "Open the chat",
+          "action_type": "tap"
+        },
+        "target": {
+          "text": "Chat",
+          "clickable": true
+        }
+      },
+      {
+        "tool_call": {
+          "thought": "Tap Send",
+          "action_type": "tap"
+        },
+        "target": {
+          "text": "Send",
+          "clickable": true
+        }
+      },
+      {
+        "tool_call": {
+          "thought": "Tapped Send",
+          "action_type": "finish"
+        }
+      },
+      {
+        "tool_call": {
+          "thought": "Sent the message to Alex",
+          "action_type": "finish"
+        }
+      }
+    ],
+    "on_hold": "approve",
+    "expect": {
+      "approval": {
+        "reason": "COMMIT_WORD",
+        "label": "SEND",
+        "title": "Send in Gate Test to Alex",
+        "package": "ai.opencyclon.testapp",
+        "approve_offered": true
+      },
+      "task": {
+        "origin": "user",
+        "state": "done",
+        "result": "Sent the message to Alex"
+      },
+      "counters_delta": {
+        "sent": 1,
+        "pressed": 0
+      },
+      "script_used_up": true
+    }
+  },
+  "send_reject": {
+    "description": "F5: the same hold, Reject; nothing is sent and the task is cancelled.",
+    "start": "Open Gate Test, open the chat with Alex and tap Send",
+    "tool_calls": [
+      {
+        "tool_call": {
+          "thought": "Open the test app",
+          "action_type": "open_app",
+          "app_name": "Gate Test"
+        }
+      },
+      {
+        "tool_call": {
+          "thought": "Open the chat",
+          "action_type": "tap"
+        },
+        "target": {
+          "text": "Chat",
+          "clickable": true
+        }
+      },
+      {
+        "tool_call": {
+          "thought": "Tap Send",
+          "action_type": "tap"
+        },
+        "target": {
+          "text": "Send",
+          "clickable": true
+        }
+      }
+    ],
+    "on_hold": "reject",
+    "expect": {
+      "approval": {
+        "reason": "COMMIT_WORD",
+        "label": "SEND",
+        "title": "Send in Gate Test to Alex",
+        "approve_offered": true
+      },
+      "task": {
+        "origin": "user",
+        "state": "cancelled",
+        "result": "Cancelled by the user"
+      },
+      "counters_delta": {
+        "sent": 0
+      },
+      "script_used_up": true
+    }
+  },
+  "icon_only_unreadable": {
+    "description": "F5: a tap on a button with no label is held as unreadable; Approve is not offered, Reject ends it.",
+    "start": "Open Gate Test, open Icon only and press the button",
+    "tool_calls": [
+      {
+        "tool_call": {
+          "thought": "Open the test app",
+          "action_type": "open_app",
+          "app_name": "Gate Test"
+        }
+      },
+      {
+        "tool_call": {
+          "thought": "Open the icon screen",
+          "action_type": "tap"
+        },
+        "target": {
+          "text": "Icon only",
+          "clickable": true
+        }
+      },
+      {
+        "tool_call": {
+          "thought": "Press the button",
+          "action_type": "tap"
+        },
+        "target": {
+          "class": "ImageButton"
+        }
+      }
+    ],
+    "try_approve_first": true,
+    "on_hold": "reject",
+    "expect": {
+      "approval": {
+        "reason": "UNREADABLE_TARGET",
+        "title": "Tap on an unreadable spot in Gate Test",
+        "package": "ai.opencyclon.testapp",
+        "approve_offered": false
+      },
+      "approve_refused": true,
+      "task": {
+        "origin": "user",
+        "state": "cancelled"
+      },
+      "counters_delta": {
+        "pressed": 0
+      },
+      "script_used_up": true
+    }
+  },
+  "finish_without_commit": {
+    "description": "F18.3 step 3: open an app and finish at once; the engine takes one more look first, then accepts. Never held.",
+    "start": "Open Gate Test",
+    "tool_calls": [
+      {
+        "tool_call": {
+          "thought": "Open the test app",
+          "action_type": "open_app",
+          "app_name": "Gate Test"
+        }
+      },
+      {
+        "tool_call": {
+          "thought": "Opened it",
+          "action_type": "finish"
+        }
+      },
+      {
+        "tool_call": {
+          "thought": "Gate Test is open",
+          "action_type": "finish"
+        }
+      }
+    ],
+    "expect": {
+      "approval": null,
+      "task": {
+        "origin": "user",
+        "state": "done",
+        "result": "Gate Test is open"
+      },
+      "counters_delta": {
+        "sent": 0,
+        "pressed": 0,
+        "touched": 0
+      },
+      "script_used_up": true,
+      "steps": [
+        {
+          "action": "finish",
+          "feedback": "Look at the screen once more before you finish.",
+          "success": false
+        },
+        {
+          "action": "finish",
+          "success": true
+        }
+      ]
+    }
+  },
+  "ask_owner": {
+    "description": "The model asks the owner a question; the harness answers and the model sees the answer.",
+    "start": "Message my friend in Gate Test",
+    "tool_calls": [
+      {
+        "tool_call": {
+          "thought": "I need the name",
+          "action_type": "ask_user",
+          "question": "Which friend should I message?"
+        }
+      },
+      {
+        "tool_call": {
+          "thought": "Will message Alex",
+          "action_type": "finish"
+        }
+      }
+    ],
+    "answer": "Alex",
+    "expect": {
+      "approval": null,
+      "question": "Which friend should I message?",
+      "model_saw": "User's answer: Alex",
+      "task": {
+        "origin": "user",
+        "state": "done",
+        "result": "Will message Alex"
+      },
+      "script_used_up": true
+    }
+  },
+  "notification_proposal": {
+    "description": "F4: an incoming notification is triaged into a proposal (no window running, app not allowed to act alone).",
+    "notify": {
+      "package": "ai.opencyclon.testapp",
+      "title": "Alex RUN_ID",
+      "text": "Are we still on for dinner at 7? Can you book a table?"
+    },
+    "texts": [
+      {
+        "triage": [
+          {
+            "match": {
+              "title": "Alex RUN_ID",
+              "package": "ai.opencyclon.testapp"
+            },
+            "result": "propose",
+            "goal": "Reply to Alex RUN_ID that dinner at 7 works"
+          }
+        ]
+      }
+    ],
+    "end_state": "proposed",
+    "expect": {
+      "approval": null,
+      "task": {
+        "origin": "notification",
+        "state": "proposed",
+        "goal": "Reply to Alex RUN_ID that dinner at 7 works"
+      }
+    },
+    "suggestions": "on"
+  },
+  "tap_by_number": {
+    "description": "F18.1 step 1 and F18.3 step 2: tap CHAT by its element number; the chat opens; the first finish gets one more look.",
+    "start": "Open Gate Test and open the chat",
+    "tool_calls": [
+      {
+        "tool_call": {
+          "thought": "Open the test app",
+          "action_type": "open_app",
+          "app_name": "Gate Test"
+        }
+      },
+      {
+        "tool_call": {
+          "thought": "Open the chat",
+          "action_type": "tap"
+        },
+        "target": {
+          "number": true,
+          "text": "Chat"
+        }
+      },
+      {
+        "tool_call": {
+          "thought": "Opened the chat",
+          "action_type": "finish"
+        }
+      },
+      {
+        "tool_call": {
+          "thought": "The chat is open",
+          "action_type": "finish"
+        }
+      }
+    ],
+    "expect": {
+      "approval": null,
+      "task": {
+        "origin": "user",
+        "state": "done",
+        "result": "The chat is open"
+      },
+      "counters_delta": {
+        "sent": 0
+      },
+      "steps": [
+        {
+          "action": "tap",
+          "by_number": true,
+          "label": "CHAT",
+          "success": true
+        },
+        {
+          "action": "finish",
+          "feedback": "Look at the screen once more before you finish.",
+          "success": false
+        }
+      ],
+      "script_used_up": true
+    }
+  },
+  "unknown_number": {
+    "description": "F18.1 step 2: a number that is not on the screen taps nothing; the model is told and the task continues.",
+    "start": "Open Gate Test and tap element 99",
+    "tool_calls": [
+      {
+        "tool_call": {
+          "thought": "Open the test app",
+          "action_type": "open_app",
+          "app_name": "Gate Test"
+        }
+      },
+      {
+        "tool_call": {
+          "thought": "Tap element 99",
+          "action_type": "tap",
+          "index": 99
+        }
+      },
+      {
+        "tool_call": {
+          "thought": "There is no element 99",
+          "action_type": "finish"
+        }
+      }
+    ],
+    "expect": {
+      "approval": null,
+      "task": {
+        "origin": "user",
+        "state": "done",
+        "result": "There is no element 99"
+      },
+      "counters_delta": {
+        "sent": 0,
+        "pressed": 0,
+        "touched": 0
+      },
+      "model_saw": "There is no element 99 on this screen.",
+      "steps": [
+        {
+          "action": "tap",
+          "by_number": true,
+          "number": 99,
+          "feedback": "There is no element 99 on this screen.",
+          "success": false
+        }
+      ],
+      "script_used_up": true
+    }
+  },
+  "moving_button": {
+    "description": "F18.1 step 3: the model answers after 2 s; Move me moved meanwhile but kept its label, so the tap goes to where it is now.",
+    "start": "Open Gate Test, open Moving and press Move me",
+    "tool_calls": [
+      {
+        "tool_call": {
+          "thought": "Open the test app",
+          "action_type": "open_app",
+          "app_name": "Gate Test"
+        }
+      },
+      {
+        "tool_call": {
+          "thought": "Open Moving",
+          "action_type": "tap"
+        },
+        "target": {
+          "number": true,
+          "text": "Moving"
+        }
+      },
+      {
+        "tool_call": {
+          "thought": "Press Move me",
+          "action_type": "tap"
+        },
+        "target": {
+          "number": true,
+          "text": "Move me"
+        },
+        "delay_ms": 2000
+      },
+      {
+        "tool_call": {
+          "thought": "Pressed it",
+          "action_type": "finish"
+        }
+      },
+      {
+        "tool_call": {
+          "thought": "Pressed Move me",
+          "action_type": "finish"
+        }
+      }
+    ],
+    "expect": {
+      "approval": null,
+      "task": {
+        "origin": "user",
+        "state": "done",
+        "result": "Pressed Move me"
+      },
+      "counters_delta": {
+        "moved": 1
+      },
+      "steps": [
+        {
+          "action": "tap",
+          "by_number": true,
+          "label": "MOVE ME",
+          "success": true
+        }
+      ],
+      "script_used_up": true
+    }
+  },
+  "changed_label": {
+    "description": "F18.1 step 3: the model answers after 2 s; the button at that number now has another label, so nothing is tapped.",
+    "start": "Open Gate Test, open Moving and press Soon changed",
+    "tool_calls": [
+      {
+        "tool_call": {
+          "thought": "Open the test app",
+          "action_type": "open_app",
+          "app_name": "Gate Test"
+        }
+      },
+      {
+        "tool_call": {
+          "thought": "Open Moving",
+          "action_type": "tap"
+        },
+        "target": {
+          "number": true,
+          "text": "Moving"
+        }
+      },
+      {
+        "tool_call": {
+          "thought": "Press Soon changed",
+          "action_type": "tap"
+        },
+        "target": {
+          "number": true,
+          "text": "Soon changed"
+        },
+        "delay_ms": 2000
+      },
+      {
+        "tool_call": {
+          "thought": "The screen changed",
+          "action_type": "finish"
+        }
+      }
+    ],
+    "expect": {
+      "approval": null,
+      "task": {
+        "origin": "user",
+        "state": "done",
+        "result": "The screen changed"
+      },
+      "counters_delta": {
+        "moved": 0
+      },
+      "model_saw": "The screen changed. Look again.",
+      "steps": [
+        {
+          "action": "tap",
+          "by_number": true,
+          "label": "SOON CHANGED",
+          "feedback": "The screen changed. Look again.",
+          "success": false
+        }
+      ],
+      "script_used_up": true
+    }
+  },
+  "no_elements_position": {
+    "description": "F18.1 step 4: a screen without elements; a tap by position is held as an unreadable target, as before.",
+    "start": "Open Gate Test, open No elements and tap the red square",
+    "tool_calls": [
+      {
+        "tool_call": {
+          "thought": "Open the test app",
+          "action_type": "open_app",
+          "app_name": "Gate Test"
+        }
+      },
+      {
+        "tool_call": {
+          "thought": "Open No elements",
+          "action_type": "tap"
+        },
+        "target": {
+          "number": true,
+          "text": "No elements"
+        }
+      },
+      {
+        "tool_call": {
+          "thought": "Tap the red square",
+          "action_type": "tap",
+          "x": 500,
+          "y": 450
+        }
+      }
+    ],
+    "try_approve_first": true,
+    "on_hold": "reject",
+    "expect": {
+      "approval": {
+        "reason": "UNREADABLE_TARGET",
+        "title": "Tap on an unreadable spot in Gate Test",
+        "package": "ai.opencyclon.testapp",
+        "approve_offered": false
+      },
+      "approve_refused": true,
+      "task": {
+        "origin": "user",
+        "state": "cancelled"
+      },
+      "counters_delta": {
+        "touched": 0
+      },
+      "script_used_up": true
+    }
+  },
+  "send_by_number": {
+    "description": "F18.1 step 5: SEND tapped by its number is held like a tap by position; Approve sends exactly once.",
+    "start": "Open Gate Test, open the chat with Alex and tap Send",
+    "tool_calls": [
+      {
+        "tool_call": {
+          "thought": "Open the test app",
+          "action_type": "open_app",
+          "app_name": "Gate Test"
+        }
+      },
+      {
+        "tool_call": {
+          "thought": "Open the chat",
+          "action_type": "tap"
+        },
+        "target": {
+          "number": true,
+          "text": "Chat"
+        }
+      },
+      {
+        "tool_call": {
+          "thought": "Tap Send",
+          "action_type": "tap"
+        },
+        "target": {
+          "number": true,
+          "text": "Send"
+        }
+      },
+      {
+        "tool_call": {
+          "thought": "Tapped Send",
+          "action_type": "finish"
+        }
+      },
+      {
+        "tool_call": {
+          "thought": "Sent the message to Alex",
+          "action_type": "finish"
+        }
+      }
+    ],
+    "on_hold": "approve",
+    "expect": {
+      "approval": {
+        "reason": "COMMIT_WORD",
+        "label": "SEND",
+        "title": "Send in Gate Test to Alex",
+        "package": "ai.opencyclon.testapp",
+        "approve_offered": true
+      },
+      "task": {
+        "origin": "user",
+        "state": "done",
+        "result": "Sent the message to Alex"
+      },
+      "counters_delta": {
+        "sent": 1
+      },
+      "steps": [
+        {
+          "action": "tap",
+          "by_number": true,
+          "label": "SEND",
+          "success": true
+        }
+      ],
+      "script_used_up": true
+    }
+  },
+  "slow_screen": {
+    "description": "F18.2 steps 1 and 2: the menu tap settles under 0.8 s; after Load the wait lasts until the late content shows (1.8 to 3 s), and the next look contains it.",
+    "start": "Open Gate Test, open Slow, load it and press the slow button",
+    "tool_calls": [
+      {
+        "tool_call": {
+          "thought": "Open the test app",
+          "action_type": "open_app",
+          "app_name": "Gate Test"
+        }
+      },
+      {
+        "tool_call": {
+          "thought": "Open Slow",
+          "action_type": "tap"
+        },
+        "target": {
+          "number": true,
+          "text": "Slow"
+        }
+      },
+      {
+        "tool_call": {
+          "thought": "Load",
+          "action_type": "tap"
+        },
+        "target": {
+          "number": true,
+          "text": "Load"
+        }
+      },
+      {
+        "tool_call": {
+          "thought": "Press the slow button",
+          "action_type": "tap"
+        },
+        "target": {
+          "number": true,
+          "text": "Slow button"
+        }
+      },
+      {
+        "tool_call": {
+          "thought": "Pressed it",
+          "action_type": "finish"
+        }
+      },
+      {
+        "tool_call": {
+          "thought": "Pressed the slow button",
+          "action_type": "finish"
+        }
+      }
+    ],
+    "expect": {
+      "approval": null,
+      "task": {
+        "origin": "user",
+        "state": "done",
+        "result": "Pressed the slow button"
+      },
+      "counters_delta": {
+        "slow": 1
+      },
+      "steps": [
+        {
+          "action": "tap",
+          "label": "SLOW",
+          "wait_ms_max": 800
+        },
+        {
+          "action": "tap",
+          "label": "LOAD",
+          "wait_ms_min": 1800,
+          "wait_ms_max": 3000
+        },
+        {
+          "action": "tap",
+          "label": "SLOW BUTTON",
+          "success": true
+        }
+      ],
+      "script_used_up": true
+    }
+  },
+  "never_still": {
+    "description": "F18.2 step 3: a screen that never stops changing; the wait ends at 3 s and the task continues.",
+    "start": "Open Gate Test, open Never still and press the still button",
+    "tool_calls": [
+      {
+        "tool_call": {
+          "thought": "Open the test app",
+          "action_type": "open_app",
+          "app_name": "Gate Test"
+        }
+      },
+      {
+        "tool_call": {
+          "thought": "Open Never still",
+          "action_type": "tap"
+        },
+        "target": {
+          "number": true,
+          "text": "Never still"
+        }
+      },
+      {
+        "tool_call": {
+          "thought": "Press the still button",
+          "action_type": "tap"
+        },
+        "target": {
+          "number": true,
+          "text": "Still button"
+        }
+      },
+      {
+        "tool_call": {
+          "thought": "Pressed it",
+          "action_type": "finish"
+        }
+      },
+      {
+        "tool_call": {
+          "thought": "Pressed the still button",
+          "action_type": "finish"
+        }
+      }
+    ],
+    "expect": {
+      "approval": null,
+      "task": {
+        "origin": "user",
+        "state": "done",
+        "result": "Pressed the still button"
+      },
+      "counters_delta": {
+        "still": 1
+      },
+      "steps": [
+        {
+          "action": "tap",
+          "label": "NEVER STILL",
+          "wait_ms_min": 2900,
+          "wait_ms_max": 3400
+        }
+      ],
+      "script_used_up": true
+    }
+  },
+  "read_only_field": {
+    "description": "F18.3 step 1: hello typed into a field that discards input; the step is failed and the model is told.",
+    "start": "Open Gate Test, open the read-only field and type hello",
+    "tool_calls": [
+      {
+        "tool_call": {
+          "thought": "Open the test app",
+          "action_type": "open_app",
+          "app_name": "Gate Test"
+        }
+      },
+      {
+        "tool_call": {
+          "thought": "Open the field screen",
+          "action_type": "tap"
+        },
+        "target": {
+          "number": true,
+          "text": "Read-only field"
+        }
+      },
+      {
+        "tool_call": {
+          "thought": "Focus the field",
+          "action_type": "tap"
+        },
+        "target": {
+          "number": true,
+          "class": "EditText"
+        }
+      },
+      {
+        "tool_call": {
+          "thought": "Type hello",
+          "action_type": "type_text",
+          "text": "hello"
+        }
+      },
+      {
+        "tool_call": {
+          "thought": "The field does not take text",
+          "action_type": "fail",
+          "reason": "The field does not take text"
+        }
+      }
+    ],
+    "expect": {
+      "approval": null,
+      "task": {
+        "origin": "user",
+        "state": "failed"
+      },
+      "model_saw": "The text did not arrive in the field.",
+      "steps": [
+        {
+          "action": "type_text",
+          "feedback": "The text did not arrive in the field.",
+          "success": false
+        }
+      ],
+      "script_used_up": true
+    }
+  },
+  "going_in_circles": {
+    "description": "F18.3 step 4: the same three actions in a cycle; after the third cycle the task fails without reaching the step limit.",
+    "start": "Open Gate Test and look around",
+    "tool_calls": [
+      {
+        "tool_call": {
+          "thought": "Open the test app",
+          "action_type": "open_app",
+          "app_name": "Gate Test"
+        }
+      },
+      {
+        "tool_call": {
+          "thought": "Open Labeled",
+          "action_type": "tap"
+        },
+        "target": {
+          "text": "Labeled",
+          "clickable": true
+        }
+      },
+      {
+        "tool_call": {
+          "thought": "Go back",
+          "action_type": "key_event",
+          "key": "back"
+        }
+      },
+      {
+        "tool_call": {
+          "thought": "Scroll",
+          "action_type": "swipe",
+          "direction": "down"
+        }
+      },
+      {
+        "tool_call": {
+          "thought": "Open Labeled",
+          "action_type": "tap"
+        },
+        "target": {
+          "text": "Labeled",
+          "clickable": true
+        }
+      },
+      {
+        "tool_call": {
+          "thought": "Go back",
+          "action_type": "key_event",
+          "key": "back"
+        }
+      },
+      {
+        "tool_call": {
+          "thought": "Scroll",
+          "action_type": "swipe",
+          "direction": "down"
+        }
+      },
+      {
+        "tool_call": {
+          "thought": "Open Labeled",
+          "action_type": "tap"
+        },
+        "target": {
+          "text": "Labeled",
+          "clickable": true
+        }
+      },
+      {
+        "tool_call": {
+          "thought": "Go back",
+          "action_type": "key_event",
+          "key": "back"
+        }
+      },
+      {
+        "tool_call": {
+          "thought": "Scroll",
+          "action_type": "swipe",
+          "direction": "down"
+        }
+      }
+    ],
+    "expect": {
+      "approval": null,
+      "task": {
+        "origin": "user",
+        "state": "failed",
+        "result": "I was going in circles, so I stopped. Nothing more was sent."
+      },
+      "counters_delta": {
+        "sent": 0
+      },
+      "steps": [
+        {
+          "action": "fail",
+          "feedback": "I was going in circles, so I stopped. Nothing more was sent."
+        }
+      ],
+      "script_used_up": true
+    }
+  },
+  "link_web": {
+    "description": "F18.4 step 1: open https://example.com directly; no approval. The PM checks the browser is in front on the hidden display.",
+    "start": "Open example.com",
+    "tool_calls": [
+      {
+        "tool_call": {
+          "thought": "Open the page",
+          "action_type": "open_link",
+          "uri": "https://example.com"
+        }
+      },
+      {
+        "tool_call": {
+          "thought": "Opened it",
+          "action_type": "finish"
+        }
+      },
+      {
+        "tool_call": {
+          "thought": "example.com is open",
+          "action_type": "finish"
+        }
+      }
+    ],
+    "expect": {
+      "approval": null,
+      "task": {
+        "origin": "user",
+        "state": "done",
+        "result": "example.com is open"
+      },
+      "steps": [
+        {
+          "action": "open_link",
+          "label": "https://example.com",
+          "success": true
+        }
+      ],
+      "script_used_up": true
+    }
+  },
+  "link_sms": {
+    "description": "F18.4 step 2: start a text message with an sms link; the composer opens filled in and nothing is sent (the PM checks the hidden display).",
+    "start": "Start a text to +14155550100 saying Hello from the walk",
+    "tool_calls": [
+      {
+        "tool_call": {
+          "thought": "Start the message",
+          "action_type": "open_link",
+          "uri": "sms:+14155550100?body=Hello%20from%20the%20walk"
+        }
+      },
+      {
+        "tool_call": {
+          "thought": "Started it",
+          "action_type": "finish"
+        }
+      },
+      {
+        "tool_call": {
+          "thought": "The message is ready",
+          "action_type": "finish"
+        }
+      }
+    ],
+    "expect": {
+      "approval": null,
+      "task": {
+        "origin": "user",
+        "state": "done",
+        "result": "The message is ready"
+      },
+      "steps": [
+        {
+          "action": "open_link",
+          "success": true
+        }
+      ],
+      "script_used_up": true
+    }
+  },
+  "link_call": {
+    "description": "F18.4: missing call permission returns feedback; the model opens the dialer and finishes without an approval hold.",
+    "start": "Call +14155550100",
+    "tool_calls": [
+      {
+        "tool_call": {
+          "thought": "Call the number",
+          "action_type": "open_link",
+          "uri": "tel:+14155550100",
+          "call": true
+        }
+      },
+      {
+        "tool_call": {
+          "thought": "Open the dialer instead",
+          "action_type": "open_link",
+          "uri": "tel:+14155550100"
+        }
+      },
+      {
+        "tool_call": {
+          "thought": "I opened the dialer. You can place the call there.",
+          "action_type": "finish"
+        }
+      },
+      {
+        "tool_call": {
+          "thought": "I opened the dialer. You can place the call there.",
+          "action_type": "finish"
+        }
+      }
+    ],
+    "expect": {
+      "approval": null,
+      "task": {
+        "origin": "user",
+        "state": "done",
+        "result": "I opened the dialer. You can place the call there."
+      },
+      "script_used_up": true,
+      "model_saw": "I cannot place calls. Open the dialer instead."
+    }
+  },
+  "link_blocked": {
+    "description": "F18.4 step 4: a link into a protected app (Settings) ends the task with the protected-app sentence.",
+    "start": "Open the phone settings",
+    "tool_calls": [
+      {
+        "tool_call": {
+          "thought": "Open Settings",
+          "action_type": "open_link",
+          "uri": "intent:#Intent;action=android.settings.SETTINGS;end"
+        }
+      }
+    ],
+    "expect": {
+      "approval": null,
+      "task": {
+        "origin": "user",
+        "state": "failed",
+        "result": "I do not open Settings. It is on your protected list."
+      },
+      "script_used_up": true
+    }
+  },
+  "link_unknown": {
+    "description": "F18.4 step 5: a link with an unknown scheme starts nothing; the model is told no app opens it.",
+    "start": "Open the zzwalk link",
+    "tool_calls": [
+      {
+        "tool_call": {
+          "thought": "Open the link",
+          "action_type": "open_link",
+          "uri": "zzwalk://nothing"
+        }
+      },
+      {
+        "tool_call": {
+          "thought": "No app opens it",
+          "action_type": "finish"
+        }
+      }
+    ],
+    "expect": {
+      "approval": null,
+      "task": {
+        "origin": "user",
+        "state": "done",
+        "result": "No app opens it"
+      },
+      "model_saw": "No app on this phone opens that link.",
+      "steps": [
+        {
+          "action": "open_link",
+          "feedback": "No app on this phone opens that link.",
+          "success": false
+        }
+      ],
+      "script_used_up": true
+    }
+  },
+  "type_without_field": {
+    "description": "Typing with the Send button focused fails before any input is injected.",
+    "start": "Open Gate Test, open the chat, and write the draft text Running late without sending it",
+    "tool_calls": [
+      {
+        "tool_call": {
+          "thought": "Open the test app",
+          "action_type": "open_app",
+          "app_name": "Gate Test"
+        }
+      },
+      {
+        "tool_call": {
+          "thought": "Open the chat",
+          "action_type": "tap"
+        },
+        "target": {
+          "text": "Chat",
+          "clickable": true
+        }
+      },
+      {
+        "tool_call": {
+          "thought": "Write the draft",
+          "action_type": "type_text",
+          "text": "Running late"
+        }
+      },
+      {
+        "tool_call": {
+          "thought": "No text field is selected",
+          "action_type": "finish"
+        }
+      }
+    ],
+    "expect": {
+      "approval": null,
+      "counters_delta": {
+        "sent": 0
+      },
+      "steps": [
+        {
+          "action": "type_text",
+          "success": false
+        }
+      ],
+      "model_saw": "No text field is selected. Tap a text field first."
+    }
+  }
+}
