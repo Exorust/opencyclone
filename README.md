@@ -53,7 +53,7 @@ OpenCyclon needs no special phone and no changed system. It runs on Android 12 o
 Release packages are not published yet. Build from source:
 
 ```bash
-git clone <repository address>
+git clone https://github.com/Exorust/opencyclon.git
 cd opencyclon/android
 JAVA_HOME=<path to JDK 17> ./gradlew :app:assembleStandardDebug
 cd ..
