@@ -52,6 +52,16 @@ OpenCyclon needs no special phone and no changed system. It runs on Android 12 o
 
 Release packages are not published yet. You build the app on a computer and install it over USB. This takes about 15 minutes the first time.
 
+### The short way: let an AI coding agent do it
+
+If you use an AI coding agent that can run commands on your computer (Claude Code, Codex, Cursor, Gemini CLI), connect the phone with a cable and give the agent this sentence:
+
+```
+Install OpenCyclon on my Android phone. Follow https://raw.githubusercontent.com/Exorust/opencyclon/main/INSTALL-WITH-AI.md
+```
+
+The agent checks your tools, gets the package, runs the setup script, reads each result, and tells you what to tap on the phone. It does not see your model key or your pairing code. The steps it follows are in [`INSTALL-WITH-AI.md`](INSTALL-WITH-AI.md). The manual steps follow.
+
 ### 1. What you need on the computer
 
 - macOS, Linux, or Windows with a bash shell (WSL or Git Bash).
