@@ -50,17 +50,74 @@ OpenCyclon needs no special phone and no changed system. It runs on Android 12 o
 
 ## Install
 
-Release packages are not published yet. Build from source:
+Release packages are not published yet. You build the app on a computer and install it over USB. This takes about 15 minutes the first time.
+
+### 1. What you need on the computer
+
+- macOS, Linux, or Windows with a bash shell (WSL or Git Bash).
+- Git.
+- JDK 17. On macOS: `brew install openjdk@17`.
+- The Android SDK with platform 36, and `adb` (Android platform tools) on your `PATH`. The simplest way is to install Android Studio and open the SDK Manager once. On macOS, `brew install --cask android-platform-tools` gives you `adb` alone.
+- The SDK components NDK and CMake. Gradle downloads them on the first build if you accepted the SDK licences (`sdkmanager --licenses`).
+
+### 2. Prepare the phone
+
+1. Open **Settings > About phone** and tap **Build number** seven times. This turns on Developer options.
+2. Open **Settings > System > Developer options** and turn on **USB debugging** and **Wireless debugging**. Wireless debugging needs a Wi-Fi connection.
+3. Connect the phone to the computer with a USB cable and accept the "Allow USB debugging" question on the phone.
+4. Run `adb devices`. The phone must appear with the word `device`.
+
+### 3. Build
 
 ```bash
 git clone https://github.com/Exorust/opencyclon.git
 cd opencyclon/android
+echo "sdk.dir=$HOME/Library/Android/sdk" > local.properties   # macOS default; on Linux it is usually $HOME/Android/Sdk
 JAVA_HOME=<path to JDK 17> ./gradlew :app:assembleStandardDebug
 cd ..
-./setup.sh            # installs the package and grants the permissions over adb
 ```
 
-Then open the app on the phone. The first run has a few short steps: connect once (wireless debugging), choose a model, allow the microphone, and try a first request. To let a long press of the power button open the listening screen, run `./setup.sh --assistant`.
+On macOS with Homebrew the JDK path is `/opt/homebrew/opt/openjdk@17`. The first build downloads Gradle and the libraries and can take 10 minutes. The package is written to `android/app/build/outputs/apk/standard/debug/app-standard-debug.apk`.
+
+### 4. Install and grant the permissions
+
+```bash
+./setup.sh
+```
+
+The script installs the package and then turns on, over `adb`, the things the app cannot ask for itself: the accessibility service, notification access, the microphone, notifications, and the right to change secure settings. Each line of its output starts with `ok:` or `FAILED:`. If more than one device is attached, set `ANDROID_SERIAL` to the serial number from `adb devices`.
+
+To let a long press of the power button open the listening screen, run `./setup.sh --assistant` instead.
+
+### 5. First run on the phone
+
+Open OpenCyclon. The first run has a few short steps:
+
+1. **Connect once.** The app pairs with the phone's own wireless debugging and starts its helper process. Follow the steps on the screen. After this step you can remove the cable.
+2. **Choose a model.** Sign in with ChatGPT or OpenRouter, enter your own key, or give the address of a model on your network.
+3. **Permissions and voice.** Confirm what the script already granted and choose how speech is recognised.
+4. **Try it.** Run a first request.
+
+You can also make OpenCyclon your home app. This step is optional.
+
+### After a restart of the phone
+
+Android stops the helper process when the phone restarts. Open the app with Wi-Fi on and tap "Connect" again. You do not need the computer for this.
+
+### Update and remove
+
+- Update: `git pull`, build again, and run `./setup.sh` again. Your settings stay.
+- Remove: `adb uninstall ai.opencyclon.standard`.
+
+### If something fails
+
+| What you see | What to do |
+|---|---|
+| `SDK location not found` | Create `android/local.properties` with the `sdk.dir=` line from step 3. |
+| `FAILED: No device found` | Check the cable, accept the debugging question on the phone, and run `adb devices`. |
+| `FAILED: More than one device` | Set `ANDROID_SERIAL=<serial number>` before `./setup.sh`. |
+| `FAILED: Write secure settings` on a Xiaomi phone | Turn on "USB debugging (Security settings)" in Developer options and run the script again. |
+| The app says "Not connected" | Turn on Wi-Fi and Wireless debugging, then tap "Connect" in the app. |
 
 ## Limits
 
