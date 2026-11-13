@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Progress pill (UI.md 5.10): surface pill, 52 dp, card shadow, built app tile, "Updating Lingo · ~1 min ›". -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clipChildren="false"
+    android:clipToPadding="false">
+
+    <LinearLayout
+        android:id="@+id/progress_pill"
+        style="@style/Widget.App.Card"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/pill_height"
+        android:background="@drawable/bg_pill_surface"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/padding_notification">
+
+        <ImageView
+            android:id="@+id/progress_icon"
+            android:layout_width="@dimen/icon_pill"
+            android:layout_height="@dimen/icon_pill"
+            android:layout_marginEnd="@dimen/pill_icon_overlap"
+            android:importantForAccessibility="no" />
+
+        <TextView
+            android:id="@+id/progress_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textAppearance="@style/TextAppearance.App.Body"
+            android:textSize="15sp" />
+    </LinearLayout>
+</FrameLayout>

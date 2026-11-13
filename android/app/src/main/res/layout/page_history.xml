@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  The history page (F15), the left page of the home pager. White page, no wash. Title "History" in Greeting with
+  the word "menu" at the right of the title row; one search field in a surface_2 pill (the only text box; it takes
+  focus only when tapped); the list of tasks grouped by day, rows without dividers; one sentence when empty.
+  The top and bottom system bar padding is set in code.
+-->
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_page"
+        android:layout_marginTop="@dimen/header_top"
+        android:layout_marginEnd="@dimen/margin_page">
+
+        <TextView
+            android:id="@+id/hist_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center_vertical"
+            android:accessibilityHeading="true"
+            android:text="@string/hist_title"
+            android:textAppearance="@style/TextAppearance.App.Greeting" />
+
+        <TextView
+            android:id="@+id/hist_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:contentDescription="@string/hist_menu_desc"
+            android:gravity="center_vertical|end"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            android:paddingStart="16dp"
+            android:text="@string/hist_menu"
+            android:textAppearance="@style/TextAppearance.App.Label"
+            android:textColor="@color/ink_2" />
+    </FrameLayout>
+
+    <EditText
+        android:id="@+id/hist_search"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/pill_height"
+        android:layout_marginStart="@dimen/margin_page"
+        android:layout_marginTop="@dimen/gap_heading"
+        android:layout_marginEnd="@dimen/margin_page"
+        android:hint="@string/hist_search"
+        android:imeOptions="actionSearch"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:maxLines="1"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:textAppearance="@style/TextAppearance.App.Body"
+        android:textColor="@color/ink"
+        android:textColorHint="@color/ink_2" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/hist_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            android:paddingBottom="@dimen/gap_block" />
+
+        <TextView
+            android:id="@+id/hist_empty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_page"
+            android:layout_marginTop="@dimen/gap_block"
+            android:layout_marginEnd="@dimen/margin_page"
+            android:textAppearance="@style/TextAppearance.App.Body"
+            android:textColor="@color/ink_2"
+            android:visibility="gone" />
+    </FrameLayout>
+</merge>

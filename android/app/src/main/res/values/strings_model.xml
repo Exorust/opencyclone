@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Lane M1: the Model screen and the quick ways to reach it. -->
+<resources>
+    <string name="model_title">Model</string>
+    <string name="model_via_chatgpt">Signed in with ChatGPT</string>
+    <string name="model_via_openrouter">OpenRouter</string>
+    <string name="model_via_key">Your own key at %1$s</string>
+    <string name="model_via_network">A model on your network</string>
+    <string name="model_change">Change</string>
+    <string name="model_loading">Getting the list of models.</string>
+    <string name="model_load_failed">I could not get the list. Type a model name.</string>
+    <string name="model_next_task">The next task uses %1$s.</string>
+    <string name="model_other">Other…</string>
+    <string name="model_other_hint">Model name</string>
+    <string name="model_use">Use</string>
+    <string name="model_search">Search</string>
+    <string name="model_price">%1$s per million input tokens</string>
+    <string name="model_chosen">Chosen</string>
+    <string name="model_test">Test</string>
+    <string name="model_testing">Testing the model.</string>
+    <string name="model_answered">The model answered.</string>
+    <string name="model_row">Model: %1$s</string>
+    <string name="pref_model_choice_title">Model</string>
+</resources>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Listening and speaking screen (lane L5). UI.md 5.2, 5.3, 9 item 1, 10. -->
+<resources>
+    <string name="voice_listening_top">Listening · stops when you pause</string>
+    <string name="voice_speaking_top">Speaking · tap to interrupt</string>
+    <string name="voice_hint_first">%1$s hears you. Nothing is sent until you stop.</string>
+    <string name="voice_hint">Nothing is sent until you stop.</string>
+    <string name="voice_quoted">“%1$s”</string>
+    <string name="voice_heard_nothing">I did not hear anything.</string>
+    <string name="voice_unlock_to_send">Unlock to send.</string>
+    <string name="voice_need_mic">I need the microphone to listen.</string>
+    <string name="voice_open_settings">Open settings</string>
+    <string name="voice_failed">I could not listen this time.</string>
+    <string name="voice_mic_busy">The microphone is in use by another app.</string>
+    <string name="voice_unavailable">Voice is not available on this phone.</string>
+    <string name="voice_not_ready">I cannot send requests yet.</string>
+    <string name="voice_preparing">Getting voice ready. %1$d%% done.</string>
+    <string name="voice_elapsed">%1$d:%2$02d</string>
+    <string name="voice_wave">Sound level</string>
+</resources>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Words of today's thread (lane L1). UI.md sections 4, 6, 9, 10. Phrases, not sentences: no full stop. -->
+<resources>
+    <string name="thread_photo_n_of_m">Photo %1$d of %2$d</string>
+    <string name="thread_more_photos">%1$d more photos</string>
+    <string name="thread_chip_done">%1$s, done</string>
+    <string name="thread_dot_sep">" · "</string>
+    <string name="thread_shared_with_you">Shared with you</string>
+    <string name="thread_checked">Checked</string>
+    <string name="thread_checked_sent_by">Checked · sent by %1$s</string>
+    <string name="thread_approve_desc">%1$s: %2$s</string>
+    <string name="thread_screen_picture">Picture of the screen the task is on</string>
+</resources>

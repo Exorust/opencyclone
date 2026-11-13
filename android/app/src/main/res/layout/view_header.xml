@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Home header (UI.md section 4 with section 10): time, 12 dp, date; greeting 14 dp below; status 12 dp below.
+  A long press on the greeting opens the list of secondary screens (section 9 item 5); nothing shows that it exists.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!-- The time reads darker than the date in frames 01, 04, 14. -->
+        <TextView
+            android:id="@+id/header_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.App.Label"
+            android:textColor="@color/ink" />
+
+        <TextView
+            android:id="@+id/header_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:textAppearance="@style/TextAppearance.App.Label" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/header_greeting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:minHeight="@dimen/button_height"
+        android:gravity="center_vertical"
+        android:longClickable="true"
+        android:textAppearance="@style/TextAppearance.App.Greeting" />
+
+    <ai.opencyclon.ui.widget.WordRevealTextView
+        android:id="@+id/header_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:accessibilityLiveRegion="polite"
+        android:textAppearance="@style/TextAppearance.App.Status" />
+</LinearLayout>

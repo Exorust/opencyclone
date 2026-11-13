@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- A choice of speech recognizers (F17, lane F17). UI.md 5.12, 6. -->
+<resources>
+    <string name="voice_settings_title">Voice</string>
+    <string name="voice_settings_pref_summary">Choose how your speech becomes text.</string>
+
+    <string name="voice_choice_android">Android\'s recognizer</string>
+    <string name="voice_choice_phone">On this phone</string>
+    <string name="voice_choice_service">A service on the internet</string>
+    <string name="voice_where_android">Your voice goes to the recognizer that Android provides.</string>
+    <string name="voice_where_android_on_device">Your voice goes to the recognizer that Android provides. On this phone it runs on the device.</string>
+    <string name="voice_where_phone">Your voice stays on this phone.</string>
+    <string name="voice_where_service">Your voice goes to the service you choose.</string>
+    <string name="voice_android_unavailable">Not available on this phone.</string>
+    <string name="voice_chosen">Chosen</string>
+
+    <string name="voice_models_heading">Models on this phone</string>
+    <string name="voice_model_detail">%1$s. %2$d MB.</string>
+    <string name="voice_model_download">Download</string>
+    <string name="voice_model_remove">Remove</string>
+    <string name="voice_model_confirm">Download %1$d MB?</string>
+    <string name="voice_model_progress">Downloading %1$s. %2$d percent.</string>
+    <string name="voice_model_failed">The download failed. Check the connection and try again.</string>
+
+    <string name="voice_service_heading">A service on the internet</string>
+    <string name="voice_service_address">Address</string>
+    <string name="voice_service_model">Model</string>
+    <string name="voice_service_key">Key</string>
+    <string name="voice_service_key_saved">A key is saved. Leave this empty to keep it.</string>
+    <string name="voice_service_sent">Your voice is sent to this address.</string>
+    <string name="voice_service_test">Test</string>
+    <string name="voice_service_testing">I am asking the service.</string>
+    <string name="voice_service_answered">The service answered.</string>
+    <string name="voice_service_refused">The voice service refused the key.</string>
+    <string name="voice_service_unreachable">I could not reach the voice service.</string>
+    <string name="voice_service_failed">The voice service did not return the words.</string>
+    <string name="voice_service_bad_address">The address must start with https://.</string>
+    <string name="voice_service_need_setup">Enter the address and the key, then tap Test.</string>
+    <string name="voice_service_fell_back">I could not reach the voice service. I used the recognizer on this phone.</string>
+    <string name="voice_service_hint">I show the words when you stop.</string>
+
+    <string name="voice_privacy_row">Voice: %1$s</string>
+
+    <string name="start_voice_text_android">I listen with the recognizer that Android provides.</string>
+    <string name="start_voice_allow">Allow</string>
+</resources>

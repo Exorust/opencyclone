@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- A day group title on the history page: "Today", "Yesterday", "Earlier this week", "Older". -->
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/hist_group"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:accessibilityHeading="true"
+    android:paddingStart="@dimen/margin_page"
+    android:paddingTop="@dimen/gap_block"
+    android:paddingEnd="@dimen/margin_page"
+    android:paddingBottom="@dimen/gap_chip"
+    android:textAppearance="@style/TextAppearance.App.Label"
+    android:textColor="@color/ink_2" />

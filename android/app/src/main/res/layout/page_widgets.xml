@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Widgets page (F16): title, the empty state, a two-column grid of widget cards. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widgets_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/header_top">
+
+    <TextView
+        android:id="@+id/widgets_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_page"
+        android:layout_marginEnd="@dimen/margin_page"
+        android:accessibilityHeading="true"
+        android:text="@string/widgets_title"
+        android:textAppearance="@style/TextAppearance.App.Greeting" />
+
+    <TextView
+        android:id="@+id/widgets_empty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_page"
+        android:layout_marginTop="@dimen/gap_block"
+        android:layout_marginEnd="@dimen/margin_page"
+        android:text="@string/widgets_empty"
+        android:textAppearance="@style/TextAppearance.App.Body"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/widgets_example"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_page"
+        android:layout_marginTop="@dimen/gap_chip"
+        android:layout_marginEnd="@dimen/margin_page"
+        android:text="@string/widgets_empty_example"
+        android:textAppearance="@style/TextAppearance.App.Small"
+        android:visibility="gone" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/widgets_grid"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/gap_heading"
+        android:layout_weight="1"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:paddingStart="@dimen/margin_page"
+        android:paddingEnd="@dimen/margin_page"
+        android:paddingBottom="@dimen/gap_block" />
+</LinearLayout>

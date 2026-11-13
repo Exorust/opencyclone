@@ -24,13 +24,17 @@ jobs:
           echo "sdk.dir=$HOME/Library/Android/sdk" > android/local.properties
           echo "JAVA_HOME=$(/usr/libexec/java_home -v 17)" >> "$GITHUB_ENV"
 
+      # Only the standard flavour exists; these are the tasks the builders run.
       - name: Unit tests
         working-directory: android
-        run: ./gradlew test
+        run: ./gradlew :app:testStandardDebugUnitTest
+
+      - name: Setup script tests
+        run: bash tests/setup/test_setup.sh
 
       - name: Lint
         working-directory: android
-        run: ./gradlew lint
+        run: ./gradlew :app:lintStandardDebug
 
       - name: Upload unit test reports
         if: always()
@@ -39,7 +43,11 @@ jobs:
           name: unit-test-reports
           path: android/app/build/reports/tests/
 
+  # Disabled: this job deploys with deploy-emu.sh, which needs the platform-signed
+  # system build on an emulator system image. The system build was removed; the
+  # Python tests in tests/e2e are kept. Re-enable once they run against the standard build.
   e2e:
+    if: false
     runs-on: self-hosted
     timeout-minutes: 30
     needs: unit-and-lint

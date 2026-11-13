@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Qualifies the app for the assistant role (holding power opens the listening screen).
+  Class names are written in full because the application id differs from the Kotlin package.
+-->
+<voice-interaction-service xmlns:android="http://schemas.android.com/apk/res/android"
+    android:sessionService="ai.opencyclon.assist.AssistSessionService"
+    android:recognitionService="ai.opencyclon.assist.StubRecognitionService"
+    android:supportsAssist="true" />

@@ -5,26 +5,12 @@ plugins {
 }
 
 android {
-    namespace = "ai.opencyvis"
+    namespace = "ai.opencyclon"
     compileSdk = 36
 
-    // Platform signing: only enable if platform-key/platform.jks exists.
-    // Without it, builds use the default debug keystore.
-    val platformKeyFile = file("../platform-key/platform.jks")
-    if (platformKeyFile.exists()) {
-        signingConfigs {
-            create("platform") {
-                storeFile = platformKeyFile
-                storePassword = System.getenv("PLATFORM_STORE_PASSWORD") ?: "android"
-                keyAlias = System.getenv("PLATFORM_KEY_ALIAS") ?: "platform"
-                keyPassword = System.getenv("PLATFORM_KEY_PASSWORD") ?: "android"
-            }
-        }
-    }
-
     defaultConfig {
-        applicationId = "ai.opencyvis"
-        minSdk = 30  // Android 11+ for SurfaceControl.screenshot()
+        applicationId = "ai.opencyclon"
+        minSdk = 31  // Android 11+ for SurfaceControl.screenshot()
         targetSdk = 36
         versionCode = 201
         versionName = "2.0.1"
@@ -42,11 +28,10 @@ android {
         abortOnError = false
     }
 
+    // One flavour: the app gets its privileges from Shizuku or wireless ADB.
+    // The name stays because build commands, setup.sh and the release use assembleStandardDebug.
     flavorDimensions += "privilege"
     productFlavors {
-        create("system") {
-            dimension = "privilege"
-        }
         create("standard") {
             dimension = "privilege"
             applicationIdSuffix = ".standard"
@@ -54,25 +39,10 @@ android {
     }
 
     buildTypes {
-        debug {
-            if (signingConfigs.findByName("platform") != null) {
-                signingConfig = signingConfigs.getByName("platform")
-            }
-        }
         release {
             isMinifyEnabled = false
-            if (signingConfigs.findByName("platform") != null) {
-                signingConfig = signingConfigs.getByName("platform")
-            }
-        }
-    }
-
-    // Standard flavor uses default debug keystore — not platform signing
-    androidComponents {
-        onVariants { variant ->
-            if (variant.flavorName == "standard") {
-                variant.signingConfig.setConfig(signingConfigs.getByName("debug"))
-            }
+            // Debug-signed here; the release workflow re-signs with the release key.
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
 
@@ -108,7 +78,13 @@ android {
             excludes += "META-INF/versions/9/OSGI-INF/MANIFEST.MF"
         }
         jniLibs {
-            excludes += listOf("**/libonnxruntime.so", "**/libsherpa-onnx-jni.so")
+            // Recognizer libraries are packaged (decision 13); the model download exists only for arm64-v8a.
+            excludes += listOf("armeabi-v7a", "x86", "x86_64").flatMap {
+                listOf("lib/$it/libonnxruntime.so", "lib/$it/libsherpa-onnx-jni.so")
+            }
+            // The ONNX Runtime Java API is unused (no code imports ai.onnxruntime); only libonnxruntime.so,
+            // which libsherpa-onnx-jni.so links against, is needed from that dependency.
+            excludes += "**/libonnxruntime4j_jni.so"
         }
     }
 }
@@ -139,11 +115,10 @@ dependencies {
     // OkHttp for LLM API calls
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
 
-    // QR code generation (for Feishu bot registration)
-    implementation("com.journeyapps:zxing-android-embedded:4.3.0")
-
     // JSON parsing
     implementation("org.json:json:20240303")
+
+    implementation("androidx.security:security-crypto:1.1.0-alpha06")
 
     // Room
     val roomVersion = "2.6.1"
@@ -160,7 +135,8 @@ dependencies {
     implementation("org.lsposed.libcxx:libcxx:27.0.12077973")
     // ADB key management (X.509 cert generation) + TLS with exportKeyingMaterial
     implementation("org.bouncycastle:bcpkix-jdk18on:1.80")
-    implementation("org.conscrypt:conscrypt-android:2.5.3")
+    // 2.6+ fixes the crash on 16 KB page phones (unaligned GNU_RELRO, google/conscrypt#1413).
+    implementation("org.conscrypt:conscrypt-android:2.9.0")
 
     // Testing
     testImplementation("junit:junit:4.13.2")

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Toggle row (UI.md 5.12): surface-2, radius 16 dp; label and a switch. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/row_toggle"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/gap_chip"
+    android:background="@drawable/bg_row_surface2"
+    android:gravity="center_vertical"
+    android:minHeight="52dp"
+    android:orientation="horizontal"
+    android:paddingStart="@dimen/padding_card"
+    android:paddingTop="@dimen/padding_notification"
+    android:paddingEnd="@dimen/padding_card"
+    android:paddingBottom="@dimen/padding_notification">
+
+    <TextView
+        android:id="@+id/toggle_label"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:labelFor="@+id/toggle_switch"
+        android:textAppearance="@style/TextAppearance.App.Body" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/toggle_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/gap_chip"
+        android:minHeight="48dp"
+        android:minWidth="48dp" />
+</LinearLayout>

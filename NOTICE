@@ -1,7 +1,22 @@
 OpenCyvis
 Copyright 2026 OpenCyvis Contributors
 
+This project is modified from OpenCyvis (https://github.com/opencyvis/opencyvis-phone,
+Apache License 2.0), starting from upstream commit 3acd0a5. The OpenCyvis
+copyright line above is kept as that licence requires.
+
 This product includes software and models from third parties:
+
+========================================================================
+Shizuku (wireless ADB pairing and connection)
+========================================================================
+License: Apache License 2.0
+Source: https://github.com/RikkaApps/Shizuku
+Copyright (c) RikkaW and the Shizuku contributors
+
+The code in android/app/src/main/java/moe/shizuku/manager/adb/ and the
+native pairing code in android/app/src/main/jni/ are derived from
+Shizuku, modified for this project.
 
 ========================================================================
 Sherpa-ONNX (Speech Recognition)
@@ -9,15 +24,26 @@ Sherpa-ONNX (Speech Recognition)
 License: Apache License 2.0
 Source: https://github.com/k2-fsa/sherpa-onnx
 
-This product includes Sherpa-ONNX ASR models (zh_en_small_int8) for
-on-device speech recognition. The models are licensed under Apache 2.0.
-
-Model files included in android/app/src/main/assets/asr/zh_en_small_int8/:
+The Sherpa-ONNX recognizer library (libsherpa-onnx-jni.so) is packaged
+in the app. The speech model (zh_en_small_int8, Apache 2.0) is not
+packaged; the app downloads it on first use and checks its SHA-256
+before unpacking it. Its files:
 - encoder-epoch-99-avg-1.int8.onnx
 - joiner-epoch-99-avg-1.int8.onnx
 - decoder-epoch-99-avg-1.onnx
 - bpe.model
 - tokens.txt
+
+========================================================================
+ONNX Runtime
+========================================================================
+License: MIT License
+Source: https://github.com/microsoft/onnxruntime
+Copyright (c) Microsoft Corporation
+
+The native runtime library (libonnxruntime.so) is packaged because the
+speech recognizer links against it. The ONNX Runtime Java API library
+is not packaged.
 
 ========================================================================
 Android Open Source Project (AOSP)
@@ -37,6 +63,21 @@ Third-party Libraries (Android)
 - OkHttp (Apache 2.0)
 - Room (Apache 2.0)
 - Material Design (Apache 2.0)
-- ONNX Runtime (MIT License)
+- Shizuku API and provider (Apache 2.0)
 - Sherpa-ONNX Android SDK (Apache 2.0)
+- Bouncy Castle (MIT-style Bouncy Castle Licence)
+- Conscrypt (Apache 2.0)
+- BoringSSL (OpenSSL and ISC licences), built into libadb.so
+- LLVM libc++ (Apache 2.0 with LLVM Exception), built into libadb.so
 
+
+========================================================================
+Inter (Typeface)
+========================================================================
+License: SIL Open Font License, Version 1.1
+Source: https://github.com/rsms/inter (release v4.1)
+Copyright (c) 2016 The Inter Project Authors
+
+Font files in android/app/src/main/res/font/ (inter_regular.ttf,
+inter_medium.ttf, inter_semibold.ttf, inter_bold.ttf). The full licence
+text is in android/app/src/main/assets/licenses/Inter-OFL.txt.

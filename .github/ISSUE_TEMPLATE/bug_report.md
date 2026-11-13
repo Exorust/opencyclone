@@ -9,7 +9,7 @@ assignees: ''
 **Device Info**
 - Device: [e.g., Pixel 7]
 - Android Version: [e.g., Android 14]
-- OpenCyvis Version: [e.g., 1.0]
+- OpenCyclon Version: [e.g., 1.0]
 
 **LLM Provider**
 - Provider: [e.g., Qwen, Anthropic, Ollama]

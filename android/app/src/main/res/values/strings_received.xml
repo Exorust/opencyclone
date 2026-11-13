@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Shared-app card on the recipient's phone (lane L9, F9, UI.md 5.11 with sections 9 and 10). -->
+<resources>
+    <string name="received_shared_with_you">Shared with you</string>
+    <string name="received_text">Someone shared an app with you. I checked it. It is your own copy, so you can change anything.</string>
+    <string name="received_text_failed">Someone shared an app with you. I checked it and did not open it.</string>
+    <string name="received_checked">Checked · no outside addresses</string>
+    <string name="received_not_opened">Not opened</string>
+    <string name="received_close">Close</string>
+    <string name="received_unnamed">Shared app</string>
+    <string name="received_finding_not_one_file">It came as more than one file.</string>
+    <string name="received_finding_file_too_large">The file is larger than 2 MB.</string>
+    <string name="received_finding_not_text">The file is not readable text.</string>
+    <string name="received_finding_not_html">The file is not a web page.</string>
+    <string name="received_finding_no_title">The app has no name in its title.</string>
+    <string name="received_finding_app_too_large">The app is larger than 300 KB.</string>
+    <string name="received_finding_outside_address">It loads something from an address outside the file.</string>
+    <string name="received_finding_network_call">It makes its own network calls.</string>
+    <string name="received_finding_asks_internet">It asks for the internet.</string>
+    <string name="received_finding_opens_window">It tries to open other pages.</string>
+    <string name="received_finding_embeds">It embeds another page or object.</string>
+    <string name="received_finding_base">It changes where its links point.</string>
+    <string name="received_finding_runs_text">It runs text as code.</string>
+    <string name="received_finding_second_file">It needs a second file to work.</string>
+    <string name="received_finding_secret">It contains a service key.</string>
+    <string name="received_finding_other">It did not pass a check.</string>
+    <string name="received_finding_load_failed">It did not load when I tried it.</string>
+    <string name="received_finding_unreadable">I could not read the file.</string>
+    <string name="received_finding_save_failed">I could not save the app.</string>
+</resources>

@@ -1,4 +1,4 @@
-# Contributing to OpenCyvis
+# Contributing to OpenCyclon
 
 Thanks for your interest in contributing!
 
@@ -22,7 +22,7 @@ cd android
 ### Python CLI
 ```bash
 pip install -e .
-python -m opencyvis --help
+python -m opencyclon --help
 ```
 
 ## Running Tests

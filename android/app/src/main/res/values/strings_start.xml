@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The linear start (lane S1): short full-screen steps on the first open. -->
+<resources>
+    <string name="start_counter">Step %1$d of %2$d</string>
+    <string name="start_continue">Continue</string>
+    <string name="start_open_settings">Open settings</string>
+
+    <string name="start_welcome_text">Say what you need. I do it in your apps, in the background. I ask before I send, pay, or delete anything.</string>
+    <string name="start_start">Start</string>
+
+    <string name="start_connect_title">Connect once</string>
+    <string name="start_connect_text">I need a one-time connection to this phone so that I can work in the background. It takes about a minute.</string>
+    <string name="start_connect">Connect</string>
+    <string name="start_not_connected">Not connected yet.</string>
+
+    <string name="start_model_title">Choose a model</string>
+    <string name="start_model_text">I think with a language model. Sign in, or use your own key.</string>
+    <string name="start_model_connected">Connected.</string>
+    <string name="start_use_key">Use a key</string>
+    <string name="start_signin_waiting">Finish signing in in the browser.</string>
+    <string name="start_signin_failed">The sign-in did not finish. Try again.</string>
+
+    <string name="start_perm_title">Let me see and act</string>
+    <string name="start_perm_text">Three switches in Android\'s settings. I show you each one.</string>
+    <string name="start_perm_accessibility">So I can read and press buttons in your apps.</string>
+    <string name="start_perm_notification_access">So I can read incoming notifications.</string>
+    <string name="start_perm_post_notifications">So I can ask you before I act.</string>
+    <string name="start_perm_done">All three switches are on.</string>
+
+    <string name="start_voice_title">Talk to me</string>
+    <string name="start_voice_text">I listen on this phone. Your voice does not leave it. The speech model is a 64 MB download.</string>
+    <string name="start_voice_get">Get voice ready</string>
+    <string name="start_voice_progress">Getting voice ready. %1$d percent.</string>
+    <string name="start_voice_ready">Voice is ready.</string>
+    <string name="start_voice_failed">The download failed. Check the connection and try again.</string>
+    <string name="start_voice_try_again">Try again</string>
+    <string name="start_voice_metered">You are not on Wi-Fi. The download is 64 MB.</string>
+    <string name="start_voice_download_anyway">Download anyway</string>
+    <string name="start_voice_mic_off">The microphone is off. Turn it on in settings.</string>
+
+    <string name="start_try_title">Try it</string>
+    <string name="start_try_text">Say or type: Open the clock app.</string>
+    <string name="start_talk">Talk</string>
+    <string name="start_type">Type</string>
+    <string name="start_try_hint">Tap menu for history, rules, privacy and settings.</string>
+</resources>

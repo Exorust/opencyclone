@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  The home page (UI.md 5.1 to 5.10 with sections 9 and 10). One page on a wash, drawn behind the system bars,
+  left aligned at the 24 dp margin: header, built-app tiles, running pill (with its panel), thread, footer.
+  No toolbar, no menu, no icons, no text box. The scrim covers the whole page; the pill (elevation) and the
+  panel (declared after the scrim, with elevation) stay above it. The type input is inflated at run time.
+  The heights of home_inset_top and the bottom margins of the footer are set from the window insets in code.
+
+  Version 2 (F15, F16): three pages side by side in a HomePager: History (left), this page (middle), Widgets
+  (right). The wash, the footer, and the pill belong to the middle page only. The widgets page is created in code
+  (lane G1's view, or the empty page). The word "menu" at the top right opens the list of secondary screens.
+-->
+<ai.opencyclon.ui.home.HomePager xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/home_pager"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ai.opencyclon.ui.history.HistoryPageView
+        android:id="@+id/page_history"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/home_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <View
+            android:id="@+id/home_inset_top"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <include
+            android:id="@+id/home_header"
+            layout="@layout/view_header"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_page"
+            android:layout_marginTop="@dimen/header_top"
+            android:layout_marginEnd="@dimen/margin_page"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/home_inset_top" />
+
+        <!-- Same text style as the time and date and top aligned with them, so it shares their baseline; 48 dp tall. -->
+        <TextView
+            android:id="@+id/home_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginEnd="@dimen/margin_page"
+            android:contentDescription="@string/hist_menu_desc"
+            android:gravity="top|end"
+            android:minWidth="48dp"
+            android:paddingStart="16dp"
+            android:text="@string/hist_menu"
+            android:textAppearance="@style/TextAppearance.App.Label"
+            android:textColor="@color/ink_2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/home_header" />
+
+        <HorizontalScrollView
+            android:id="@+id/home_tiles_scroll"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/gap_block"
+            android:clipToPadding="false"
+            android:paddingStart="@dimen/margin_page"
+            android:paddingEnd="@dimen/margin_page"
+            android:scrollbars="none"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/home_header">
+
+            <LinearLayout
+                android:id="@+id/home_tiles"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" />
+        </HorizontalScrollView>
+
+        <ai.opencyclon.ui.widget.RunningPillView
+            android:id="@+id/home_pill"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_page"
+            android:layout_marginTop="@dimen/gap_block"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/home_tiles_scroll" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/home_thread"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/gap_block"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            android:paddingTop="@dimen/gap_chip"
+            android:paddingBottom="@dimen/gap_block"
+            app:layout_constraintBottom_toTopOf="@id/home_footer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/home_pill" />
+
+        <TextView
+            android:id="@+id/home_notice"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_page"
+            android:layout_marginEnd="@dimen/margin_page"
+            android:layout_marginBottom="@dimen/gap_chip"
+            android:accessibilityLiveRegion="polite"
+            android:textAppearance="@style/TextAppearance.App.Body"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/home_footer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <include
+            android:id="@+id/home_footer"
+            layout="@layout/view_footer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_page"
+            android:layout_marginEnd="@dimen/margin_page"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <View
+            android:id="@+id/home_scrim"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/bg_scrim"
+            android:clickable="true"
+            android:contentDescription="@string/home_close_panel"
+            android:focusable="true"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ai.opencyclon.ui.widget.RunningPanelView
+            android:id="@+id/home_panel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_page"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="@dimen/margin_page"
+            android:elevation="@dimen/elevation_card"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/home_pill" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <FrameLayout
+        android:id="@+id/page_widgets_slot"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</ai.opencyclon.ui.home.HomePager>

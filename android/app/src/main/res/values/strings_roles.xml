@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The assistant role and the optional home mode (lane P1). -->
+<resources>
+    <string name="roles_perm_assistant">Assistant</string>
+    <string name="roles_perm_assistant_fix">Choose this app as the digital assistant app. Other apps that use Android\'s voice typing will need another recognizer.</string>
+    <string name="roles_perm_home">Home app</string>
+    <string name="roles_perm_home_fix">Optional. Choose this app as the home app to use this page as your home screen.</string>
+    <string name="roles_app_search_field">Search apps</string>
+    <string name="roles_app_search_empty">No app has this name.</string>
+</resources>

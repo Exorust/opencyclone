@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Listening and speaking screen, UI.md 5.2 and 5.3 with sections 9 and 10.
+  Bottom distances are measured from the bottom of the content area (above the navigation bar):
+  transcript lower edge 180 dp, wave 32 dp under the transcript (54 dp high, so 94 dp), bottom row 24 dp.
+-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/voice_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="true"
+    android:focusable="true"
+    android:paddingStart="@dimen/margin_page"
+    android:paddingEnd="@dimen/margin_page">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <View
+                android:id="@+id/voice_dot"
+                android:layout_width="7dp"
+                android:layout_height="7dp"
+                android:layout_marginEnd="10dp" />
+
+            <TextView
+                android:id="@+id/voice_top_line"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.App.Small"
+                tools:text="Listening · stops when you pause" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/voice_hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textAppearance="@style/TextAppearance.App.Small"
+            tools:text="Nothing is sent until you stop." />
+    </LinearLayout>
+
+    <ai.opencyclon.ui.widget.WordRevealTextView
+        android:id="@+id/voice_transcript"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="180dp"
+        android:textAppearance="@style/TextAppearance.App.Transcript"
+        tools:text="Handle my notifications for" />
+
+    <LinearLayout
+        android:id="@+id/voice_permission"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="180dp"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/voice_permission_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/voice_need_mic"
+            android:textAppearance="@style/TextAppearance.App.Heading" />
+
+        <Button
+            android:id="@+id/voice_open_settings"
+            style="@style/Widget.App.Button.Pale"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginTop="@dimen/gap_heading"
+            android:text="@string/voice_open_settings" />
+    </LinearLayout>
+
+    <ai.opencyclon.ui.widget.SoundWaveView
+        android:id="@+id/voice_wave"
+        android:layout_width="wrap_content"
+        android:layout_height="54dp"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="94dp"
+        android:contentDescription="@string/voice_wave" />
+
+    <Button
+        android:id="@+id/voice_stop"
+        style="@style/Widget.App.Button.Pale"
+        android:layout_width="72dp"
+        android:layout_height="40dp"
+        android:layout_gravity="bottom|start"
+        android:layout_marginBottom="24dp"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:paddingStart="0dp"
+        android:paddingEnd="0dp"
+        android:text="@string/ui_stop" />
+
+    <TextView
+        android:id="@+id/voice_timer"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="24dp"
+        android:gravity="center_vertical"
+        android:textAppearance="@style/TextAppearance.App.Small"
+        tools:text="0:01" />
+</FrameLayout>

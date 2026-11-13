@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="x4_widget_no_reads">The widget did not read any approved source during its load or refresh.</string>
+    <string name="x4_draft_gone">That draft is gone.</string>
+    <string name="x4_remove">Remove</string>
+    <string name="x4_remove_app_question">Remove the %1$s app and its saved data?</string>
+    <string name="x4_app_removed">The app is removed.</string>
+    <string name="x4_app_remove_failed">I could not remove that app.</string>
+    <string name="x4_app_not_found">I could not find one app with that name.</string>
+</resources>

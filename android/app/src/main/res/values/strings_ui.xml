@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Shared interface words (lane L0). UI.md sections 4, 6, 9. -->
+<resources>
+    <string name="ui_hold_to_talk">Hold power to talk</string>
+    <string name="ui_tap_to_talk">Tap to talk</string>
+    <string name="ui_type">type</string>
+    <string name="ui_you">You</string>
+    <string name="ui_now">now</string>
+    <string name="ui_not_now">Not now</string>
+    <string name="ui_open">Open</string>
+    <string name="ui_stop">Stop</string>
+    <string name="ui_send">Send</string>
+    <string name="ui_app_icon">%1$s icon</string>
+</resources>

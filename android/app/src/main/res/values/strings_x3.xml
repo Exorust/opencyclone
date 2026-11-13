@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="x3_widget_save_or_discard">Save or discard the widget draft first.</string>
+    <string name="x3_widget_sources_accepted">I will build the widget with those sources.</string>
+    <string name="x3_notifications_inactive">I am not handling your notifications now.</string>
+</resources>

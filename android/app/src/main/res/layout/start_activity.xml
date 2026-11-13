@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- One step of the linear start: the counter at the top, title, text, then the buttons at the bottom. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/start_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingStart="@dimen/margin_page"
+    android:paddingEnd="@dimen/margin_page"
+    android:paddingBottom="@dimen/gap_block">
+
+    <LinearLayout
+        android:id="@+id/start_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/start_counter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/header_top"
+            android:textAppearance="@style/TextAppearance.App.Label"
+            android:textColor="@color/ink_2" />
+
+        <TextView
+            android:id="@+id/start_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/gap_block"
+            android:textAppearance="@style/TextAppearance.App.Greeting"
+            android:textColor="@color/ink" />
+
+        <TextView
+            android:id="@+id/start_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/gap_heading"
+            android:textAppearance="@style/TextAppearance.App.Body"
+            android:textColor="@color/ink" />
+
+        <!-- Permissions: the name of the one switch this sub-step is about, and why -->
+        <TextView
+            android:id="@+id/start_detail_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/gap_block"
+            android:textAppearance="@style/TextAppearance.App.Body"
+            android:textColor="@color/ink"
+            android:textFontWeight="600"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/start_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/gap_heading"
+            android:textAppearance="@style/TextAppearance.App.Body"
+            android:textColor="@color/ink"
+            android:visibility="gone" />
+
+        <!-- Voice: determinate download progress, primary on surface_2 -->
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/start_progress"
+            style="@style/Widget.App.LinearProgress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/gap_heading"
+            android:indeterminate="false"
+            android:max="100"
+            android:visibility="gone" />
+
+        <!-- Model: the existing sign-ins, then "Use a key" -->
+        <Button
+            android:id="@+id/start_signin_chatgpt"
+            style="@style/Widget.App.Button.Pale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/gap_block"
+            android:text="@string/signin_chatgpt"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/start_signin_openrouter"
+            style="@style/Widget.App.Button.Pale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/gap_chip"
+            android:text="@string/signin_openrouter"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/start_use_key"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginTop="@dimen/gap_chip"
+            android:background="?android:attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:text="@string/start_use_key"
+            android:textAppearance="@style/TextAppearance.App.Body"
+            android:textColor="@color/ink"
+            android:textFontWeight="500"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/start_hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/gap_block"
+            android:text="@string/start_try_hint"
+            android:textAppearance="@style/TextAppearance.App.Small"
+            android:textColor="@color/ink_2"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/start_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!-- Full width at the bottom (UI.md 11): two buttons share the row equally, the pale one at the left -->
+        <Button
+            android:id="@+id/start_pale"
+            style="@style/Widget.App.Button.Pale"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/gap_buttons"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/start_primary"
+            style="@style/Widget.App.Button.Primary"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+    </LinearLayout>
+</LinearLayout>

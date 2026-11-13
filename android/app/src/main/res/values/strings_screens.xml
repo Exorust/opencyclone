@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Secondary screens in the plain look (lane L6a). UI.md 5.12, sections 6 and 9. -->
+<resources>
+    <string name="screens_open">Open</string>
+    <string name="screens_granted">Granted</string>
+    <string name="screens_grant">Grant</string>
+    <string name="screens_remove">Remove</string>
+    <string name="screens_remove_named">Remove %1$s</string>
+    <string name="screens_cancel">Cancel</string>
+    <string name="screens_save">Save</string>
+
+    <!-- Set up -->
+    <string name="screens_use_key">Use a key</string>
+    <string name="screens_use_key_detail">Enter a provider address and key</string>
+    <string name="screens_more_hint">Tap menu for history, rules, privacy and settings.</string>
+
+    <!-- Privacy -->
+    <string name="screens_privacy_stays_heading">Stays on the phone</string>
+    <string name="screens_privacy_stays_blocked">Notifications from blocked apps</string>
+    <string name="screens_privacy_stays_codes">One-time codes</string>
+    <string name="screens_this_app">This app</string>
+
+    <!-- Rules -->
+    <string name="screens_rules_title">Rules</string>
+
+    <!-- Change the request -->
+    <string name="screens_edit_title">Change the request</string>
+    <string name="screens_edit_label">What should change?</string>
+    <string name="screens_edit_gone">This approval is no longer waiting</string>
+
+    <!-- More -->
+    <string name="screens_more_history">History</string>
+    <string name="screens_more_rules">Rules</string>
+    <string name="screens_more_privacy">Privacy</string>
+    <string name="screens_more_integrations">Integrations</string>
+    <string name="screens_more_setup">Set up</string>
+    <string name="screens_more_settings">Settings</string>
+</resources>

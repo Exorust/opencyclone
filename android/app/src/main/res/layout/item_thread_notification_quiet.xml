@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Notification card, quiet (UI.md section 10): no shadow, quiet fill, radius 16 dp, padding 14 by 16 dp, header icon 14 dp. -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/notification_card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_card_quiet"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/padding_quiet_h"
+        android:paddingEnd="@dimen/padding_quiet_h"
+        android:paddingTop="@dimen/padding_quiet_v"
+        android:paddingBottom="@dimen/padding_quiet_v">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/notification_icon"
+                android:layout_width="@dimen/icon_quiet"
+                android:layout_height="@dimen/icon_quiet"
+                android:layout_marginEnd="6dp" />
+
+            <TextView
+                android:id="@+id/notification_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textAppearance="@style/TextAppearance.App.Label" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/notification_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:textAppearance="@style/TextAppearance.App.Body"
+            android:textSize="15sp"
+            android:lineHeight="21sp" />
+    </LinearLayout>
+</FrameLayout>

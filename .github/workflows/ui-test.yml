@@ -6,7 +6,10 @@ on:
   workflow_dispatch: {}
 
 jobs:
+  # Disabled: android/deploy.sh, which this job runs, was removed with the emulator scripts.
+  # Install with setup.sh instead if this job is ever brought back.
   ui-test:
+    if: false
     runs-on: self-hosted
     timeout-minutes: 30
     steps:

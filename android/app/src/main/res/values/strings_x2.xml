@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Lane X2: builder questions in a notification, the optional home-screen step of the first run. -->
+<resources>
+    <string name="x2_has_question">%1$s has a question</string>
+    <string name="x2_home_title">Make this your home screen</string>
+    <string name="x2_home_text">Then the Home button shows this page. A swipe up finds your apps. You can change it back in Set up.</string>
+    <string name="x2_home_make">Make it home</string>
+    <string name="x2_could_not_open">I could not open that.</string>
+    <string name="x2_notification_desc">%1$s, %2$s. Opens the app.</string>
+</resources>

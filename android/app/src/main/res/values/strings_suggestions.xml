@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="suggestions_group">Notifications</string>
+    <string name="suggestions_title">Suggest tasks from my notifications</string>
+    <string name="suggestions_confirmation">The text of your notifications goes to your model, so that I can suggest tasks.</string>
+    <string name="suggestions_turn_on">Turn on</string>
+    <string name="suggestions_stopped">I no longer read your notifications for suggestions.</string>
+    <string name="suggestions_privacy_on">Suggestions are on. Notification text goes to your model to suggest tasks.</string>
+    <string name="suggestions_privacy_off">Suggestions are off. Notification text goes to your model only during a notification window you start.</string>
+</resources>

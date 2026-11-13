@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Launcher shortcut "Ask": opens the control panel with voice input started (F1, one touch).
+     The target package differs per flavor, so each flavor has its own copy of this file. -->
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:enabled="true"
+        android:icon="@mipmap/ic_launcher"
+        android:shortcutId="ask"
+        android:shortcutLongLabel="@string/i_shortcut_ask_long"
+        android:shortcutShortLabel="@string/h_quick_ask_tile_label">
+        <intent
+            android:action="ai.opencyclon.action.ASK"
+            android:targetClass="ai.opencyclon.ui.ControlPanelActivity"
+            android:targetPackage="ai.opencyclon.standard" />
+    </shortcut>
+</shortcuts>

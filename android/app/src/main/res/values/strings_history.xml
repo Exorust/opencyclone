@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Lane H1, version 2: the three pages, the history page, the task record (F15, F16.1), and the menu word. -->
+<resources>
+    <string name="hist_title">History</string>
+    <string name="hist_search">Search</string>
+    <string name="hist_today">Today</string>
+    <string name="hist_yesterday">Yesterday</string>
+    <string name="hist_this_week">Earlier this week</string>
+    <string name="hist_older">Older</string>
+    <string name="hist_empty">Nothing yet. Your tasks will be listed here.</string>
+    <string name="hist_no_match">No task matches.</string>
+    <string name="hist_status_done">Done</string>
+    <string name="hist_status_not_sent">Not sent</string>
+    <string name="hist_status_failed">Failed</string>
+    <string name="hist_status_stopped">Stopped</string>
+    <string name="hist_status_running">Running</string>
+    <string name="hist_status_waiting">Waiting for you</string>
+    <string name="hist_detail_format">%1$s · %2$s</string>
+    <string name="hist_ask_again">Ask again</string>
+    <string name="hist_delete">Delete</string>
+    <string name="hist_stop">Stop</string>
+    <string name="hist_delete_confirm">Delete this task and its record?</string>
+    <string name="hist_delete_detail">The pictures saved with it are deleted too.</string>
+    <string name="hist_cancel">Cancel</string>
+    <string name="hist_approved_at">Approved · %1$s</string>
+    <string name="hist_not_sent_at">Not sent · %1$s</string>
+    <string name="hist_record_gone">This task was deleted.</string>
+    <string name="hist_menu">menu</string>
+    <string name="hist_menu_desc">Menu</string>
+    <string name="hist_widgets_title">Widgets</string>
+    <string name="hist_widgets_empty">Nothing here yet. Ask me for a widget.</string>
+    <string name="hist_widgets_example">Make a widget that shows my streak and my next task.</string>
+</resources>

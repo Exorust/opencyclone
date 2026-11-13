@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Text appearances, UI.md section 3.3 with the corrections of section 10 and the weights of section 11.
+  Line height: 1.25 times the size for body and smaller, 1.1 times for larger styles.
+  Weight comes from the Inter family through android:textFontWeight.
+-->
+<resources>
+    <style name="TextAppearance.App" parent="TextAppearance.Material3.BodyLarge">
+        <item name="android:fontFamily">@font/inter</item>
+        <item name="fontFamily">@font/inter</item>
+        <item name="android:textFontWeight">400</item>
+        <item name="android:textColor">@color/ink</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:letterSpacing">0</item>
+    </style>
+
+    <!-- 40 sp, 500, -0.04 em: greeting inside a built app -->
+    <style name="TextAppearance.App.Display">
+        <item name="android:textSize">40sp</item>
+        <item name="android:textFontWeight">500</item>
+        <item name="android:letterSpacing">-0.04</item>
+        <item name="android:lineHeight">44sp</item>
+    </style>
+
+    <!-- 30 sp, 500, -0.035 em: "Good afternoon." -->
+    <style name="TextAppearance.App.Greeting">
+        <item name="android:textSize">30sp</item>
+        <item name="android:textFontWeight">500</item>
+        <item name="android:letterSpacing">-0.035</item>
+        <item name="android:lineHeight">33sp</item>
+    </style>
+
+    <!-- 28 sp, 400, -0.03 em: live words while listening -->
+    <style name="TextAppearance.App.Transcript">
+        <item name="android:textSize">28sp</item>
+        <item name="android:textFontWeight">400</item>
+        <item name="android:letterSpacing">-0.03</item>
+        <item name="android:lineHeight">31sp</item>
+    </style>
+
+    <!-- 25 sp while speaking (section 10) -->
+    <style name="TextAppearance.App.Transcript.Speaking">
+        <item name="android:textSize">25sp</item>
+        <item name="android:lineHeight">27.5sp</item>
+    </style>
+
+    <!-- 22 sp, 400, -0.02 em: a question or a result -->
+    <style name="TextAppearance.App.Heading">
+        <item name="android:textSize">22sp</item>
+        <item name="android:textFontWeight">400</item>
+        <item name="android:letterSpacing">-0.02</item>
+        <item name="android:lineHeight">24sp</item>
+    </style>
+
+    <!-- 18 sp, 400, -0.01 em: the phone's sentence under the owner's words (section 10) -->
+    <style name="TextAppearance.App.PhoneLine">
+        <item name="android:textSize">18sp</item>
+        <item name="android:letterSpacing">-0.01</item>
+        <item name="android:lineHeight">22.5sp</item>
+    </style>
+
+    <!-- 17 sp, 400, -0.01 em: the phone's sentences, card text -->
+    <style name="TextAppearance.App.Body">
+        <item name="android:textSize">17sp</item>
+        <item name="android:letterSpacing">-0.01</item>
+        <item name="android:lineHeight">21.25sp</item>
+    </style>
+
+    <!-- 15 sp (section 10), ink-2 with the key noun in ink when idle; all ink on work screens -->
+    <style name="TextAppearance.App.Status">
+        <item name="android:textSize">15sp</item>
+        <item name="android:letterSpacing">-0.01</item>
+        <item name="android:lineHeight">18.75sp</item>
+        <item name="android:textColor">@color/ink_2</item>
+    </style>
+
+    <!-- 15 sp, 500: button text (section 10) -->
+    <style name="TextAppearance.App.Button">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textFontWeight">500</item>
+        <item name="android:lineHeight">18.75sp</item>
+    </style>
+
+    <!-- 15 sp, ink-2: time and date, footer words, captions -->
+    <style name="TextAppearance.App.Label">
+        <item name="android:textSize">15sp</item>
+        <item name="android:lineHeight">18.75sp</item>
+        <item name="android:textColor">@color/ink_2</item>
+    </style>
+
+    <!-- 13 sp, ink-2: top line of the listening screen, receipt detail -->
+    <style name="TextAppearance.App.Small">
+        <item name="android:textSize">13sp</item>
+        <item name="android:lineHeight">16.25sp</item>
+        <item name="android:textColor">@color/ink_2</item>
+    </style>
+</resources>

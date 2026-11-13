@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Receipt line (UI.md section 10): 18 dp icon or avatar, 8 dp gap, action in weight 600, " · ", detail in ink-2. One line. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/receipt_icon"
+        android:layout_width="@dimen/icon_receipt"
+        android:layout_height="@dimen/icon_receipt"
+        android:layout_marginEnd="@dimen/gap_chip" />
+
+    <TextView
+        android:id="@+id/receipt_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textAppearance="@style/TextAppearance.App.Label"
+        android:textColor="@color/ink" />
+</LinearLayout>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Notification card (UI.md section 10): surface, radius 16 dp, card shadow, padding 12 dp, icon 28 dp, 12 dp gap. -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clipChildren="false"
+    android:clipToPadding="false">
+
+    <LinearLayout
+        android:id="@+id/notification_card"
+        style="@style/Widget.App.Card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/padding_notification">
+
+        <ImageView
+            android:id="@+id/notification_icon"
+            android:layout_width="@dimen/icon_notification"
+            android:layout_height="@dimen/icon_notification"
+            android:layout_marginEnd="@dimen/padding_notification" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/notification_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textAppearance="@style/TextAppearance.App.Label" />
+
+            <TextView
+                android:id="@+id/notification_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:textAppearance="@style/TextAppearance.App.Body"
+                android:textSize="15sp"
+                android:lineHeight="21sp" />
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>

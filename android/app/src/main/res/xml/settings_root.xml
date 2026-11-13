@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Settings list. Groups and titles only; the keys are unchanged. Rows get their look in SettingsFragment. -->
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!-- AI Model -->
-    <PreferenceCategory app:title="@string/pref_category_ai_model">
+    <PreferenceCategory app:title="@string/pref_group_model">
+
+        <!-- Lane M1: opens the Model screen; the summary is the current model. Not stored. -->
+        <Preference
+            android:key="model_choice"
+            android:title="@string/pref_model_choice_title"
+            android:persistent="false" />
 
         <PreferenceScreen
             android:key="subscreen_profile"
@@ -46,118 +52,58 @@
 
         </PreferenceScreen>
 
+        <Preference
+            android:key="sign_in"
+            android:title="@string/pref_sign_in_title"
+            android:summary="@string/pref_sign_in_summary" />
+
+        <Preference
+            android:key="voice_settings"
+            android:title="@string/voice_settings_title"
+            android:summary="@string/voice_settings_pref_summary" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/suggestions_group">
+        <SwitchPreference
+            android:key="suggest_from_notifications"
+            android:title="@string/suggestions_title"
+            android:persistent="false"
+            android:defaultValue="false" />
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/pref_group_connection">
+
+        <Preference
+            android:key="backend_status"
+            android:title="@string/pref_backend_title"
+            android:selectable="true"
+            android:summary="@string/pref_backend_detecting" />
+
+        <Preference
+            android:key="backend_revoke"
+            android:title="@string/pref_revoke_title"
+            android:summary="@string/pref_revoke_summary" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/pref_group_limits">
+
         <EditTextPreference
             android:key="max_steps"
             android:title="@string/pref_max_steps_title"
-            android:summary="@string/pref_max_steps_summary"
             android:inputType="number"
             android:defaultValue="100" />
 
-        <Preference
-            android:key="share_config_qr"
-            android:title="@string/pref_share_config_qr"
-            android:summary="@string/pref_share_config_qr_summary" />
-
-        <Preference
-            android:key="scan_config_qr"
-            android:title="@string/pref_scan_config_qr"
-            android:summary="@string/pref_scan_config_qr_summary" />
+        <SwitchPreference
+            android:key="debug_mode"
+            android:title="@string/pref_debug_mode_title"
+            android:summary="@string/pref_debug_mode_summary"
+            android:defaultValue="false" />
 
     </PreferenceCategory>
 
-    <!-- Remote Control -->
-    <PreferenceCategory app:title="@string/pref_category_remote_control">
-
-        <SwitchPreference
-            android:key="im_remote_enabled"
-            android:title="@string/pref_im_enabled_title"
-            android:summary="@string/pref_im_enabled_summary"
-            android:defaultValue="false" />
-
-        <SwitchPreference
-            android:key="im_send_step_screenshots"
-            android:title="@string/pref_im_step_screenshots_title"
-            android:summary="@string/pref_im_step_screenshots_summary"
-            android:defaultValue="false" />
-
-        <PreferenceScreen
-            android:key="subscreen_telegram"
-            android:title="@string/pref_telegram_title"
-            android:summary="@string/pref_telegram_summary">
-
-            <EditTextPreference
-                android:key="telegram_bot_token"
-                android:title="@string/pref_telegram_bot_token_title"
-                android:summary="@string/pref_masked_summary"
-                android:inputType="textPassword"
-                android:defaultValue="" />
-
-            <Preference
-                android:key="telegram_pair_status"
-                android:title="@string/pref_pair_status_title"
-                android:selectable="false"
-                android:summary="@string/im_not_paired" />
-
-            <Preference
-                android:key="telegram_generate_code"
-                android:title="@string/im_generate_code"
-                android:summary="@string/pref_generate_code_summary" />
-
-            <Preference
-                android:key="telegram_unpair"
-                android:title="@string/im_unpair"
-                android:summary="@string/pref_unpair_summary" />
-
-        </PreferenceScreen>
-
-        <PreferenceScreen
-            android:key="subscreen_feishu"
-            android:title="@string/pref_feishu_title"
-            android:summary="@string/pref_feishu_summary">
-
-            <Preference
-                android:key="feishu_qr_scan"
-                android:title="@string/feishu_qr_scan_title"
-                android:summary="@string/feishu_qr_scan_summary" />
-
-            <Preference
-                android:key="feishu_manual_config"
-                android:title="@string/feishu_manual_config_title"
-                android:summary="@string/feishu_manual_config_summary" />
-
-            <EditTextPreference
-                android:key="feishu_app_id"
-                android:title="@string/pref_feishu_app_id_title"
-                android:summary="@string/pref_not_set"
-                android:inputType="text"
-                android:defaultValue=""
-                app:isPreferenceVisible="false" />
-
-            <EditTextPreference
-                android:key="feishu_app_secret"
-                android:title="@string/pref_feishu_app_secret_title"
-                android:summary="@string/pref_masked_summary"
-                android:inputType="textPassword"
-                android:defaultValue=""
-                app:isPreferenceVisible="false" />
-
-            <Preference
-                android:key="feishu_pair_status"
-                android:title="@string/pref_pair_status_title"
-                android:selectable="false"
-                android:summary="@string/im_not_paired" />
-
-            <Preference
-                android:key="feishu_unpair"
-                android:title="@string/im_unpair"
-                android:summary="@string/pref_unpair_summary" />
-
-        </PreferenceScreen>
-
-    </PreferenceCategory>
-
-    <!-- Security -->
-    <PreferenceCategory app:title="@string/pref_category_security">
+    <PreferenceCategory app:title="@string/pref_group_blocked">
 
         <Preference
             android:key="manage_blacklist"
@@ -166,72 +112,18 @@
 
     </PreferenceCategory>
 
-    <!-- Developer -->
-    <PreferenceCategory app:title="@string/pref_category_developer">
+    <PreferenceCategory app:title="@string/pref_group_data">
 
-        <SwitchPreference
-            android:key="debug_mode"
-            android:title="@string/pref_debug_mode_title"
-            android:summary="@string/pref_debug_mode_summary"
-            android:defaultValue="false" />
-
-        <SwitchPreference
-            android:key="show_debug_routines"
-            android:title="@string/pref_show_debug_routines_title"
-            android:summary="@string/pref_show_debug_routines_summary"
-            android:defaultValue="false" />
+        <!-- No key on purpose: the brief allows no new keys. The class opens the history screen. -->
+        <ai.opencyclon.HistoryPreference
+            android:title="@string/pref_history_title"
+            android:summary="@string/pref_history_summary"
+            android:persistent="false" />
 
         <Preference
             android:key="manage_memory"
             android:title="@string/btn_manage_memory"
             android:summary="@string/pref_manage_memory_summary" />
-
-        <Preference
-            android:key="scheduled_tasks"
-            android:title="@string/schedule_title"
-            android:icon="@android:drawable/ic_menu_recent_history" />
-
-        <PreferenceScreen
-            android:key="subscreen_advanced"
-            android:title="@string/pref_advanced_title"
-            android:summary="@string/pref_advanced_summary">
-
-            <EditTextPreference
-                android:key="telegram_allowed_chat_id"
-                android:title="@string/pref_telegram_chat_id_title"
-                android:summary="@string/pref_not_set"
-                android:inputType="text"
-                android:defaultValue="" />
-
-            <EditTextPreference
-                android:key="feishu_allowed_open_id"
-                android:title="@string/pref_feishu_open_id_title"
-                android:summary="@string/pref_not_set"
-                android:inputType="text"
-                android:defaultValue="" />
-
-        </PreferenceScreen>
-
-    </PreferenceCategory>
-
-    <!-- Backend -->
-    <PreferenceCategory android:title="Backend">
-
-        <Preference
-            android:key="backend_status"
-            android:title="Active Backend"
-            android:selectable="true"
-            android:summary="Detecting..." />
-
-        <Preference
-            android:key="backend_revoke"
-            android:title="Revoke Access"
-            android:summary="Disconnect backend and show setup instructions" />
-
-    </PreferenceCategory>
-
-    <!-- About -->
-    <PreferenceCategory app:title="@string/pref_category_about">
 
         <Preference
             android:key="version_info"

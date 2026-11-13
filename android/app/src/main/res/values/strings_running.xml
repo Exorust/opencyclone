@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Running pill and running panel (lane L3). UI.md sections 4, 9 item 3, 10. -->
+<resources>
+    <!-- Pill: the first part in weight 500, the rest in ink_2 -->
+    <string name="running_count">%1$d running</string>
+    <string name="running_paused">%1$d paused</string>
+    <string name="running_waiting">%1$d waiting</string>
+    <string name="running_ready">Ready for you</string>
+    <string name="running_question">Has a question</string>
+    <string name="running_detail">" · %1$s"</string>
+    <string name="running_chevron">" ›"</string>
+    <!-- Pill, spoken: "1 running, WhatsApp. Show details" -->
+    <string name="running_pill_description">%1$s. Show details</string>
+    <string name="running_pill_description_detail">%1$s, %2$s. Show details</string>
+
+    <!-- Panel -->
+    <string name="running_panel_title">Running in the background</string>
+    <string name="running_panel_subtitle">Working for you. Keep using your phone.</string>
+    <string name="running_live">Live %1$s</string>
+    <string name="running_waiting_line">Waiting · %1$s</string>
+    <string name="running_preview_description">Live view of %1$s. Open</string>
+    <string name="running_stop_description">Stop this task</string>
+</resources>

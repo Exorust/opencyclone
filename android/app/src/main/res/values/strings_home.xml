@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The home page (lane L2). UI.md 5.1 to 5.10 with sections 9 and 10. -->
+<resources>
+    <string name="home_greeting_morning">Good morning.</string>
+    <string name="home_greeting_afternoon">Good afternoon.</string>
+    <string name="home_greeting_evening">Good evening.</string>
+    <string name="home_answer_by_voice">Answer by voice</string>
+    <string name="home_type_answer">type an answer</string>
+    <string name="home_unlock_to_approve">Unlock the phone to approve.</string>
+    <string name="home_still_starting">I am still starting. Try again in a moment.</string>
+    <string name="home_type_field">Your words</string>
+    <string name="home_open_app">Open %1$s</string>
+    <string name="home_close_panel">Close the running panel</string>
+</resources>

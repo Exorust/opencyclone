@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Approval (UI.md 5.6 with sections 9 and 10): question, evidence (text card, thumbnails, or one screen picture), buttons. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <ai.opencyclon.ui.widget.WordRevealTextView
+        android:id="@+id/approval_question"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.App.Heading" />
+
+    <TextView
+        android:id="@+id/approval_compose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/gap_heading"
+        android:background="@drawable/bg_card_quiet"
+        android:paddingStart="@dimen/padding_quiet_h"
+        android:paddingEnd="@dimen/padding_quiet_h"
+        android:paddingTop="@dimen/padding_quiet_v"
+        android:paddingBottom="@dimen/padding_quiet_v"
+        android:minHeight="48dp"
+        android:textAppearance="@style/TextAppearance.App.Body"
+        android:textSize="15sp"
+        android:lineHeight="21sp"
+        android:visibility="gone" />
+
+    <ai.opencyclon.ui.widget.ThumbnailGridView
+        android:id="@+id/approval_thumbs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/gap_heading"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/approval_frame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/gap_heading"
+        android:adjustViewBounds="true"
+        android:background="@drawable/bg_thumb"
+        android:contentDescription="@string/thread_screen_picture"
+        android:maxHeight="220dp"
+        android:scaleType="fitStart"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/approval_buttons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/gap_block"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/approval_primary"
+            style="@style/Widget.App.Button.Primary"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginEnd="@dimen/gap_buttons" />
+
+        <Button
+            android:id="@+id/approval_not_now"
+            style="@style/Widget.App.Button.Pale"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/button_height"
+            android:text="@string/ui_not_now" />
+    </LinearLayout>
+</LinearLayout>

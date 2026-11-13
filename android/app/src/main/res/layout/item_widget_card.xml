@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- One widget card: surface, radius 20 dp, card shadow, one WebView (added in code), the stopped state. -->
+<ai.opencyclon.ui.widgets.WidgetCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_card"
+    android:layout_width="match_parent"
+    android:layout_height="160dp"
+    android:elevation="@dimen/elevation_card"
+    android:outlineAmbientShadowColor="#14000000"
+    android:outlineSpotShadowColor="#33000000">
+
+    <FrameLayout
+        android:id="@+id/widget_web"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@+id/widget_stopped"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:padding="@dimen/padding_card"
+        android:text="@string/widgets_stopped"
+        android:textAppearance="@style/TextAppearance.App.Small"
+        android:visibility="gone" />
+</ai.opencyclon.ui.widgets.WidgetCardView>

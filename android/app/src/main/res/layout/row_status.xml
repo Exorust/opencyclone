@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Status row, receipt-line style (UI.md 5.12): check glyph and text when granted; text and a pale "Grant" pill when not. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/row_status"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/gap_chip"
+    android:gravity="center_vertical"
+    android:minHeight="48dp"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/status_check"
+        android:layout_width="@dimen/icon_glyph"
+        android:layout_height="@dimen/icon_glyph"
+        android:layout_marginEnd="@dimen/gap_chip"
+        android:contentDescription="@string/screens_granted"
+        android:src="@drawable/ic_check_16"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/status_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.App.Body" />
+
+        <TextView
+            android:id="@+id/status_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:textAppearance="@style/TextAppearance.App.Small"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/status_grant"
+        style="@style/Widget.App.Button.Pale"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/gap_chip"
+        android:minHeight="48dp"
+        android:paddingStart="@dimen/padding_card"
+        android:paddingEnd="@dimen/padding_card"
+        android:text="@string/screens_grant"
+        android:visibility="gone" />
+</LinearLayout>

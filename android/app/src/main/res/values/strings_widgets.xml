@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Lane G1: widgets (F16). -->
+<resources>
+    <string name="widgets_title">Widgets</string>
+    <string name="widgets_empty">Nothing here yet. Ask me for a widget.</string>
+    <string name="widgets_empty_example">Make a widget that shows my streak and my next task.</string>
+    <string name="widgets_stopped">This widget stopped. Tap to rebuild.</string>
+    <string name="widgets_card_desc">Widget %1$s</string>
+    <string name="widgets_change">Change</string>
+    <string name="widgets_remove">Remove</string>
+    <string name="widgets_remove_question">Remove the widget %1$s?</string>
+    <string name="widgets_rebuild_request">Rebuild the %1$s widget</string>
+    <string name="widgets_draft_label">Draft. Not saved yet.</string>
+    <string name="widgets_draft_hint">Type to change it.</string>
+    <string name="widgets_changing">Changing your widget</string>
+    <string name="widgets_save">Save</string>
+    <string name="widgets_discard">Discard</string>
+    <string name="widgets_discard_question">Discard this draft?</string>
+    <string name="widgets_keep">Keep it</string>
+    <string name="widgets_type_hint">Say what to change</string>
+    <string name="widgets_build_it">Build it</string>
+    <string name="widgets_no_draft">This draft is gone.</string>
+    <string name="widgets_privacy_heading">Widgets</string>
+    <string name="widgets_privacy_lead">Each widget reads only what you allowed when it was built.</string>
+    <string name="widgets_privacy_none">No widgets yet.</string>
+    <string name="widgets_privacy_reads">Reads %1$s</string>
+</resources>

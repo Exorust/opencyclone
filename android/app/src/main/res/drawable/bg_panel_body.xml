@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Body of the running panel: panel_body, lower corners radius 12 dp (UI.md sections 10 and 11) -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/panel_body" />
+    <corners
+        android:topLeftRadius="0dp"
+        android:topRightRadius="0dp"
+        android:bottomLeftRadius="@dimen/radius_panel"
+        android:bottomRightRadius="@dimen/radius_panel" />
+</shape>

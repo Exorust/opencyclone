@@ -1,0 +1,75 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      # Every release must carry the same signature, or a phone cannot update from the one before.
+      # So there is no fallback to a throwaway debug key: without the four secrets the release stops.
+      - name: Check signing secrets
+        env:
+          RELEASE_KEYSTORE_BASE64: ${{ secrets.RELEASE_KEYSTORE_BASE64 }}
+          RELEASE_STORE_PASSWORD: ${{ secrets.RELEASE_STORE_PASSWORD }}
+          RELEASE_KEY_ALIAS: ${{ secrets.RELEASE_KEY_ALIAS }}
+          RELEASE_KEY_PASSWORD: ${{ secrets.RELEASE_KEY_PASSWORD }}
+        run: |
+          missing=()
+          for name in RELEASE_KEYSTORE_BASE64 RELEASE_STORE_PASSWORD RELEASE_KEY_ALIAS RELEASE_KEY_PASSWORD; do
+            [[ -n "${!name}" ]] || missing+=("$name")
+          done
+          if (( ${#missing[@]} )); then
+            echo "::error::Release signing secrets are missing: ${missing[*]}. Add them under Settings > Secrets and variables > Actions. Nothing was published."
+            exit 1
+          fi
+
+      - name: Build package
+        working-directory: android
+        run: ./gradlew :app:assembleStandardRelease
+
+      - name: Sign release asset
+        env:
+          RELEASE_KEYSTORE_BASE64: ${{ secrets.RELEASE_KEYSTORE_BASE64 }}
+          RELEASE_STORE_PASSWORD: ${{ secrets.RELEASE_STORE_PASSWORD }}
+          RELEASE_KEY_ALIAS: ${{ secrets.RELEASE_KEY_ALIAS }}
+          RELEASE_KEY_PASSWORD: ${{ secrets.RELEASE_KEY_PASSWORD }}
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          keystore="$RUNNER_TEMP/release.jks"
+          trap 'rm -f "$keystore"' EXIT
+          umask 077
+          printf '%s' "$RELEASE_KEYSTORE_BASE64" | base64 --decode > "$keystore"
+          build_tools=$(find "$ANDROID_HOME/build-tools" -mindepth 1 -maxdepth 1 -type d | sort -V | tail -n 1)
+          # The release build type is debug-signed in build.gradle.kts. Replace it here.
+          # zipalign -P 16 keeps native libraries 16 KB aligned; apksigner must run after it.
+          "$build_tools/zipalign" -f -P 16 4 \
+            android/app/build/outputs/apk/standard/release/app-standard-release.apk dist/aligned.apk
+          "$build_tools/apksigner" sign --ks "$keystore" \
+            --ks-key-alias "$RELEASE_KEY_ALIAS" \
+            --ks-pass env:RELEASE_STORE_PASSWORD --key-pass env:RELEASE_KEY_PASSWORD \
+            --out dist/opencyclon-standard-release.apk dist/aligned.apk
+          rm dist/aligned.apk
+          "$build_tools/apksigner" verify dist/opencyclon-standard-release.apk
+          "$build_tools/zipalign" -c -P 16 4 dist/opencyclon-standard-release.apk
+
+      - name: Publish release
+        uses: softprops/action-gh-release@v2
+        with:
+          fail_on_unmatched_files: true
+          files: |
+            dist/*.apk
+            setup.sh
