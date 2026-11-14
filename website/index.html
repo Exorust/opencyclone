@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OpenCyclon — the AI phone is the phone you already own</title>
+<meta name="description" content="OpenCyclon is a free, open-source AI agent for the Android phone you already own. It works in your apps and asks before it sends, pays, or deletes.">
+<meta property="og:title" content="OpenCyclon — the AI phone is the phone you already own">
+<meta property="og:description" content="Do not buy an AI phone. Repurpose your existing Android phone. Free and open source.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --ink:#15173A; --ink2:#5B5E7A; --ink3:#8A8DA8; --primary:#4733D6; --pale:#ECEBFB;
+  --s2:#F4F4FB; --page:#FFFFFF; --night:#0E1330; --gutter:clamp(20px,4vw,56px);
+  --sans:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--sans);color:var(--ink);background:var(--page);font-size:17px;line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:var(--gutter)}
+
+/* hero */
+.sky{background:linear-gradient(180deg,#0E1330 0%,#1D2156 34%,#4A44A8 66%,#B9B6EA 90%,#F4F4FB 100%);color:#fff;min-height:100svh;display:flex;flex-direction:column}
+header{display:flex;justify-content:space-between;align-items:center;padding:20px var(--gutter)}
+.logo{font-weight:600;font-size:22px;letter-spacing:-.04em;text-decoration:none}
+nav{display:flex;gap:22px;align-items:center}
+nav a{text-decoration:none}
+.pill-o{border:1px solid rgba(255,255,255,.8);border-radius:999px;padding:10px 16px}
+.hero{flex:1;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:center;padding-block:24px 72px}
+h1{font-size:clamp(40px,6.2vw,74px);line-height:1.02;letter-spacing:-.045em;font-weight:500;margin:18px 0 18px;text-wrap:balance}
+.lead{font-size:clamp(17px,1.6vw,20px);max-width:30em;color:rgba(255,255,255,.88);margin:0 0 30px}
+.cta{display:inline-flex;align-items:center;gap:16px;background:#fff;color:var(--ink);border-radius:999px;padding:8px 8px 8px 26px;font-size:19px;font-weight:500;text-decoration:none;box-shadow:0 14px 30px rgba(14,19,48,.35)}
+.cta i{width:48px;height:48px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-style:normal;transition:transform .2s}
+.cta:hover i{transform:translateX(3px)}
+.sub{margin:16px 0 22px;color:rgba(255,255,255,.85)}
+.badge{display:flex;gap:10px;align-items:center}
+.badge b{width:20px;height:20px;background:#fff;color:var(--primary);display:grid;place-items:center;font-family:var(--mono);font-size:12px}
+
+/* phone */
+.stage{display:grid;place-items:center;perspective:1400px}
+.phone{width:min(300px,70vw);aspect-ratio:9/19.3;border-radius:38px;padding:9px;background:linear-gradient(145deg,#d9dbe6,#8f93a8 45%,#eceef6);box-shadow:0 40px 80px rgba(8,10,34,.5);transform:rotateY(-16deg) rotateX(6deg) rotateZ(2deg);transition:transform .6s ease;display:flex}
+.phone:hover{transform:rotateY(-4deg) rotateX(2deg)}
+.screen{flex:1;min-height:0;border-radius:30px;background:linear-gradient(180deg,#E2E4FB 0%,#fff 42%);color:var(--ink);padding:26px 16px 14px;display:flex;flex-direction:column;gap:9px;font-size:11px;line-height:1.35;overflow:hidden}
+.screen .t{font-size:9.5px;color:var(--ink2)} .screen .t b{color:var(--ink);font-weight:400;margin-right:6px}
+.screen .g{font-size:20px;font-weight:500;letter-spacing:-.035em}
+.screen .st{color:var(--ink2);font-size:10px;margin-bottom:4px}
+.card{background:#F1F1F8;border-radius:11px;padding:7px 9px;align-self:flex-start;max-width:86%}
+.card s{display:block;text-decoration:none;color:var(--ink2);font-size:9px}
+.you{background:var(--primary);color:#fff;border-radius:13px;padding:8px 10px;align-self:flex-end;max-width:80%}
+.q{font-size:13px;letter-spacing:-.01em;margin-top:2px}
+.btns{display:flex;gap:7px}.btns span{border-radius:99px;padding:7px 13px;font-size:10.5px;font-weight:500}
+.b1{background:var(--primary);color:#fff}.b2{background:var(--pale);color:var(--primary)}
+.rc{color:var(--ink2);font-size:9.5px}.rc b{color:var(--ink);font-weight:600}
+.foot{margin-top:auto;display:flex;justify-content:space-between;color:var(--ink2);font-size:9.5px}
+
+/* sections */
+section{padding-block:clamp(64px,9vw,120px)}
+.eyebrow{display:flex;gap:14px;color:var(--ink2);margin-bottom:18px}
+h2{font-size:clamp(30px,4.2vw,52px);line-height:1.06;letter-spacing:-.04em;font-weight:500;margin:0 0 18px;max-width:16em;text-wrap:balance}
+.body{max-width:34em;color:var(--ink2);font-size:19px;margin:0}
+.note{margin-top:22px;color:var(--ink3)}
+.tint{background:var(--s2)}
+.film{margin-top:32px;aspect-ratio:16/9;border-radius:24px;background:linear-gradient(135deg,#1D2156,#4733D6);display:grid;place-items:center;color:#fff;text-align:center;padding:24px}
+.film p{margin:8px 0 0;color:rgba(255,255,255,.8);font-size:15px}
+.play{width:72px;height:72px;border-radius:50%;background:#fff;margin:0 auto 14px;display:grid;place-items:center}
+.play::after{content:"";border-left:20px solid var(--primary);border-block:13px solid transparent;margin-left:5px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:36px}
+.ask{background:#fff;border-radius:22px;padding:22px;display:flex;flex-direction:column;gap:14px;box-shadow:0 4px 16px rgba(21,23,58,.06)}
+.ask .mono{color:var(--ink3)}
+.ask .say{background:var(--primary);color:#fff;border-radius:16px;padding:12px 14px;align-self:flex-end;font-size:16px}
+.ask .ans{font-size:16px} .ask .ans b{font-weight:600}
+.ask .btns span{font-size:13px;padding:9px 16px}
+.list{margin-top:36px;display:grid;gap:0}
+.item{display:grid;grid-template-columns:64px minmax(0,1fr);gap:8px;padding:26px 0;border-top:1px solid #E6E6F2}
+.item .n{font-family:var(--mono);color:var(--ink3);font-size:13px;padding-top:6px}
+.item h3{margin:0 0 6px;font-size:24px;font-weight:500;letter-spacing:-.02em}
+.item p{margin:0;color:var(--ink2);max-width:36em}
+details{border-top:1px solid #E6E6F2;padding:20px 0}
+summary{cursor:pointer;font-size:21px;font-weight:500;letter-spacing:-.02em;list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::after{content:"+";font-family:var(--mono);color:var(--ink3)}
+details[open] summary::after{content:"–"}
+details p{color:var(--ink2);max-width:40em;margin:12px 0 0}
+.mission{background:var(--night);color:#fff}
+.mission h2{max-width:14em}.mission .body{color:rgba(255,255,255,.75)}
+code{font-family:var(--mono);font-size:.85em;background:rgba(255,255,255,.12);padding:3px 8px;border-radius:6px;overflow-wrap:anywhere;line-height:2}
+footer{background:var(--night);color:rgba(255,255,255,.6);padding:28px 0 44px;font-size:14px;border-top:1px solid rgba(255,255,255,.1)}
+footer .row{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:14px;color:#fff}
+:focus-visible{outline:2px solid var(--primary);outline-offset:3px}
+@media (max-width:820px){.hero{grid-template-columns:1fr;padding-top:8px}.stage{order:-1}.phone{width:min(230px,60vw)}nav a.hide{display:none}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.phone,.cta i{transition:none}}
+</style>
+</head>
+<body>
+
+<div class="sky">
+  <header>
+    <a class="logo" href="#top" id="top">opencyclon</a>
+    <nav class="mono">
+      <a class="hide" href="#questions">About us (it's one person)</a>
+      <a class="pill-o" href="https://github.com/Exorust/opencyclon">git clone</a>
+    </nav>
+  </header>
+  <div class="wrap hero">
+    <div>
+      <div class="mono">A real, working, open-source AI phone</div>
+      <h1>Don't buy an AI phone. Repurpose the one you have.</h1>
+      <p class="lead">You do not need a new phone for this. OpenCyclon is a free, open-source app that turns the Android phone you already own into an AI phone. I built it because it is that easy to build. Ask it to get things done in your apps. It asks you before it sends, pays, or deletes anything.</p>
+      <a class="cta" href="https://github.com/Exorust/opencyclon">Get it for $0 <i>→</i></a>
+      <p class="sub">Not ready yet? <u>There is no waitlist.</u></p>
+      <div class="badge mono"><b>0</b> Backed by nobody · Apache-2.0</div>
+    </div>
+    <div class="stage" aria-label="A phone that shows the OpenCyclon home page: three notifications, one request from the owner, and one approval question.">
+      <div class="phone"><div class="screen">
+        <div class="t"><b>2:44 PM</b>Fri, Oct 30</div>
+        <div class="g">Good afternoon.</div>
+        <div class="st">A message to Maya is ready.</div>
+        <div class="card"><s>WhatsApp · Weekend plans</s>Maya: Are you coming to dinner tonight?</div>
+        <div class="card"><s>Mail · Returns</s>2 days left to return your vacuum cleaner.</div>
+        <div class="you">Tell the group I'm in for dinner at 7:30.</div>
+        <div class="q">Send this to Weekend plans?</div>
+        <div class="card" style="background:#F4F4FB">I'm in for 7:30.</div>
+        <div class="btns"><span class="b1">Send to Weekend plans</span><span class="b2">Not now</span></div>
+        <div class="rc"><b>Opened</b> · WhatsApp, in the background</div>
+        <div class="foot"><span>Hold power to talk</span><span>type</span></div>
+      </div></div>
+    </div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow mono"><span>[01]</span><span>One device</span></div>
+    <h2>Hardware and software, built separately. By other people.</h2>
+    <p class="body">Someone else designed your phone. You already paid for it. We wrote an app. Together they do the thing: you ask, and your phone gets it done.</p>
+    <p class="note mono">Concept hardware · the phone in your hand · in production for years</p>
+  </div>
+</section>
+
+<section class="tint" id="film">
+  <div class="wrap">
+    <div class="eyebrow mono"><span>[02]</span><span>Launch film</span></div>
+    <h2>Meet OpenCyclon.</h2>
+    <div class="film"><div><div class="play" aria-hidden="true"></div><div class="mono">The film is being recorded</div><p>One take, one stock phone, no camera tricks.</p></div></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow mono"><span>[03]</span><span>Ask</span></div>
+    <h2>Ask once. Your phone asks once back.</h2>
+    <p class="body">It works in your apps on a hidden screen while you keep using your phone. Before anything is sent, paid, or deleted, it stops and shows you exactly what will happen.</p>
+    <div class="grid3">
+      <div class="ask"><span class="mono">Messages</span><div class="say">Tell the group chat I'm running ten minutes late.</div><div class="ans">Ready. <b>Send this to the group?</b></div><div class="btns"><span class="b1">Send</span><span class="b2">Not now</span></div></div>
+      <div class="ask"><span class="mono">Errands</span><div class="say">Set an alarm for 7 tomorrow.</div><div class="ans"><b>Done.</b> Alarm set for 7:00 AM. No approval needed. Nobody was harmed.</div></div>
+      <div class="ask"><span class="mono">Calls</span><div class="say">If the courier calls, tell him to come up.</div><div class="ans"><b>I can't answer calls.</b> Stock Android does not allow an app to do that. This is the one thing that needs a new phone.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="tint">
+  <div class="wrap">
+    <div class="eyebrow mono"><span>[04]</span><span>Yours</span></div>
+    <h2>An OS that adapts to you. It is called Android. You have it.</h2>
+    <div class="list">
+      <div class="item"><div class="n">01</div><div><h3>Build your own apps</h3><p>Ask for the tool you need. The phone writes a small app, tests it, fixes it, and puts it on your home page. Change it by asking again.</p></div></div>
+      <div class="item"><div class="n">02</div><div><h3>Connect your services</h3><p>Bring your own model: sign in with ChatGPT, use OpenRouter, paste a key, or point it at a model on your own network. Add tools through the Model Context Protocol.</p></div></div>
+      <div class="item"><div class="n">03</div><div><h3>Delegate across your apps</h3><p>Keep the apps you already use. The agent works inside them with your accounts, follows the rules you set, and never opens the apps on your protected list.</p></div></div>
+      <div class="item"><div class="n">04</div><div><h3>Read every line</h3><p>The approval gate is code, not a promise in a prompt. You can read it, test it, and change it. That is what the word "open" is for.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="questions">
+  <div class="wrap">
+    <div class="eyebrow mono"><span>[05]</span><span>Questions</span></div>
+    <h2>Questions and answers.</h2>
+    <details open><summary>What is OpenCyclon?</summary><p>An open-source AI agent for stock Android. It reads the screen of your apps on a hidden display, decides what to tap, and asks you before any action that cannot be taken back.</p></details>
+    <details><summary>Do I keep my apps?</summary><p>Yes. You also keep your phone, your operating system, and your money.</p></details>
+    <details><summary>What does it cost?</summary><p>$0. There is no deposit, no pre-order, and no delivery date. You install it today on the phone you have. You pay only your model provider, and a local model costs nothing.</p></details>
+    <details><summary>Why did you build it?</summary><p>Because it is easy to build. An AI phone is an app, a helper process, and a model. One person built this one with AI coding agents, on top of an existing open-source project. Nobody should buy a new phone to get it.</p></details>
+    <details><summary>What do I need?</summary><p>An Android phone with Android 12 or later, a computer for a one-time setup script, and an account with a model provider. It was built and tested on a Pixel 7.</p></details>
+    <details><summary>Is it finished?</summary><p>No. It is early software, written fast. Short tasks in one app work well. Long tasks across several apps fail more often. It tells you when it fails.</p></details>
+    <details><summary>Who is building it?</summary><p>One person and a small crowd of AI coding agents. It is backed by nobody. The code is under the Apache-2.0 licence, so you can take it and build your own.</p></details>
+    <details><summary>Is this the same as Cyclon?</summary><p>No. Cyclon is a company that is building a real phone with its own operating system, and we wish them well. OpenCyclon is an independent open-source project that does the same kind of work on the phone you already have. It is not affiliated with Cyclon or with Y Combinator.</p></details>
+  </div>
+</section>
+
+<section class="mission">
+  <div class="wrap">
+    <h2>Don't waste money on that. Just repurpose your existing Android phone.</h2>
+    <p class="body">If you can do it on your phone, you should be able to ask your phone to do it. That needs an app, not new hardware. Connect the phone to a computer once and run:</p>
+    <p class="note"><code>git clone https://github.com/Exorust/opencyclon &amp;&amp; cd opencyclon &amp;&amp; ./setup.sh</code></p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="row"><span class="logo">opencyclon</span><span class="mono"><b style="font-weight:500">0</b> · Backed by nobody</span></div>
+    OpenCyclon is an independent open-source project. It is not affiliated with, endorsed by, or connected to Cyclon or Y Combinator. It is built on OpenCyvis (Apache-2.0).
+  </div>
+</footer>
+
+</body>
+</html>
