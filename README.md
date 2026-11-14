@@ -1,4 +1,10 @@
-# OpenCyclon
+<p align="center">
+  <a href="https://opencyclon.vercel.app"><img src="website/brand/poster.png" alt="OpenCyclon. Don't buy an AI phone. Repurpose the one you have." width="100%"></a>
+</p>
+
+<h1 align="center"><img src="website/brand/logo.png" alt="" width="36" align="top"> OpenCyclon</h1>
+
+<p align="center"><a href="https://opencyclon.vercel.app">Website</a> · <a href="#install">Install</a> · <a href="INSTALL-WITH-AI.md">Install with an AI agent</a> · <a href="https://github.com/Exorust/opencyclon/releases">Releases</a></p>
 
 An open-source AI agent for a stock Android phone. You say or type what you need. The phone does it in your own apps, in the background, and asks you before it sends, pays, or deletes anything.
 

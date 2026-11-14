@@ -1,0 +1,47 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{--ink:#15173A;--ink2:#5B5E7A;--primary:#4733D6;--pale:#ECEBFB}
+*{box-sizing:border-box}html,body{margin:0}
+body{width:1280px;height:640px;overflow:hidden;font-family:"Inter",system-ui,sans-serif;color:#fff;
+ background:linear-gradient(160deg,#0E1330 0%,#1D2156 38%,#4A44A8 74%,#B9B6EA 100%);display:grid;grid-template-columns:1fr 400px;align-items:center;padding:0 72px;-webkit-font-smoothing:antialiased}
+.mono{font-family:"JetBrains Mono",monospace;font-size:15px;letter-spacing:.08em;text-transform:uppercase}
+.brand{display:flex;align-items:center;gap:16px;margin-bottom:34px}
+.brand img{width:60px;height:60px;border-radius:14px;box-shadow:0 0 0 1.5px rgba(255,255,255,.35)}.brand span{font-size:34px;font-weight:600;letter-spacing:-.04em}
+h1{font-size:64px;line-height:1.02;letter-spacing:-.045em;font-weight:500;margin:0 0 22px;max-width:12em}
+p{font-size:23px;line-height:1.4;color:rgba(255,255,255,.88);margin:0 0 30px;max-width:27em}
+.badge{display:flex;gap:12px;align-items:center;color:rgba(255,255,255,.9)}
+.badge b{width:24px;height:24px;background:#fff;color:var(--primary);display:grid;place-items:center;font-size:14px}
+.stage{display:grid;place-items:center;perspective:1400px}
+.phone{width:248px;aspect-ratio:9/19.3;border-radius:38px;padding:9px;background:linear-gradient(145deg,#d9dbe6,#8f93a8 45%,#eceef6);box-shadow:0 40px 80px rgba(8,10,34,.55);transform:rotateY(-16deg) rotateX(6deg) rotateZ(2deg);display:flex}
+.screen{flex:1;min-height:0;border-radius:30px;background:linear-gradient(180deg,#E2E4FB 0%,#fff 42%);color:var(--ink);padding:26px 16px 14px;display:flex;flex-direction:column;gap:9px;font-size:11px;line-height:1.35;overflow:hidden}
+.t{font-size:9.5px;color:var(--ink2)}.t b{color:var(--ink);font-weight:400;margin-right:6px}
+.g{font-size:20px;font-weight:500;letter-spacing:-.035em}.st{color:var(--ink2);font-size:10px;margin-bottom:4px}
+.card{background:#F1F1F8;border-radius:11px;padding:7px 9px;align-self:flex-start;max-width:86%}
+.card s{display:block;text-decoration:none;color:var(--ink2);font-size:9px}
+.you{background:var(--primary);color:#fff;border-radius:13px;padding:8px 10px;align-self:flex-end;max-width:80%}
+.q{font-size:13px;margin-top:2px}.btns{display:flex;gap:7px}.btns span{border-radius:99px;padding:7px 10px;font-size:9px;font-weight:500;white-space:nowrap}
+.b1{background:var(--primary);color:#fff}.b2{background:var(--pale);color:var(--primary)}
+.rc{color:var(--ink2);font-size:9.5px}.rc b{color:var(--ink);font-weight:600}
+.foot{margin-top:auto;display:flex;justify-content:space-between;color:var(--ink2);font-size:9.5px}
+</style></head><body>
+<div>
+  <div class="brand"><img src="logo.svg" alt=""><span>opencyclon</span></div>
+  <h1>Don't buy an AI phone. Repurpose the one you have.</h1>
+  <p>A free, open-source AI agent for the Android phone you already own. It works in your apps and asks before it sends, pays, or deletes.</p>
+  <div class="badge mono"><b>0</b> Backed by nobody · Apache-2.0</div>
+</div>
+<div class="stage"><div class="phone"><div class="screen">
+  <div class="t"><b>2:44 PM</b>Fri, Oct 30</div>
+  <div class="g">Good afternoon.</div>
+  <div class="st">A message to Maya is ready.</div>
+  <div class="card"><s>WhatsApp · Weekend plans</s>Maya: Are you coming to dinner tonight?</div>
+  <div class="card"><s>Mail · Returns</s>2 days left to return your vacuum cleaner.</div>
+  <div class="you">Tell the group I'm in for dinner at 7:30.</div>
+  <div class="q">Send this to Weekend plans?</div>
+  <div class="card" style="background:#F4F4FB">I'm in for 7:30.</div>
+  <div class="btns"><span class="b1">Send to Weekend plans</span><span class="b2">Not now</span></div>
+  <div class="rc"><b>Opened</b> · WhatsApp, in the background</div>
+  <div class="foot"><span>Hold power to talk</span><span>type</span></div>
+</div></div></div>
+</body></html>
