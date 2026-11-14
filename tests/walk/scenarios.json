@@ -77,7 +77,7 @@
         "reason": "COMMIT_WORD",
         "label": "SEND",
         "title": "Send in Gate Test to Alex",
-        "package": "ai.opencyclon.testapp",
+        "package": "ai.opencyclone.testapp",
         "approve_offered": true
       },
       "task": {
@@ -180,7 +180,7 @@
       "approval": {
         "reason": "UNREADABLE_TARGET",
         "title": "Tap on an unreadable spot in Gate Test",
-        "package": "ai.opencyclon.testapp",
+        "package": "ai.opencyclone.testapp",
         "approve_offered": false
       },
       "approve_refused": true,
@@ -278,7 +278,7 @@
   "notification_proposal": {
     "description": "F4: an incoming notification is triaged into a proposal (no window running, app not allowed to act alone).",
     "notify": {
-      "package": "ai.opencyclon.testapp",
+      "package": "ai.opencyclone.testapp",
       "title": "Alex RUN_ID",
       "text": "Are we still on for dinner at 7? Can you book a table?"
     },
@@ -288,7 +288,7 @@
           {
             "match": {
               "title": "Alex RUN_ID",
-              "package": "ai.opencyclon.testapp"
+              "package": "ai.opencyclone.testapp"
             },
             "result": "propose",
             "goal": "Reply to Alex RUN_ID that dinner at 7 works"
@@ -581,7 +581,7 @@
       "approval": {
         "reason": "UNREADABLE_TARGET",
         "title": "Tap on an unreadable spot in Gate Test",
-        "package": "ai.opencyclon.testapp",
+        "package": "ai.opencyclone.testapp",
         "approve_offered": false
       },
       "approve_refused": true,
@@ -645,7 +645,7 @@
         "reason": "COMMIT_WORD",
         "label": "SEND",
         "title": "Send in Gate Test to Alex",
-        "package": "ai.opencyclon.testapp",
+        "package": "ai.opencyclone.testapp",
         "approve_offered": true
       },
       "task": {

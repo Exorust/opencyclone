@@ -61,7 +61,7 @@ FAKE
 chmod +x "$ADB"
 
 failures=0
-component=ai.opencyclon.standard/ai.opencyclon.accessibility.VdAccessibilityService
+component=ai.opencyclone.standard/ai.opencyclone.accessibility.VdAccessibilityService
 reset_case() {
     export DEVICES=$'phone\tdevice'
     export SDK=31 SERVICES=null FAIL_COMMAND='' IGNORED_WRITES=0
@@ -137,13 +137,13 @@ check() {
         [[ $(grep -Fxc -- "$command" "$ADB_LOG") == 1 ]] || return 1
     done <<COMMANDS
 install -r $APK
-shell cmd notification allow_listener ai.opencyclon.standard/ai.opencyclon.proactive.NotificationListener
+shell cmd notification allow_listener ai.opencyclone.standard/ai.opencyclone.proactive.NotificationListener
 shell settings put secure enabled_accessibility_services $component
 shell settings put secure accessibility_enabled 1
-shell dumpsys deviceidle whitelist +ai.opencyclon.standard
-shell pm grant ai.opencyclon.standard android.permission.WRITE_SECURE_SETTINGS
-shell pm grant ai.opencyclon.standard android.permission.POST_NOTIFICATIONS
-shell pm grant ai.opencyclon.standard android.permission.RECORD_AUDIO
+shell dumpsys deviceidle whitelist +ai.opencyclone.standard
+shell pm grant ai.opencyclone.standard android.permission.WRITE_SECURE_SETTINGS
+shell pm grant ai.opencyclone.standard android.permission.POST_NOTIFICATIONS
+shell pm grant ai.opencyclone.standard android.permission.RECORD_AUDIO
 COMMANDS
 }
 result check
@@ -171,11 +171,11 @@ result check
 
 reset_case
 case_name='failed grant continues and exits 5'
-FAIL_COMMAND='shell cmd notification allow_listener ai.opencyclon.standard/ai.opencyclon.proactive.NotificationListener'
+FAIL_COMMAND='shell cmd notification allow_listener ai.opencyclone.standard/ai.opencyclone.proactive.NotificationListener'
 run_setup
 check() {
     [[ $status == 5 ]] && contains 'FAILED: Notification listener' && ! contains Done &&
-        logged 'shell pm grant ai.opencyclon.standard android.permission.POST_NOTIFICATIONS'
+        logged 'shell pm grant ai.opencyclone.standard android.permission.POST_NOTIFICATIONS'
 }
 result check
 
@@ -186,7 +186,7 @@ run_setup
 check() {
     [[ $status == 5 ]] && contains 'FAILED: Accessibility service' &&
         ! grep -q '^shell settings put ' "$ADB_LOG" &&
-        logged 'shell pm grant ai.opencyclon.standard android.permission.POST_NOTIFICATIONS'
+        logged 'shell pm grant ai.opencyclone.standard android.permission.POST_NOTIFICATIONS'
 }
 result check
 
@@ -212,7 +212,7 @@ result check
 
 reset_case
 case_name='failed microphone grant reports FAILED, keeps the other grants, and exits 5'
-FAIL_COMMAND='shell pm grant ai.opencyclon.standard android.permission.RECORD_AUDIO'
+FAIL_COMMAND='shell pm grant ai.opencyclone.standard android.permission.RECORD_AUDIO'
 run_setup
 check() {
     [[ $status == 5 ]] && contains 'FAILED: Microphone' && ! contains Done &&
@@ -220,7 +220,7 @@ check() {
 }
 result check
 
-listener=ai.opencyclon.standard/ai.opencyclon.proactive.NotificationListener
+listener=ai.opencyclone.standard/ai.opencyclone.proactive.NotificationListener
 
 reset_case
 case_name='settings that do not hold on the first write are written again'
@@ -242,7 +242,7 @@ check() {
         contains 'FAILED: Notification listener (the setting did not hold' && ! contains Done &&
         [[ $(count_logged "shell settings put secure enabled_accessibility_services $component") == 3 ]] &&
         [[ $(count_logged "shell cmd notification allow_listener $listener") == 3 ]] &&
-        logged 'shell pm grant ai.opencyclon.standard android.permission.POST_NOTIFICATIONS'
+        logged 'shell pm grant ai.opencyclone.standard android.permission.POST_NOTIFICATIONS'
 }
 result check
 
@@ -270,7 +270,7 @@ run_setup --assistant "$APK"
 check() {
     [[ $first == 0 && $status == 0 ]] && contains 'ok: Assistant role' &&
         contains 'ok: Long-press power opens the assistant' && contains Done &&
-        logged 'shell cmd role add-role-holder --user 0 android.app.role.ASSISTANT ai.opencyclon.standard' &&
+        logged 'shell cmd role add-role-holder --user 0 android.app.role.ASSISTANT ai.opencyclone.standard' &&
         logged 'shell settings put global power_button_long_press 5'
 }
 result check
@@ -282,7 +282,7 @@ run_setup "$APK" --assistant
 check() {
     [[ $status == 5 ]] && contains 'FAILED: Assistant role. This build of the app cannot be the assistant yet' &&
         contains 'ok: Accessibility service' && contains 'ok: Notification listener' &&
-        logged 'shell pm grant ai.opencyclon.standard android.permission.POST_NOTIFICATIONS' &&
+        logged 'shell pm grant ai.opencyclone.standard android.permission.POST_NOTIFICATIONS' &&
         contains 'ok: Long-press power opens the assistant'
 }
 result check

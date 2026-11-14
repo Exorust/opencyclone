@@ -39,7 +39,7 @@
         android:longClickable="true"
         android:textAppearance="@style/TextAppearance.App.Greeting" />
 
-    <ai.opencyclon.ui.widget.WordRevealTextView
+    <ai.opencyclone.ui.widget.WordRevealTextView
         android:id="@+id/header_status"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -27,7 +27,7 @@
         android:textColor="@color/ink" />
 
     <!-- Quiet glow border: shows when the phone is working on the hidden display -->
-    <ai.opencyclon.ui.GlowBorderView
+    <ai.opencyclone.ui.GlowBorderView
         android:id="@+id/glow_border"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

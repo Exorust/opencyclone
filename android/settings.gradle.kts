@@ -22,7 +22,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "OpenCyclon"
+rootProject.name = "OpenCyclone"
 include(":app")
 include(":flagsecure-demo")
 project(":flagsecure-demo").projectDir = file("../tests/flagsecure-demo")

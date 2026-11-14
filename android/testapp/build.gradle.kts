@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "ai.opencyclon.testapp"
+    namespace = "ai.opencyclone.testapp"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "ai.opencyclon.testapp"
+        applicationId = "ai.opencyclone.testapp"
         minSdk = 31
         targetSdk = 36
         versionCode = 1

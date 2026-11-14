@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace = "ai.opencyclon.test.flagsecure"
+    namespace = "ai.opencyclone.test.flagsecure"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "ai.opencyclon.test.flagsecure"
+        applicationId = "ai.opencyclone.test.flagsecure"
         minSdk = 30
         targetSdk = 35
         versionCode = 1

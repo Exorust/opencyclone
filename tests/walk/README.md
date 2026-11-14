@@ -38,7 +38,7 @@ tests/walk/walk.sh edit Send it to Sam instead
 tests/walk/walk.sh answer Alex
 tests/walk/walk.sh stop
 tests/walk/walk.sh start Open Gate Test
-tests/walk/walk.sh notify ai.opencyclon.testapp Alex Are we still on for dinner at 7
+tests/walk/walk.sh notify ai.opencyclone.testapp Alex Are we still on for dinner at 7
 
 # 7. Stop the mock server and remove the adb reverse.
 tests/walk/walk.sh teardown
@@ -49,9 +49,9 @@ Without `--out`, evidence goes to `tests/walk/evidence/<time>-<scenario>/`: `res
 The same commands without the script:
 
 ```bash
-adb shell am broadcast -n ai.opencyclon.standard/ai.opencyclon.debug.DebugCommandReceiver \
-    -a ai.opencyclon.debug.CMD --es cmd state
-adb shell cat /sdcard/Android/data/ai.opencyclon.standard/files/walk/state.json
+adb shell am broadcast -n ai.opencyclone.standard/ai.opencyclone.debug.DebugCommandReceiver \
+    -a ai.opencyclone.debug.CMD --es cmd state
+adb shell cat /sdcard/Android/data/ai.opencyclone.standard/files/walk/state.json
 adb logcat -s WALK
 ```
 
@@ -62,7 +62,7 @@ adb logcat -s WALK
 - `notification_proposal` waits about 30 seconds for the triage batch. It expects a proposal, so no notification window may be running and the test app must not be allowed to act on its own. Its proposal card stays until dismissed; a repeat run updates the same proposal.
 - Real notifications that arrive during a walk also go to the mock. They get `[]` (summarize), and the scripted triage reply waits for the walk's own notification.
 - After teardown the app still points at `http://localhost:8765/v1`. Set a real model in Settings before a real walk.
-- Environment: `WALK_PORT` (8765), `WALK_PACKAGE` (`ai.opencyclon.standard`), `ANDROID_SERIAL`, `ADB`, `PYTHON`. The mock server exits by itself after `WALK_SERVER_MAX_SECONDS` (4 hours) even if teardown never runs.
+- Environment: `WALK_PORT` (8765), `WALK_PACKAGE` (`ai.opencyclone.standard`), `ANDROID_SERIAL`, `ADB`, `PYTHON`. The mock server exits by itself after `WALK_SERVER_MAX_SECONDS` (4 hours) even if teardown never runs.
 - Offline tests of the harness: `python3 -m unittest discover -s tests/walk`.
 
 ## Look check (`walk.sh look`)

@@ -33,7 +33,7 @@ FIX = HERE / "fixtures" / "look"
 DOC = look.load_rules()
 TOKENS = DOC["tokens"]
 W, H = 412, 892
-HOME = "ai.opencyclon.standard/ai.opencyclon.ui.ControlPanelActivity"
+HOME = "ai.opencyclone.standard/ai.opencyclone.ui.ControlPanelActivity"
 
 
 def colour_of(value: str) -> tuple:
@@ -185,7 +185,7 @@ class UnitsAndParsingTest(unittest.TestCase):
         self.assertIn("home_header", [a.id_name for a in status.ancestors()])
         shot = shot_of("home_good.xml")
         self.assertFalse(any(n.pkg == look.SYSTEMUI for n in shot.app_nodes))
-        off = look.Node({"bounds": "[500,0][900,40]", "package": "ai.opencyclon.standard"}, None)
+        off = look.Node({"bounds": "[500,0][900,40]", "package": "ai.opencyclone.standard"}, None)
         self.assertFalse(shot.visible(off))
 
     def test_bars_sources(self):
@@ -207,9 +207,9 @@ class DetectTest(unittest.TestCase):
         self.assertEqual(look.detect(shot_of("home_running.xml"), DOC)[0], "home_running")
 
     def test_activity_and_marker(self):
-        listening = "ai.opencyclon.standard/ai.opencyclon.ui.voice.ListeningActivity"
+        listening = "ai.opencyclone.standard/ai.opencyclone.ui.voice.ListeningActivity"
         self.assertEqual(look.detect(shot_of("listening.xml", activity=listening), DOC)[0], "listening")
-        record = "ai.opencyclon.standard/ai.opencyclon.ui.history.TaskRecordActivity"
+        record = "ai.opencyclone.standard/ai.opencyclone.ui.history.TaskRecordActivity"
         self.assertEqual(look.detect(shot_of("listening.xml", activity=record), DOC)[0], "task_record")
 
     def test_unknown_screen(self):
@@ -245,7 +245,7 @@ class GoodScreensTest(unittest.TestCase):
 # (fixture, screen, rule id that must fail, kind of that rule, keyword arguments for shot_of)
 FAILING = [
     ("home_good.xml", "home_idle", "home_activity", "activity",
-     {"activity": "ai.opencyclon.standard/ai.opencyclon.ui.voice.ListeningActivity"}),
+     {"activity": "ai.opencyclone.standard/ai.opencyclone.ui.voice.ListeningActivity"}),
     ("bad_text_present.xml", "home_idle", "home_greeting", "text_present", {}),
     ("bad_text_absent.xml", "home_idle", "idle_no_status_words", "text_absent", {}),
     ("bad_no_class.xml", "home_idle", "home_no_text_box", "no_class", {}),
@@ -296,10 +296,10 @@ class RuleKindsTest(unittest.TestCase):
         self.ctx = look.Ctx(TOKENS, DOC["defaults"])
 
     def test_home_alias_is_accepted_for_home_and_history(self):
-        self.shot.activity = "ai.opencyclon.standard/ai.opencyclon.ui.HomeAlias"
+        self.shot.activity = "ai.opencyclone.standard/ai.opencyclone.ui.HomeAlias"
         self.assertEqual(results_by_id(self.shot, "home_idle")["home_activity"]["status"], "PASS")
         self.assertEqual(results_by_id(self.shot, "history")["hist_activity"]["status"], "PASS")
-        self.shot.activity = "ai.opencyclon.ui.OtherActivity"
+        self.shot.activity = "ai.opencyclone.ui.OtherActivity"
         self.assertEqual(results_by_id(self.shot, "home_idle")["home_activity"]["status"], "FAIL")
 
     def test_app_tile_in_primary_colour_is_not_a_page_button(self):

@@ -1,8 +1,8 @@
-# Install OpenCyclon with an AI coding agent
+# Install OpenCyclone with an AI coding agent
 
 This file is written for an AI coding agent that can run shell commands on the user's computer (for example Claude Code, Codex, Cursor, or Gemini CLI). The user gives the agent one sentence:
 
-> Install OpenCyclon on my Android phone. Follow https://raw.githubusercontent.com/Exorust/opencyclon/main/INSTALL-WITH-AI.md
+> Install OpenCyclone on my Android phone. Follow https://raw.githubusercontent.com/Exorust/opencyclone/main/INSTALL-WITH-AI.md
 
 The rest of this file is for the agent.
 
@@ -38,9 +38,9 @@ Check the Android version: `adb shell getprop ro.build.version.sdk` must print 3
 Try the published package first:
 
 ```bash
-mkdir -p opencyclon && cd opencyclon
-curl -fL -o opencyclon.apk https://github.com/Exorust/opencyclon/releases/latest/download/opencyclon-standard-release.apk
-curl -fL -o setup.sh https://github.com/Exorust/opencyclon/releases/latest/download/setup.sh && chmod +x setup.sh
+mkdir -p opencyclone && cd opencyclone
+curl -fL -o opencyclone.apk https://github.com/Exorust/opencyclone/releases/latest/download/opencyclone-standard-release.apk
+curl -fL -o setup.sh https://github.com/Exorust/opencyclone/releases/latest/download/setup.sh && chmod +x setup.sh
 ```
 
 If `curl` fails with error 404, no release exists yet. Build from source instead:
@@ -48,7 +48,7 @@ If `curl` fails with error 404, no release exists yet. Build from source instead
 1. Requirements: Git, JDK 17, and the Android SDK with platform 36. Check `java -version` and the folder `$ANDROID_HOME` (macOS default `~/Library/Android/sdk`, Linux default `~/Android/Sdk`). If the SDK is missing, tell the user that the build needs about 5 GB and ask before you install it.
 2. Build:
    ```bash
-   git clone https://github.com/Exorust/opencyclon.git && cd opencyclon
+   git clone https://github.com/Exorust/opencyclone.git && cd opencyclone
    echo "sdk.dir=<path of the Android SDK>" > android/local.properties
    (cd android && JAVA_HOME=<path of JDK 17> ./gradlew --console=plain :app:assembleStandardDebug)
    ```
@@ -56,19 +56,19 @@ If `curl` fails with error 404, no release exists yet. Build from source instead
 
 ## Step 4. Install and grant the permissions
 
-- With the downloaded package: `./setup.sh opencyclon.apk`
+- With the downloaded package: `./setup.sh opencyclone.apk`
 - With a source build: `./setup.sh`
 
 Every output line starts with `ok:` or `FAILED:`. All lines must be `ok:` and the last line must be `Done`.
 
 Known failures:
-- `FAILED: Package installation` with `INSTALL_FAILED_UPDATE_INCOMPATIBLE`: another build with a different signature is installed. Ask the user before you run `adb uninstall ai.opencyclon.standard`, because this deletes the app's data.
+- `FAILED: Package installation` with `INSTALL_FAILED_UPDATE_INCOMPATIBLE`: another build with a different signature is installed. Ask the user before you run `adb uninstall ai.opencyclone.standard`, because this deletes the app's data.
 - `FAILED: Write secure settings` on a Xiaomi, Redmi, or POCO phone: the user must turn on "USB debugging (Security settings)" in Developer options. Then run the script again.
 - `FAILED: Accessibility service (the setting did not hold ...)`: run the script once more. If it fails again, the phone's maker blocks this setting; the user can turn the service on by hand in Settings > Accessibility.
 
 ## Step 5. First run, done by the user
 
-Tell the user to open OpenCyclon and to follow its steps:
+Tell the user to open OpenCyclone and to follow its steps:
 1. "Connect once": the app pairs with the phone's wireless debugging. The cable can be removed after this step.
 2. Choose a model: sign in with ChatGPT or OpenRouter, or enter a key. The user does this on the phone.
 3. Permissions and voice.
@@ -79,9 +79,9 @@ Tell the user to open OpenCyclon and to follow its steps:
 Run:
 
 ```bash
-adb shell dumpsys package ai.opencyclon.standard | grep -m1 versionName
+adb shell dumpsys package ai.opencyclone.standard | grep -m1 versionName
 adb shell settings get secure enabled_accessibility_services
 adb shell settings get secure enabled_notification_listeners
 ```
 
-Both settings must contain `ai.opencyclon.standard`. Tell the user the version and that the installation is complete. Tell them also: after a restart of the phone they must open the app with Wi-Fi on and tap "Connect" again; no computer is needed for that.
+Both settings must contain `ai.opencyclone.standard`. Tell the user the version and that the installation is complete. Tell them also: after a restart of the phone they must open the app with Wi-Fi on and tap "Connect" again; no computer is needed for that.

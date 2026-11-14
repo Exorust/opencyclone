@@ -1,4 +1,4 @@
-"""Assertion types for OpenCyclon E2E test framework."""
+"""Assertion types for OpenCyclone E2E test framework."""
 
 from __future__ import annotations
 

@@ -31,7 +31,7 @@
             android:textColor="@color/ink"
             android:textFontWeight="600" />
 
-        <ai.opencyclon.ui.widget.WordRevealTextView
+        <ai.opencyclone.ui.widget.WordRevealTextView
             android:id="@+id/running_panel_subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -57,7 +57,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-                <ai.opencyclon.ui.widget.LivePreviewView
+                <ai.opencyclone.ui.widget.LivePreviewView
                     android:id="@+id/running_panel_preview"
                     android:layout_width="@dimen/preview_width"
                     android:layout_height="wrap_content" />
@@ -104,7 +104,7 @@
                     android:textFontWeight="600" />
             </LinearLayout>
 
-            <ai.opencyclon.ui.widget.WordRevealTextView
+            <ai.opencyclone.ui.widget.WordRevealTextView
                 android:id="@+id/running_panel_caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

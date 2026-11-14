@@ -6,8 +6,8 @@
 #   ./tests/run_mirror_vd_test.sh -s SERIAL    # specific device
 #
 # Prerequisites:
-#   - Standard flavor APK installed (ai.opencyclon.standard)
-#   - FLAG_SECURE demo APK installed (ai.opencyclon.test.flagsecure)
+#   - Standard flavor APK installed (ai.opencyclone.standard)
+#   - FLAG_SECURE demo APK installed (ai.opencyclone.test.flagsecure)
 #   - Build both:
 #       cd android && ./gradlew :app:assembleStandardDebug :flagsecure-demo:assembleDebug
 
@@ -21,23 +21,23 @@ fi
 adb() { command adb $SERIAL_FLAG "$@"; }
 
 # ── Resolve APK path ──
-PKG="ai.opencyclon.standard"
+PKG="ai.opencyclone.standard"
 APK_PATH=$(adb shell pm path "$PKG" 2>/dev/null | head -1 | sed 's/package://')
 if [[ -z "$APK_PATH" ]]; then
     # Fall back to non-standard package name
-    PKG="ai.opencyclon"
+    PKG="ai.opencyclone"
     APK_PATH=$(adb shell pm path "$PKG" 2>/dev/null | head -1 | sed 's/package://')
 fi
 
 if [[ -z "$APK_PATH" ]]; then
-    echo "ERROR: OpenCyclon not installed. Run:"
+    echo "ERROR: OpenCyclone not installed. Run:"
     echo "  cd android && ./gradlew :app:assembleStandardDebug"
     echo "  adb install app/build/outputs/apk/standard/debug/app-standard-debug.apk"
     exit 1
 fi
 
 # ── Check FLAG_SECURE demo app ──
-DEMO_INSTALLED=$(adb shell pm path ai.opencyclon.test.flagsecure 2>/dev/null || true)
+DEMO_INSTALLED=$(adb shell pm path ai.opencyclone.test.flagsecure 2>/dev/null || true)
 if [[ -z "$DEMO_INSTALLED" ]]; then
     echo "WARNING: FLAG_SECURE demo not installed. Tests 5-6 will fail."
     echo "  cd android && ./gradlew :flagsecure-demo:assembleDebug"
@@ -52,7 +52,7 @@ echo ""
 # ── Clear logcat and run ──
 adb logcat -c
 
-adb shell "CLASSPATH=$APK_PATH app_process /system/bin ai.opencyclon.backend.MirrorVdTest" 2>&1 || true
+adb shell "CLASSPATH=$APK_PATH app_process /system/bin ai.opencyclone.backend.MirrorVdTest" 2>&1 || true
 
 # ── Parse results from logcat ──
 echo ""

@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <ai.opencyclon.ui.widget.WordRevealTextView
+    <ai.opencyclone.ui.widget.WordRevealTextView
         android:id="@+id/approval_question"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
         android:lineHeight="21sp"
         android:visibility="gone" />
 
-    <ai.opencyclon.ui.widget.ThumbnailGridView
+    <ai.opencyclone.ui.widget.ThumbnailGridView
         android:id="@+id/approval_thumbs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

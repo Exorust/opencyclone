@@ -1,1 +1,1 @@
-"""E2E test framework for OpenCyclon Android agent."""
+"""E2E test framework for OpenCyclone Android agent."""

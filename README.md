@@ -1,14 +1,14 @@
 <p align="center">
-  <a href="https://opencyclon.vercel.app"><img src="website/brand/poster.png" alt="OpenCyclon. Don't buy an AI phone. Repurpose the one you have." width="100%"></a>
+  <a href="https://opencyclone.vercel.app"><img src="website/brand/poster.png" alt="OpenCyclone. Don't buy an AI phone. Repurpose the one you have." width="100%"></a>
 </p>
 
-<h1 align="center"><img src="website/brand/logo.png" alt="" width="36" align="top"> OpenCyclon</h1>
+<h1 align="center"><img src="website/brand/logo.png" alt="" width="36" align="top"> OpenCyclone</h1>
 
-<p align="center"><a href="https://opencyclon.vercel.app">Website</a> · <a href="#install">Install</a> · <a href="INSTALL-WITH-AI.md">Install with an AI agent</a> · <a href="https://github.com/Exorust/opencyclon/releases">Releases</a></p>
+<p align="center"><a href="https://opencyclone.vercel.app">Website</a> · <a href="#install">Install</a> · <a href="INSTALL-WITH-AI.md">Install with an AI agent</a> · <a href="https://github.com/Exorust/opencyclone/releases">Releases</a></p>
 
 An open-source AI agent for a stock Android phone. You say or type what you need. The phone does it in your own apps, in the background, and asks you before it sends, pays, or deletes anything.
 
-OpenCyclon needs no special phone and no changed system. It runs on Android 12 or later as a normal app.
+OpenCyclone needs no special phone and no changed system. It runs on Android 12 or later as a normal app.
 
 ## What it does
 
@@ -18,7 +18,7 @@ OpenCyclon needs no special phone and no changed system. It runs on Android 12 o
 - **Apps built on request.** "Build me an app to learn Spanish." The phone asks what matters, writes a small app, tests it, and puts it on your home page. Change it by asking. Share it as one file.
 - **Widgets.** "Make a widget that shows my streak and how many tasks I ran today." You see a draft with live data, change it by asking, and save it.
 - **History.** Swipe right for every past task with its approval, its result, and "Ask again".
-- **Voice.** Tap to talk, or hold the power button if you make OpenCyclon the phone's assistant. Speech is recognised on the phone by default.
+- **Voice.** Tap to talk, or hold the power button if you make OpenCyclone the phone's assistant. Speech is recognised on the phone by default.
 - **Your choice of model.** Sign in with ChatGPT or OpenRouter, use your own key, or use a model on your own network.
 - **A home screen, if you want one.** The page can replace your launcher. This is optional.
 
@@ -63,7 +63,7 @@ Release packages are not published yet. You build the app on a computer and inst
 If you use an AI coding agent that can run commands on your computer (Claude Code, Codex, Cursor, Gemini CLI), connect the phone with a cable and give the agent this sentence:
 
 ```
-Install OpenCyclon on my Android phone. Follow https://raw.githubusercontent.com/Exorust/opencyclon/main/INSTALL-WITH-AI.md
+Install OpenCyclone on my Android phone. Follow https://raw.githubusercontent.com/Exorust/opencyclone/main/INSTALL-WITH-AI.md
 ```
 
 The agent checks your tools, gets the package, runs the setup script, reads each result, and tells you what to tap on the phone. It does not see your model key or your pairing code. The steps it follows are in [`INSTALL-WITH-AI.md`](INSTALL-WITH-AI.md). The manual steps follow.
@@ -86,8 +86,8 @@ The agent checks your tools, gets the package, runs the setup script, reads each
 ### 3. Build
 
 ```bash
-git clone https://github.com/Exorust/opencyclon.git
-cd opencyclon/android
+git clone https://github.com/Exorust/opencyclone.git
+cd opencyclone/android
 echo "sdk.dir=$HOME/Library/Android/sdk" > local.properties   # macOS default; on Linux it is usually $HOME/Android/Sdk
 JAVA_HOME=<path to JDK 17> ./gradlew :app:assembleStandardDebug
 cd ..
@@ -107,14 +107,14 @@ To let a long press of the power button open the listening screen, run `./setup.
 
 ### 5. First run on the phone
 
-Open OpenCyclon. The first run has a few short steps:
+Open OpenCyclone. The first run has a few short steps:
 
 1. **Connect once.** The app pairs with the phone's own wireless debugging and starts its helper process. Follow the steps on the screen. After this step you can remove the cable.
 2. **Choose a model.** Sign in with ChatGPT or OpenRouter, enter your own key, or give the address of a model on your network.
 3. **Permissions and voice.** Confirm what the script already granted and choose how speech is recognised.
 4. **Try it.** Run a first request.
 
-You can also make OpenCyclon your home app. This step is optional.
+You can also make OpenCyclone your home app. This step is optional.
 
 ### After a restart of the phone
 
@@ -123,7 +123,7 @@ Android stops the helper process when the phone restarts. Open the app with Wi-F
 ### Update and remove
 
 - Update: `git pull`, build again, and run `./setup.sh` again. Your settings stay.
-- Remove: `adb uninstall ai.opencyclon.standard`.
+- Remove: `adb uninstall ai.opencyclone.standard`.
 
 ### If something fails
 
@@ -157,8 +157,8 @@ tests/walk/walk.sh look home_idle             # checks of a screen's look from a
 
 ## Credits and licence
 
-OpenCyclon is a fork of [OpenCyvis](https://github.com/opencyvis/opencyvis-phone) at commit `3acd0a5`, by the OpenCyvis contributors. The helper process, the hidden display, and the first agent loop come from that project. The wireless-debugging code comes from Shizuku. See `NOTICE`.
+OpenCyclone is a fork of [OpenCyvis](https://github.com/opencyvis/opencyvis-phone) at commit `3acd0a5`, by the OpenCyvis contributors. The helper process, the hidden display, and the first agent loop come from that project. The wireless-debugging code comes from Shizuku. See `NOTICE`.
 
 Licence: Apache-2.0.
 
-OpenCyclon is an independent project. It is not affiliated with Cyclon or with OpenCyvis.
+OpenCyclone is an independent project. It is not affiliated with Cyclon or with OpenCyvis.

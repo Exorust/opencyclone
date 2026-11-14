@@ -22,7 +22,7 @@ Called by walk.sh; standard library only (Python 3.9+). Every wait has a deadlin
     python3 tests/walk/walk.py app_seed <name> [--data JSON]   store a built app with bridge data, prints its id
     python3 tests/walk/walk.py widget_seed <name> --html FILE|HTML [--size small] [--sources a,b]
 
-Environment: WALK_PORT (default 8765), WALK_PACKAGE (default ai.opencyclon.standard),
+Environment: WALK_PORT (default 8765), WALK_PACKAGE (default ai.opencyclone.standard),
 ANDROID_SERIAL (adb picks the device), ADB (adb binary, default "adb").
 """
 
@@ -46,10 +46,10 @@ from typing import Optional
 HERE = Path(__file__).resolve().parent
 SCENARIOS = HERE / "scenarios.json"
 SCENARIOS_V2 = HERE / "scenarios_v2.json"
-PACKAGE = os.environ.get("WALK_PACKAGE", "ai.opencyclon.standard")
-RECEIVER = f"{PACKAGE}/ai.opencyclon.debug.DebugCommandReceiver"
-ACTION = "ai.opencyclon.debug.CMD"
-TESTAPP = "ai.opencyclon.testapp"
+PACKAGE = os.environ.get("WALK_PACKAGE", "ai.opencyclone.standard")
+RECEIVER = f"{PACKAGE}/ai.opencyclone.debug.DebugCommandReceiver"
+ACTION = "ai.opencyclone.debug.CMD"
+TESTAPP = "ai.opencyclone.testapp"
 PORT = int(os.environ.get("WALK_PORT", "8765"))
 ADB = os.environ.get("ADB", "adb")
 TERMINAL = {"done", "failed", "cancelled"}

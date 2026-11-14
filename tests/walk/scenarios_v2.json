@@ -28,7 +28,7 @@
           {
             "match": {
               "title": "Alex RUN_ID",
-              "package": "ai.opencyclon.testapp"
+              "package": "ai.opencyclone.testapp"
             },
             "result": "propose",
             "goal": "Reply to Alex RUN_ID that dinner at 7 works"
@@ -40,7 +40,7 @@
           {
             "match": {
               "title": "Alex RUN_ID",
-              "package": "ai.opencyclon.testapp"
+              "package": "ai.opencyclone.testapp"
             },
             "result": "propose",
             "goal": "Reply to Alex RUN_ID that dinner at 7 works"
@@ -74,7 +74,7 @@
       },
       {
         "notify": {
-          "package": "ai.opencyclon.testapp",
+          "package": "ai.opencyclone.testapp",
           "title": "Alex RUN_ID",
           "text": "Are we still on for dinner at 7?"
         }
@@ -124,7 +124,7 @@
       },
       {
         "notify": {
-          "package": "ai.opencyclon.testapp",
+          "package": "ai.opencyclone.testapp",
           "title": "Alex RUN_ID",
           "text": "Are we still on for dinner at 7?"
         }
@@ -161,7 +161,7 @@
           {
             "match": {
               "title": "Alex RUN_ID",
-              "package": "ai.opencyclon.testapp"
+              "package": "ai.opencyclone.testapp"
             },
             "result": "propose",
             "goal": "Reply to Alex RUN_ID that dinner at 7 works"
@@ -173,7 +173,7 @@
           {
             "match": {
               "title": "Alex RUN_ID",
-              "package": "ai.opencyclon.testapp"
+              "package": "ai.opencyclone.testapp"
             },
             "result": "propose",
             "goal": "Reply to Alex RUN_ID that dinner at 7 works"
@@ -185,7 +185,7 @@
           {
             "match": {
               "title": "Alex RUN_ID",
-              "package": "ai.opencyclon.testapp"
+              "package": "ai.opencyclone.testapp"
             },
             "result": "propose",
             "goal": "Reply to Alex RUN_ID that 8 works better"
@@ -211,7 +211,7 @@
       },
       {
         "notify": {
-          "package": "ai.opencyclon.testapp",
+          "package": "ai.opencyclone.testapp",
           "title": "Alex RUN_ID",
           "text": "Are we still on for dinner at 7?"
         }
@@ -226,7 +226,7 @@
       },
       {
         "notify": {
-          "package": "ai.opencyclon.testapp",
+          "package": "ai.opencyclone.testapp",
           "title": "Alex RUN_ID",
           "text": "Are we still on for dinner at 7?"
         }
@@ -280,7 +280,7 @@
       },
       {
         "notify": {
-          "package": "ai.opencyclon.testapp",
+          "package": "ai.opencyclone.testapp",
           "title": "Alex RUN_ID",
           "text": "Or 8, if that is easier?"
         }
@@ -699,7 +699,7 @@
       },
       {
         "notify": {
-          "package": "ai.opencyclon.testapp",
+          "package": "ai.opencyclone.testapp",
           "title": "Walk RUN_ID",
           "text": "Dinner tomorrow?"
         }

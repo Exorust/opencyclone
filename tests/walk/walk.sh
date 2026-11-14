@@ -21,14 +21,14 @@
 #   walk.sh confirm [--item last|draft|ID] [--no] | page home|history|widgets | app_seed <name> [--data JSON]
 #   walk.sh widget_seed <name> --html FILE [--size small] [--sources a,b]
 #
-# Environment: WALK_PORT (8765), WALK_PACKAGE (ai.opencyclon.standard), ANDROID_SERIAL, ADB (adb), PYTHON (python3),
+# Environment: WALK_PORT (8765), WALK_PACKAGE (ai.opencyclone.standard), ANDROID_SERIAL, ADB (adb), PYTHON (python3),
 # WALK_SERVER_MAX_SECONDS (14400: the mock server exits by itself after this even if teardown never runs).
 set -u
 
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT="$(cd "$HERE/../.." && pwd)"
 PORT="${WALK_PORT:-8765}"
-PACKAGE="${WALK_PACKAGE:-ai.opencyclon.standard}"
+PACKAGE="${WALK_PACKAGE:-ai.opencyclone.standard}"
 ADB="${ADB:-adb}"
 PY="${PYTHON:-python3}"
 RUN_DIR="$HERE/.run"
@@ -94,7 +94,7 @@ setup() {
   echo "adb reverse tcp:$PORT -> tcp:$PORT"
 
   # Opening the app starts the agent service; the receiver needs the process for start and answer.
-  "$ADB" shell am start -n "$PACKAGE/ai.opencyclon.ui.ControlPanelActivity" >/dev/null \
+  "$ADB" shell am start -n "$PACKAGE/ai.opencyclone.ui.ControlPanelActivity" >/dev/null \
     || die "cannot open $PACKAGE (is the debug build installed?)"
   local end=$((SECONDS + 20)) ready=""
   while [ "$SECONDS" -lt "$end" ]; do

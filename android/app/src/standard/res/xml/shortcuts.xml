@@ -9,8 +9,8 @@
         android:shortcutLongLabel="@string/i_shortcut_ask_long"
         android:shortcutShortLabel="@string/h_quick_ask_tile_label">
         <intent
-            android:action="ai.opencyclon.action.ASK"
-            android:targetClass="ai.opencyclon.ui.ControlPanelActivity"
-            android:targetPackage="ai.opencyclon.standard" />
+            android:action="ai.opencyclone.action.ASK"
+            android:targetClass="ai.opencyclone.ui.ControlPanelActivity"
+            android:targetPackage="ai.opencyclone.standard" />
     </shortcut>
 </shortcuts>

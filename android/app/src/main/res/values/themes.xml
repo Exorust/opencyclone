@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- One light theme (UI.md section 7, plan decision 14). There is no values-night. -->
 <resources>
-    <style name="Theme.OpenCyclon" parent="Theme.Material3.Light.NoActionBar">
+    <style name="Theme.OpenCyclone" parent="Theme.Material3.Light.NoActionBar">
         <item name="colorPrimary">@color/primary</item>
         <item name="colorOnPrimary">@color/on_primary</item>
         <item name="colorAccent">@color/primary</item>
@@ -32,18 +32,18 @@
         <item name="android:enforceNavigationBarContrast">false</item>
         <item name="android:fontFamily">@font/inter</item>
         <item name="fontFamily">@font/inter</item>
-        <item name="alertDialogTheme">@style/ThemeOverlay.OpenCyclon.AlertDialog</item>
-        <item name="android:alertDialogTheme">@style/ThemeOverlay.OpenCyclon.AlertDialog</item>
+        <item name="alertDialogTheme">@style/ThemeOverlay.OpenCyclone.AlertDialog</item>
+        <item name="android:alertDialogTheme">@style/ThemeOverlay.OpenCyclone.AlertDialog</item>
     </style>
 
     <!-- Same as the base; the name stays because the manifest and upstream screens use it -->
-    <style name="Theme.OpenCyclon.NoActionBar" />
+    <style name="Theme.OpenCyclone.NoActionBar" />
 
-    <style name="Theme.OpenCyclon.Settings">
+    <style name="Theme.OpenCyclone.Settings">
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
     </style>
 
-    <style name="Theme.OpenCyclon.Dialog" parent="Theme.Material3.Light.Dialog">
+    <style name="Theme.OpenCyclone.Dialog" parent="Theme.Material3.Light.Dialog">
         <item name="colorPrimary">@color/primary</item>
         <item name="colorOnPrimary">@color/on_primary</item>
         <item name="colorAccent">@color/primary</item>
@@ -67,11 +67,11 @@
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:fontFamily">@font/inter</item>
         <item name="fontFamily">@font/inter</item>
-        <item name="alertDialogTheme">@style/ThemeOverlay.OpenCyclon.AlertDialog</item>
-        <item name="android:alertDialogTheme">@style/ThemeOverlay.OpenCyclon.AlertDialog</item>
+        <item name="alertDialogTheme">@style/ThemeOverlay.OpenCyclone.AlertDialog</item>
+        <item name="android:alertDialogTheme">@style/ThemeOverlay.OpenCyclone.AlertDialog</item>
     </style>
 
-    <style name="ThemeOverlay.OpenCyclon.AlertDialog" parent="ThemeOverlay.Material3.Dialog.Alert">
+    <style name="ThemeOverlay.OpenCyclone.AlertDialog" parent="ThemeOverlay.Material3.Dialog.Alert">
         <item name="colorPrimary">@color/primary</item>
         <item name="colorOnPrimary">@color/on_primary</item>
         <item name="colorAccent">@color/primary</item>
@@ -83,7 +83,7 @@
     </style>
 
     <!-- Button style that respects android:background drawable -->
-    <style name="OpenCyclon.Button.Custom" parent="Widget.Material3.Button.TextButton">
+    <style name="OpenCyclone.Button.Custom" parent="Widget.Material3.Button.TextButton">
         <item name="backgroundTint">@null</item>
         <item name="android:stateListAnimator">@null</item>
         <item name="android:insetTop">0dp</item>
@@ -93,7 +93,7 @@
     </style>
 
     <!-- Primary button: primary pill with on_primary text, 52 dp high, 32 dp side padding (UI.md sections 10 and 11) -->
-    <style name="Widget.App.Button.Primary" parent="OpenCyclon.Button.Custom">
+    <style name="Widget.App.Button.Primary" parent="OpenCyclone.Button.Custom">
         <item name="android:background">@drawable/bg_btn_primary</item>
         <item name="android:minHeight">@dimen/button_height</item>
         <item name="android:paddingStart">@dimen/button_padding_h</item>

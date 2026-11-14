@@ -17,7 +17,7 @@ sys.path.insert(0, str(ROOT / "tests" / "walk"))
 
 import walk  # noqa: E402
 
-DEBUG_V2 = ROOT / "android/app/src/debug/java/ai/opencyclon/debug/DebugCommandsV2.kt"
+DEBUG_V2 = ROOT / "android/app/src/debug/java/ai/opencyclone/debug/DebugCommandsV2.kt"
 
 
 class HelpersTest(unittest.TestCase):

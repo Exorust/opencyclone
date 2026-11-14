@@ -59,13 +59,13 @@ class TestRecentShowsConversation(AgentTestCase):
     # to trigger the homepage (showHomepage) refresh with fresh DB data.
     post_steps = [
         # Stop the agent to return to idle state
-        "adb shell dumpsys opencyclon debug stop",
+        "adb shell dumpsys opencyclone debug stop",
         "sleep:2",
         # Force-stop to clear any cached UI state
-        "adb shell am force-stop ai.opencyclon",
+        "adb shell am force-stop ai.opencyclone",
         "sleep:1",
         # Relaunch ControlPanelActivity — this calls showHomepage() on idle
-        "adb shell am start -n ai.opencyclon/.ui.ControlPanelActivity",
+        "adb shell am start -n ai.opencyclone/.ui.ControlPanelActivity",
         "sleep:3",
     ]
     assertions = [
@@ -105,14 +105,14 @@ class TestRecentEmptyWhenNoConversations(AgentTestCase):
     pre_steps = [
         "adb shell setenforce 0",
         # Nuke conversation history so the recent section is truly empty
-        "adb shell 'run-as ai.opencyclon rm -f databases/opencyclon_db'",
+        "adb shell 'run-as ai.opencyclone rm -f databases/opencyclone_db'",
     ]
     post_steps = [
-        "adb shell dumpsys opencyclon debug stop",
+        "adb shell dumpsys opencyclone debug stop",
         "sleep:2",
-        "adb shell am force-stop ai.opencyclon",
+        "adb shell am force-stop ai.opencyclone",
         "sleep:1",
-        "adb shell am start -n ai.opencyclon/.ui.ControlPanelActivity",
+        "adb shell am start -n ai.opencyclone/.ui.ControlPanelActivity",
         "sleep:3",
     ]
     assertions = [
@@ -156,14 +156,14 @@ class TestMultipleRecentConversations(AgentTestCase):
     ]
     post_steps = [
         # First conversation done. Now run a second one via dumpsys.
-        "adb shell dumpsys opencyclon start 打开相机",  # "打开相机"
+        "adb shell dumpsys opencyclone start 打开相机",  # "打开相机"
         "sleep:10",
         # Stop agent and relaunch to see both in recent
-        "adb shell dumpsys opencyclon debug stop",
+        "adb shell dumpsys opencyclone debug stop",
         "sleep:2",
-        "adb shell am force-stop ai.opencyclon",
+        "adb shell am force-stop ai.opencyclone",
         "sleep:1",
-        "adb shell am start -n ai.opencyclon/.ui.ControlPanelActivity",
+        "adb shell am start -n ai.opencyclone/.ui.ControlPanelActivity",
         "sleep:3",
     ]
     assertions = [

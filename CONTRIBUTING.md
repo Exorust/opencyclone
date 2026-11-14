@@ -1,4 +1,4 @@
-# Contributing to OpenCyclon
+# Contributing to OpenCyclone
 
 Thanks for your interest in contributing!
 
@@ -22,7 +22,7 @@ cd android
 ### Python CLI
 ```bash
 pip install -e .
-python -m opencyclon --help
+python -m opencyclone --help
 ```
 
 ## Running Tests

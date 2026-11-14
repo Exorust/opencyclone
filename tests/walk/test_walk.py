@@ -20,7 +20,7 @@ sys.path.insert(0, str(ROOT / "tests" / "walk"))
 from tests.e2e import mock_llm_server as mls  # noqa: E402
 import walk  # noqa: E402
 
-TOOL_SCHEMA = ROOT / "android/app/src/main/java/ai/opencyclon/llm/ToolSchema.kt"
+TOOL_SCHEMA = ROOT / "android/app/src/main/java/ai/opencyclone/llm/ToolSchema.kt"
 
 # A step message as AgentEngine.buildUserMessage sends it (instruction, header, view tree).
 VIEW_TREE_MESSAGE = (
@@ -273,7 +273,7 @@ class TranscriptionEndpointTest(ServerCase):
 
 class WalkDriverTest(unittest.TestCase):
     def test_parse_broadcast(self):
-        out = ('Broadcasting: Intent { act=ai.opencyclon.debug.CMD flg=0x10000020 cmp=x/y (has extras) }\n'
+        out = ('Broadcasting: Intent { act=ai.opencyclone.debug.CMD flg=0x10000020 cmp=x/y (has extras) }\n'
                'Broadcast completed: result=0, data="{"request_id":"ab","tasks":[]}"\n')
         self.assertEqual(walk.parse_broadcast(out), (0, '{"request_id":"ab","tasks":[]}'))
         self.assertEqual(walk.parse_broadcast("Broadcast completed: result=1, data=\"the phone is locked\""),
@@ -285,7 +285,7 @@ class WalkDriverTest(unittest.TestCase):
         line = walk.broadcast_command("answer", {"text": "Alex's phone; rm -rf /"})
         self.assertIn("--es cmd answer", line)
         self.assertIn("'Alex'\"'\"'s phone; rm -rf /'", line)
-        self.assertIn("ai.opencyclon.debug.DebugCommandReceiver", line)
+        self.assertIn("ai.opencyclone.debug.DebugCommandReceiver", line)
 
     def test_parse_counters(self):
         self.assertEqual(walk.parse_counters("sent=3 pressed=1 touched=0\n"), {"sent": 3, "pressed": 1, "touched": 0})

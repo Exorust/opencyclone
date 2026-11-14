@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- The phone's words without a container: sentence (Body, Heading, or PhoneLine), question, or result heading. Style set in code. -->
-<ai.opencyclon.ui.widget.WordRevealTextView xmlns:android="http://schemas.android.com/apk/res/android"
+<ai.opencyclone.ui.widget.WordRevealTextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/thread_text"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"

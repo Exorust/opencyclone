@@ -52,7 +52,7 @@ class FragmentVisible(Assertion):
     in the fragment manager dump.
     """
 
-    def __init__(self, fragment_name: str, package: str = "ai.opencyclon"):
+    def __init__(self, fragment_name: str, package: str = "ai.opencyclone"):
         self.fragment_name = fragment_name
         self.package = package
 
@@ -199,7 +199,7 @@ class PermissionNotGranted(Assertion):
     Uses `adb shell dumpsys package <pkg>` and checks the permissions section.
     """
 
-    def __init__(self, permission: str, package: str = "ai.opencyclon"):
+    def __init__(self, permission: str, package: str = "ai.opencyclone"):
         self.permission = permission
         self.package = package
 
@@ -251,7 +251,7 @@ class ScreenshotNoOverlayElements(Assertion):
     def evaluate(self, state: RunState, config: RunConfig) -> tuple[bool, str]:
         from tests.e2e.assertions import ScreenshotVerify
         verifier = ScreenshotVerify(
-            "截图中没有悬浮窗、浮动气泡、或OpenCyclon overlay控制面板等overlay元素"
+            "截图中没有悬浮窗、浮动气泡、或OpenCyclone overlay控制面板等overlay元素"
         )
         return verifier.evaluate(state, config)
 

@@ -115,7 +115,7 @@
     <PreferenceCategory app:title="@string/pref_group_data">
 
         <!-- No key on purpose: the brief allows no new keys. The class opens the history screen. -->
-        <ai.opencyclon.HistoryPreference
+        <ai.opencyclone.HistoryPreference
             android:title="@string/pref_history_title"
             android:summary="@string/pref_history_summary"
             android:persistent="false" />

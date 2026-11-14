@@ -61,10 +61,10 @@ jobs:
           "$build_tools/apksigner" sign --ks "$keystore" \
             --ks-key-alias "$RELEASE_KEY_ALIAS" \
             --ks-pass env:RELEASE_STORE_PASSWORD --key-pass env:RELEASE_KEY_PASSWORD \
-            --out dist/opencyclon-standard-release.apk dist/aligned.apk
+            --out dist/opencyclone-standard-release.apk dist/aligned.apk
           rm dist/aligned.apk
-          "$build_tools/apksigner" verify dist/opencyclon-standard-release.apk
-          "$build_tools/zipalign" -c -P 16 4 dist/opencyclon-standard-release.apk
+          "$build_tools/apksigner" verify dist/opencyclone-standard-release.apk
+          "$build_tools/zipalign" -c -P 16 4 dist/opencyclone-standard-release.apk
 
       - name: Publish release
         uses: softprops/action-gh-release@v2

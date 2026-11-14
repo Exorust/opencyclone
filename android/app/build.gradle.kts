@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "ai.opencyclon"
+    namespace = "ai.opencyclone"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "ai.opencyclon"
+        applicationId = "ai.opencyclone"
         minSdk = 31  // Android 11+ for SurfaceControl.screenshot()
         targetSdk = 36
         versionCode = 201

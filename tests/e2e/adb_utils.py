@@ -8,7 +8,7 @@ import time
 from typing import Optional
 
 
-PACKAGE = "ai.opencyclon"
+PACKAGE = "ai.opencyclone"
 
 LOGCAT_FILTER = [
     "*:S",
@@ -42,11 +42,11 @@ def adb_run(*args: str, serial: Optional[str] = None, timeout: float = 10) -> st
     return r.stdout.strip()
 
 
-# ── dumpsys opencyclon commands ───────────────────────────────────────────────
+# ── dumpsys opencyclone commands ───────────────────────────────────────────────
 
 def dumpsys_cmd(serial: Optional[str] = None, *args: str) -> str:
-    """Run `dumpsys opencyclon <args>` and return output."""
-    cmd_args = ["shell", "dumpsys", "opencyclon"] + list(args)
+    """Run `dumpsys opencyclone <args>` and return output."""
+    cmd_args = ["shell", "dumpsys", "opencyclone"] + list(args)
     return adb_run(*cmd_args, serial=serial)
 
 
@@ -93,7 +93,7 @@ def get_state(serial: Optional[str] = None) -> str:
 
 def ensure_services(serial: Optional[str] = None) -> None:
     """Start AgentService if not already running."""
-    # SELinux must be permissive for TestShellService.register() (dumpsys opencyclon)
+    # SELinux must be permissive for TestShellService.register() (dumpsys opencyclone)
     try:
         adb_run("shell", "setenforce", "0", serial=serial)
     except Exception:
@@ -114,7 +114,7 @@ def ensure_services(serial: Optional[str] = None) -> None:
 
 
 def is_process_running(serial: Optional[str] = None) -> bool:
-    """Return True if ai.opencyclon process is alive."""
+    """Return True if ai.opencyclone process is alive."""
     ps = adb_run("shell", "ps", "-A", serial=serial)
     return PACKAGE in ps
 
@@ -192,7 +192,7 @@ def tap_ui_element(serial: Optional[str] = None, resource_id: str = "") -> bool:
     Returns True if element was found and tapped.
     """
     xml = uiautomator_dump(serial)
-    full_id = f"ai.opencyclon:id/{resource_id}" if ":" not in resource_id else resource_id
+    full_id = f"ai.opencyclone:id/{resource_id}" if ":" not in resource_id else resource_id
     pattern = re.compile(
         rf'resource-id="{re.escape(full_id)}"[^>]*bounds="\[(\d+),(\d+)\]\[(\d+),(\d+)\]"'
     )

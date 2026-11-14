@@ -49,7 +49,7 @@
             tools:text="Nothing is sent until you stop." />
     </LinearLayout>
 
-    <ai.opencyclon.ui.widget.WordRevealTextView
+    <ai.opencyclone.ui.widget.WordRevealTextView
         android:id="@+id/voice_transcript"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -83,7 +83,7 @@
             android:text="@string/voice_open_settings" />
     </LinearLayout>
 
-    <ai.opencyclon.ui.widget.SoundWaveView
+    <ai.opencyclone.ui.widget.SoundWaveView
         android:id="@+id/voice_wave"
         android:layout_width="wrap_content"
         android:layout_height="54dp"

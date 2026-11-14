@@ -4,7 +4,7 @@ set -euo pipefail
 # Usage: setup.sh [--assistant] [package.apk]
 #   --assistant  also make the app the assistant (long-press power opens it).
 
-PACKAGE_ID=ai.opencyclon.standard
+PACKAGE_ID=ai.opencyclone.standard
 ADB=${ADB-adb}
 # Seconds between attempts when a setting does not hold after it is written.
 RETRY_DELAY=${SETUP_RETRY_DELAY-1}
@@ -108,7 +108,7 @@ write_and_check() {
     failed=1
 }
 
-LISTENER="$PACKAGE_ID/ai.opencyclon.proactive.NotificationListener"
+LISTENER="$PACKAGE_ID/ai.opencyclone.proactive.NotificationListener"
 write_listener() { "$ADB" shell cmd notification allow_listener "$LISTENER"; }
 check_listener() {
     local listeners
@@ -117,7 +117,7 @@ check_listener() {
 }
 write_and_check 'Notification listener' write_listener check_listener
 
-ACCESSIBILITY="$PACKAGE_ID/ai.opencyclon.accessibility.VdAccessibilityService"
+ACCESSIBILITY="$PACKAGE_ID/ai.opencyclone.accessibility.VdAccessibilityService"
 write_accessibility() {
     local services
     services=$(read_setting secure enabled_accessibility_services) || return 1
