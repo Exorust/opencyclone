@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The OC mark of OpenCyclon. Source: website/brand/logo.svg -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp" android:height="108dp" android:viewportWidth="108" android:viewportHeight="108">
+    <group android:translateX="17.88" android:translateY="18.16" android:scaleX="0.14" android:scaleY="0.14">
+        <path android:strokeColor="#FFFFFFFF" android:strokeWidth="40" android:strokeLineCap="round" android:fillColor="#00000000" android:pathData="M78,256 a80,80 0 1,0 160,0 a80,80 0 1,0 -160,0"/>
+        <path android:strokeColor="#FFFFFFFF" android:strokeWidth="40" android:strokeLineCap="round" android:fillColor="#00000000" android:pathData="M418.6,199.4 A80,80 0 1,0 418.6,312.6"/>
+    </group>
+</vector>
